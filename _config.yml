@@ -9,14 +9,14 @@ pygments: true
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : 洋葱头历险记
+title : an adventure of onion
 tagline: Site Tagline
 author :
   name : Chong Yang
-  email : iamyangchong@gmail.com
+  email : echo aWFteWFuZ2Nob25nQGdtYWlsLmNvbQo= | base64 -d
   github : onionisi
-  twitter : username
-  feedburner : feedname
+  twitter : onionisi
+  feedburner : onionisi
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt 
