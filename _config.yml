@@ -13,7 +13,7 @@ title : an adventure of onion
 tagline: Site Tagline
 author :
   name : Chong Yang
-  email : echo aWFteWFuZ2Nob25nQGdtYWlsLmNvbQo= | base64 -d
+  email : via (echo "aWFteWFuZ2Nob25nQGdtYWlsLmNvbQo=" | base64 -d)
   github : onionisi
   twitter : onionisi
   feedburner : onionisi
