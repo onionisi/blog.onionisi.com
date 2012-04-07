@@ -1,6 +1,8 @@
 ---
 layout: page
 title: /home
+description: Personal blog!
+tagline: log my work，life and learning
 ---
 {% include JB/setup %}
 

@@ -15,8 +15,6 @@ author :
   name : Chong Yang
   email : via (echo "aWFteWFuZ2Nob25nQGdtYWlsLmNvbQo=" | base64 -d)
   github : onionisi
-  twitter : onionisi
-  feedburner : onionisi
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt 
