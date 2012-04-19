@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "旧文翻新之LFS和我第一次"
-category:Linux
+category: Linux
 tags: [system linux compile]
 ---
 {% include JB/setup %}
