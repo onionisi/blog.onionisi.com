@@ -2,7 +2,7 @@
 layout: post
 title: "旧文翻新之LFS和我第一次"
 category: Linux
-tags: [system linux compile]
+tags: [system, linux, compile]
 ---
 {% include JB/setup %}
 
@@ -194,7 +194,7 @@ LFS  Glibc  08.25/2011
 LFS  Perl  08.25/2011
 
 
-	perl 应该也是某个神马咚咚敲错了，连 make 都问题连连，我愤而直接Ctrl + c，再 Shift + Ctrl + v
+perl 应该也是某个神马咚咚敲错了，连 make 都问题连连，我愤而直接Ctrl + c，再 Shift + Ctrl + v
 	
 	
 	sed -i -e "s|BUILD_ZLIB\s*= True|BUILD_ZLIB = False|" -e "s|INCLUDE\s*= ./zlib-src|INCLUDE = /usr/include|" -e "s|LIB\s*= ./zlib-src|LIB = /usr/lib|" cpan/Compress-Raw-Zlib/config.in
