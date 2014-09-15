@@ -16,10 +16,14 @@ TIMEZONE = 'Asia/Chongqing'
 DEFAULT_LANG = u'en'
 
 # Theme
-THEME = "/Users/chong/code/blog_theme"
+THEME = "burrito"
 EMAIL_ADDRESSS = "iamyangchong@gmail.com"
 GITHUB_ADDRESS = "github.com/onionisi"
 TWITTER_ADDRESS = "twitter.com/onionisi"
+
+# static
+STATIC_PATHS = ['images', 'extra/CNAME']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}
 
 # Plugin
 PLUGIN_PATHS = ['/Users/chong/code/pelican-plugins']
