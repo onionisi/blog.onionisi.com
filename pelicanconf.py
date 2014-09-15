@@ -16,7 +16,7 @@ TIMEZONE = 'Asia/Chongqing'
 DEFAULT_LANG = u'en'
 
 # Theme
-THEME = "burrito"
+THEME = "/Users/chong/code/burrito"
 EMAIL_ADDRESSS = "iamyangchong@gmail.com"
 GITHUB_ADDRESS = "github.com/onionisi"
 TWITTER_ADDRESS = "twitter.com/onionisi"
