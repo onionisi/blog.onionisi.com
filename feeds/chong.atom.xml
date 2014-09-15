@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>onionisi</title><link href="http://www.onionisi.com/" rel="alternate"></link><link href="http://www.onionisi.com/feeds/chong.atom.xml" rel="self"></link><id>http://www.onionisi.com/</id><updated>2013-06-05T00:00:00+08:00</updated><entry><title>工作的一天</title><link href="http://www.onionisi.com/common_day.html" rel="alternate"></link><updated>2013-06-05T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2013-06-05:common_day.html</id><summary type="html">&lt;h3&gt;学习依然是头等大事&lt;/h3&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>onionisi</title><link href="www.onionisi.com/" rel="alternate"></link><link href="www.onionisi.com/feeds/chong.atom.xml" rel="self"></link><id>www.onionisi.com/</id><updated>2013-06-05T00:00:00+08:00</updated><entry><title>工作的一天</title><link href="www.onionisi.com/common_day.html" rel="alternate"></link><updated>2013-06-05T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2013-06-05:www.onionisi.com/common_day.html</id><summary type="html">&lt;h3&gt;学习依然是头等大事&lt;/h3&gt;
 &lt;p&gt;早上就initrd和initramfs进行了一下深入的学习，主要参考文档就是黄敬群老师的博客。打个比方，可能不确切，但是话糙理不糙，init阶段的文件系统就像你高考前的备考，没有这个阶段注定要失败滴。话说黄老师真的是牛X，特别是对于一些系统底层的细节。&lt;/p&gt;
 &lt;p&gt;中午波哥吃完午饭就回家准备收麦子了，真的是幸福的码农，请了半个月农忙假。&lt;/p&gt;
 &lt;p&gt;下午遇到个奇怪的事情，整理文档发现原来写的小程序demo.py，想试试运行效率，却始终始终执行不了。妈蛋是权限问题么，查看了都没有问题。后边发现是磁盘挂载时忘了&lt;code&gt;exec&lt;/code&gt;了，我的个乖乖，改之遂好。&lt;/p&gt;
@@ -8,7 +8,7 @@
 &lt;h3&gt;新室友到来&lt;/h3&gt;
 &lt;p&gt;晚上李佑成准备要搬过来，和他聊了会，家常琐碎。亮点就是他可能有5V2.5A的电源，虽然我需要的是3A，不过明天还是可以试试的硬盘能带起来不能。我手头的cubieboard因为没有合适的电源，那块2.5寸的硬盘已经快积灰了。早就装上了archlinux_arm，还是不错，平时在办公室因为网络的限制，也只能弄来玩玩驱动，配配网络。如若硬盘能带起来，就搞个NAS玩啰。&lt;/p&gt;
 &lt;h3&gt;洗洗睡&lt;/h3&gt;
-&lt;p&gt;看会十亿消费者就准备睡了，明天见。&lt;/p&gt;</summary><category term="daily"></category><category term="work"></category></entry><entry><title>stat and close()</title><link href="http://www.onionisi.com/stat-and-close.html" rel="alternate"></link><updated>2012-06-20T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-06-20:stat-and-close.html</id><summary type="html">&lt;h1&gt;file stat and file close&lt;/h1&gt;
+&lt;p&gt;看会十亿消费者就准备睡了，明天见。&lt;/p&gt;</summary><category term="daily"></category><category term="work"></category></entry><entry><title>stat and close()</title><link href="www.onionisi.com/stat-and-close.html" rel="alternate"></link><updated>2012-06-20T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2012-06-20:www.onionisi.com/stat-and-close.html</id><summary type="html">&lt;h1&gt;file stat and file close&lt;/h1&gt;
 &lt;h2&gt;file stat&lt;/h2&gt;
 &lt;p&gt;中午吃饭的时候突然聊起了权限，笑777是bus，有点混淆stat的结构了，下午回来看了stat.h&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// 出自bits/stat.h&lt;/span&gt;
@@ -56,7 +56,7 @@
 system to flush the buffers when the stream is closed.  If you need to be sure that the data is physically stored use fsync(2).  (It will depend  on
 the disk hardware at this point.)&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;所以要感谢那位执着的哥们。&lt;/p&gt;</summary><category term="linux C"></category><category term="filesystem"></category></entry><entry><title>the proxy of Ubuntu</title><link href="http://www.onionisi.com/proxy-of-ubuntu.html" rel="alternate"></link><updated>2012-05-17T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-05-17:proxy-of-ubuntu.html</id><summary type="html">&lt;h1&gt;ubuntu的代理&lt;/h1&gt;
+&lt;p&gt;所以要感谢那位执着的哥们。&lt;/p&gt;</summary><category term="linux C"></category><category term="filesystem"></category></entry><entry><title>the proxy of Ubuntu</title><link href="www.onionisi.com/proxy-of-ubuntu.html" rel="alternate"></link><updated>2012-05-17T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2012-05-17:www.onionisi.com/proxy-of-ubuntu.html</id><summary type="html">&lt;h1&gt;ubuntu的代理&lt;/h1&gt;
 &lt;p&gt;办公室的网络总是那么不给力，每个所部各分了一个IP能够上外网，我们只能用代理
 来凑合上网了。&lt;/p&gt;
 &lt;h2&gt;全局代理&lt;/h2&gt;
@@ -75,7 +75,7 @@ the disk hardware at this point.)&lt;/p&gt;
 &lt;p&gt;升了12.04的系统没多大感觉，本来本人又不用unity，口味越发清淡，想往WM转了，
 之前整了个#！，也没时间玩，最近项目空闲点了，把超级本的arch也好好配配。&lt;/p&gt;
 &lt;p&gt;PS:主要是来冒个泡，很久没更新了，另入了kindle3，webos的东东，玩着还有意思，
-哪天实在是闲着没事，在分享个心得。&lt;/p&gt;</summary><category term="system"></category><category term="skill"></category><category term="linux"></category><category term="distro"></category></entry><entry><title>"旧文翻新之LFS和我第一次"</title><link href="http://www.onionisi.com/LFS_build_process.html" rel="alternate"></link><updated>2012-04-18T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-04-18:LFS_build_process.html</id><summary type="html">&lt;p&gt;此文乃去年上班闲暇之余，作为深入学习linux之用，发表于内部服务器，今转过来以示纪念。当中各种陋见只怕贻笑大方了，若不慎入眼还望海涵。&lt;/p&gt;
+哪天实在是闲着没事，在分享个心得。&lt;/p&gt;</summary><category term="system"></category><category term="skill"></category><category term="linux"></category><category term="distro"></category></entry><entry><title>"旧文翻新之LFS和我第一次"</title><link href="www.onionisi.com/LFS_build_process.html" rel="alternate"></link><updated>2012-04-18T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2012-04-18:www.onionisi.com/LFS_build_process.html</id><summary type="html">&lt;p&gt;此文乃去年上班闲暇之余，作为深入学习linux之用，发表于内部服务器，今转过来以示纪念。当中各种陋见只怕贻笑大方了，若不慎入眼还望海涵。&lt;/p&gt;
 &lt;h2&gt;任务综述&lt;/h2&gt;
 &lt;p&gt;断断续续折腾近两周了今天我的LFS已经启动起来了啊，呵呵。。。&lt;/p&gt;
 &lt;p&gt;HOST=Ubuntu 2.6.35
@@ -364,7 +364,7 @@ collect2: ld returned 1 exit status&lt;/p&gt;
 &lt;p&gt;CPU 以及 FS 做了改动，去了IPv6，俗话说事不过三嘛，还好启动起来了，只是网卡不知道为什么启动失败了，下来还要在探究一下&lt;/p&gt;
 &lt;p&gt;然后就要开始 BLFS 的征途了&lt;/p&gt;
 &lt;h2&gt;结语&lt;/h2&gt;
-&lt;p&gt;BLFS后边由于上项目了，也拖了很久结果连openssl都还没有编译现在7.1都出来了，呵呵...有机会再玩一把，现在挺喜欢这种轻便快捷定制型儿的了&lt;/p&gt;</summary><category term="system"></category><category term="linux"></category><category term="compile"></category></entry><entry><title>oh-my-zsh的芯</title><link href="http://www.onionisi.com/oh-my-zsh.html" rel="alternate"></link><updated>2012-04-17T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-04-17:oh-my-zsh.html</id><summary type="html">&lt;p&gt;用zsh有一段时间了，前段时间在github上找见了这个神奇的项目，试用起来果然还是
+&lt;p&gt;BLFS后边由于上项目了，也拖了很久结果连openssl都还没有编译现在7.1都出来了，呵呵...有机会再玩一把，现在挺喜欢这种轻便快捷定制型儿的了&lt;/p&gt;</summary><category term="system"></category><category term="linux"></category><category term="compile"></category></entry><entry><title>oh-my-zsh的芯</title><link href="www.onionisi.com/oh-my-zsh.html" rel="alternate"></link><updated>2012-04-17T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2012-04-17:www.onionisi.com/oh-my-zsh.html</id><summary type="html">&lt;p&gt;用zsh有一段时间了，前段时间在github上找见了这个神奇的项目，试用起来果然还是
 很有爱。但是之前的配置已经有我比较熟悉的快捷键，所以还是要改造一番，美其名曰
 本地化。&lt;/p&gt;
 &lt;h2&gt;主配置.zshrc&lt;/h2&gt;
@@ -490,7 +490,7 @@ fi
 
 &lt;p&gt;欧欧欧...我觉得我都在粘代码了，还是大神linus说得对RTFSC，同志们还是直接去看
 吧，直接明了。&lt;/p&gt;
-&lt;p&gt;下一步就是我要把我先前的顺手货拆开再组装上去，未完待续哦...&lt;/p&gt;</summary><category term="shell"></category><category term="src"></category><category term="zsh"></category></entry><entry><title>/run的由来</title><link href="http://www.onionisi.com/linux-run-dir.html" rel="alternate"></link><updated>2012-03-27T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-03-27:linux-run-dir.html</id><summary type="html">&lt;p&gt;熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。&lt;/p&gt;
+&lt;p&gt;下一步就是我要把我先前的顺手货拆开再组装上去，未完待续哦...&lt;/p&gt;</summary><category term="shell"></category><category term="src"></category><category term="zsh"></category></entry><entry><title>/run的由来</title><link href="www.onionisi.com/linux-run-dir.html" rel="alternate"></link><updated>2012-03-27T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2012-03-27:www.onionisi.com/linux-run-dir.html</id><summary type="html">&lt;p&gt;熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。&lt;/p&gt;
 &lt;h2&gt;/run目录的诞生&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;各主要发行版阵营的重要人物讨论了/dev目录被滥用的情况，希望在该问题还没有扩大化前找到解决方案。他们提出了各种方案，但所有方案都归结到一点，/var/run目录不应在/var目录下，它可以提升到根目录下，这是唯一简洁明了的方案。&lt;/p&gt;
@@ -522,7 +522,7 @@ fi
 &lt;p&gt;我们实现这个方案实际需要的代码改动很小（基本上就是用新的tmpfs挂载/var/run以及/var/lock取代原来的绑定挂载），这也是我们会选择在F15周期这么后期做这件事。&lt;/p&gt;
 &lt;h2&gt;个人感想&lt;/h2&gt;
 &lt;p&gt;话说Fedora真的是很有创新的版本，新的F17还会有D语言的开发环境，另目前一直在Ubuntu上，一直没有机会感受systemd的机会啊，前段时间倒是工作需要装了一个F14，坑爹的连源都撤了，近期有打算弄弄FreeBSD，换换环境。&lt;/p&gt;
-&lt;p&gt;这篇文章战线还挺长，0406才截稿啊，blog再不写就可惜我倒腾了，呵呵......&lt;/p&gt;</summary><category term="fs"></category><category term="linux"></category><category term="distro"></category><category term="trans"></category></entry><entry><title>Recently</title><link href="http://www.onionisi.com/recently.html" rel="alternate"></link><updated>2012-03-21T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-03-21:recently.html</id><summary type="html">&lt;h1&gt;spring come&lt;/h1&gt;
+&lt;p&gt;这篇文章战线还挺长，0406才截稿啊，blog再不写就可惜我倒腾了，呵呵......&lt;/p&gt;</summary><category term="fs"></category><category term="linux"></category><category term="distro"></category><category term="trans"></category></entry><entry><title>Recently</title><link href="www.onionisi.com/recently.html" rel="alternate"></link><updated>2012-03-21T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2012-03-21:www.onionisi.com/recently.html</id><summary type="html">&lt;h1&gt;spring come&lt;/h1&gt;
 &lt;p&gt;这是我在绵阳的第一个春天，今天又降温了，下班回宿舍的路上还是有一些些冷，食堂
 依然是那么车水马龙。本来照例今天应该是要会江油的，可是亲爱的在上课，天气又不
 好，周一周二晚上也没做什么事情，趁着今晚把最近的资料整整。&lt;/p&gt;
@@ -556,7 +556,7 @@ fi
 。&lt;/p&gt;
 &lt;p&gt;欢乐的时光总是那么短暂，彬哥留我周日再走，确实不行，周日请了松林和海岩来家做
 客，于是相约下次再聚。我目送他们离去，心里有说不出的感觉，高兴又难受，下回去
-杭州得好好宰他一刀。&lt;/p&gt;</summary><category term="daily"></category><category term="weekend"></category></entry><entry><title>Born this way</title><link href="http://www.onionisi.com/born-this-way.html" rel="alternate"></link><updated>2012-03-07T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-03-07:born-this-way.html</id><summary type="html">&lt;p&gt;说了好久弄个人博客的事情了，但总是这样那样，说白了也就是自己懒，好歹现在勉强能看了。&lt;/p&gt;
+杭州得好好宰他一刀。&lt;/p&gt;</summary><category term="daily"></category><category term="weekend"></category></entry><entry><title>Born this way</title><link href="www.onionisi.com/born-this-way.html" rel="alternate"></link><updated>2012-03-07T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2012-03-07:www.onionisi.com/born-this-way.html</id><summary type="html">&lt;p&gt;说了好久弄个人博客的事情了，但总是这样那样，说白了也就是自己懒，好歹现在勉强能看了。&lt;/p&gt;
 &lt;h2&gt;WP&lt;/h2&gt;
 &lt;p&gt;其实早之前就想自己弄块地，记得去年还是神马时候，还专门找了视频认真观摩，后边也不了了之，前段手头没多少活就在公司的机子上自己弄了个WP，玩了两天，后边因为重装系统，也没活多长时间。&lt;/p&gt;
 &lt;p&gt;这玩意儿确实要麻烦点，平台，数据库，要想好看还得还一大堆插件，关键你写东西还要登入后台，而且还要在那个输入的小框用各种格式来控制格式，用惯了纯文本的编辑器来倒腾这些真的很让人受不了啊亲。&lt;/p&gt;
