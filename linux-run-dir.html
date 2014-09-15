@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="tags" content="fslinuxdistrotrans">
+
+    <meta name="category" content="Blog">
+
+    <meta name="date" content="2012-03-27 00:00:00">
+
+    <meta name="author" content="Chong Yang">
+
+    <title>onionisi | "/run的由来"</title>
+
+        <link rel="stylesheet" href="./theme/css/style.min.css?981d7269">
+
+    <link rel="shortcut icon" href="./theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="./theme/img/favicon.ico">
+
+
+
+</head>
+
+<body>
+    <header id="sitehead">
+        <div class="sitehead">
+            <span id="sitehead">
+                <a href=".">onionisi</a>
+            </span>
+        </div>
+            <div id="tagline">
+                <strong>fprintf(post, "%s\n", daily_life)</strong>
+            </div>
+        <nav class="navbar">
+                <a href="./category/blog.html">Blog</a>&nbsp;
+                    <a href="./pages/about.html">About</a>&nbsp;
+        </nav>
+    </header><!-- /header-siteheader -->
+<section id="content">
+    <article>
+        <header>
+            <h1 class="entry-title">
+                <a href="" id="entry-title-link" rel="bookmark" title="Permalink to "/run的由来"">"/run的由来"</a>
+            </h1>
+        </header>
+
+
+        <div class="entry-content">
+            <p>熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。</p>
+<h2>/run目录的诞生</h2>
+<blockquote>
+<p>各主要发行版阵营的重要人物讨论了/dev目录被滥用的情况，希望在该问题还没有扩大化前找到解决方案。他们提出了各种方案，但所有方案都归结到一点，/var/run目录不应在/var目录下，它可以提升到根目录下，这是唯一简洁明了的方案。</p>
+</blockquote>
+<h2>事件原委</h2>
+<p>以下文字翻译自Lennart Poetteringu邮件，一名Fedora的开发者，详细解释了原因。</p>
+<p>我在F15中上传了systemd的新版本，它在根目录下创建了/run这个目录。迟早你都会对此感到困惑，所以下面就讲讲它是肿么来的，为虾米要这么做。</p>
+<p>其实这只是一个相当小的变动，但是大伙儿可能会认为这是一个很大的政策变动，所以我觉得还是相当地有必要解释一下：</p>
+<p>在早期启动的程序里，相当一段时间里他们用/dev目录上很多隐藏文件存储运行时数据。第一个文件就是/dev/.udev，随着时间的推移，又逐步增加了/dev/.mdadm，/dev/.systemd，/dev/.mount，dracut，initscripts以及更多的工具。（其他发行版还有更多）他们使用这些目录的缘由很简单，总所周知/dev是tmpfs，系统启动后就立即可用。/var/run则只能在启动后半段可用，因为/var可能挂载在某个单独的分区。</p>
+<p>然而/dev始终不是个适合运行时数据存放的地方，因为这些数据不是设备节点，所以他们不属于这个地方。同时，隐藏这些文件对管理员来说是个坏主意。事实上，用户们也不能理解这些数据为什么要存放在/var/run/xxx以及/dev/.yyy，特别是当启动之后，需要使用的一些工具，因为在启动的时候发生在这些目录之间复杂的数据移动。</p>
+<p>此前不同的发行版针对“early-runtime-dir”都采用过不是很完整的解决方案：Debian---&gt;/lib/init/rw, 启动早期挂载的tmpfs;Ubuntu---&gt;/var/run,在/var之前挂载的tmpfs，使用了一些mount特有的丑陋技巧。但大多数软件都回避这个问题，还是继续使用/dev/.xxx。</p>
+<p>在过去的几周里，各大发行版Debian，Suse，Ubuntu以及Fedora阵营(当然还有其他的哈)的主要负责人探讨了这个问题的前因后果，为的就是找到一个最终的解决办法防止/对/dev的滥用以阻止这个问题的不断扩大。有各式各样的建议被提出来，但最终讨论下来发现了一点共识，那就是/var/run不应该挂载在/var下，我们真正需要的一个一级目录/run，这才是真正干净利落的解决方案。但是为什么没有人敢真正实现这个目录，原因就是大伙儿都不想去处理那些与标准对立带来的问题，特别是邮件列表上那些乱七八糟的讨论（就像是这一篇一样）。</p>
+<p>基于这一点，我们觉得我们应当实现大家都认为对的技术解决方案，而不是去规避标准。因此我们实现了他。</p>
+<p>此实现上载后，Fedora和Suse现在已经在使用/run了。Debian的同志们也会在下一版中采纳此建议。Ubuntu同样也同意引入/run。</p>
+<p>Dracut，udev和systemd为了使用/run，已经更新了上游源码，希望mdadm和mount要尽快跟上。</p>
+<p>其实早在几年前Debian的筒子就建议引入/run，甚至还询问LSB的同志，更甚的是居然还得到了一个虽然含糊但却正面的回应。</p>
+<p>那么F15都具体实现了虾米，我们来看看。</p>
+<p>/run是tmpfs，/var/run挂载在上边。/var/lock则挂载在/run/lock上。从现在开始，只有早期启动的程序应当使用/run，之后的程序还是按照FHS/LSB来。那些有相关应用软件包的作者我们都已经通知到了。如果你没有接到我们的任何通知，说明不会影响到你的程序。</p>
+<p>那么这么做的好处捏？</p>
+<ul>
+<li>现在只使用一个tmpfs，同时挂载/run，/var/lock和/var/run三个目录，减少了tmpfs的占用。</li>
+<li>所有的运行时数据都在同一个地方。systemd,udev,dracut的数据都在/run和/var/run下边，方便查看易于管理。这让你第一次有机会只需要"ls /var/run"就能看见这些重要工具对于数据的处理。</li>
+<li>数据无处遁形。管理员掌控一切，神马都在/var/run和/run里边，再也没有点藏文件。</li>
+<li>我们标准化了"early-runtime-dir"在所有主流发行版的方案。</li>
+<li>开发的同志们也会很爽，不用在滥用/dev鸟。</li>
+<li>一级目录的名称显式表明了属性。各目录树下的文件夹属性保持一致，比如/var---&gt;"persistant runtime data"，/run---&gt;"volatile runtime data"，/etc---&gt;"persistant system config data"等等。</li>
+</ul>
+<p>这就是目前在F15中实现的，在F16中我们会做一个小改动：/var/lock和/var/run会成为软链接指向/run/lock和/run，于是我们就不用采用直接挂载这种不优雅的方式，而且管理也不方便。因为软链接和RPM的隐讳关联，我们暂不对F15做如此更改。</p>
+<p>我们实现这个方案实际需要的代码改动很小（基本上就是用新的tmpfs挂载/var/run以及/var/lock取代原来的绑定挂载），这也是我们会选择在F15周期这么后期做这件事。</p>
+<h2>个人感想</h2>
+<p>话说Fedora真的是很有创新的版本，新的F17还会有D语言的开发环境，另目前一直在Ubuntu上，一直没有机会感受systemd的机会啊，前段时间倒是工作需要装了一个F14，坑爹的连源都撤了，近期有打算弄弄FreeBSD，换换环境。</p>
+<p>这篇文章战线还挺长，0406才截稿啊，blog再不写就可惜我倒腾了，呵呵......</p>
+<footer class="post-info">
+    <abbr class="published" title="2012-03-27T00:00:00">
+        Posted on 二 27 三月 2012 by Chong Yang |     tags: <a href="./tag/fs.html">fs</a> <a href="./tag/linux.html">linux</a> <a href="./tag/distro.html">distro</a> <a href="./tag/trans.html">trans</a>     </abbr>
+</footer><!-- /footer-post-info -->
+        </div><!-- /.entry-content -->
+<script src="https://apis.google.com/js/plusone.js"></script>
+<div id="comments"></div>
+<script>
+    gapi.comments.render('comments', {
+        href: window.location,
+        width: '635',
+        first_party_property: 'BLOGGER',
+        view_type: 'FILTERED_POSTMOD'
+    });
+</script>
+    </article>
+</section>
+    <section id="extras">
+    </section><!-- /sectin-extras -->
+
+    <footer id="footer">
+        <address id="about" class="vcard">
+            &copy; 2014 <a class="url fn" href=".">onionisi</a>
+        </address><!-- /address-about -->
+    </footer><!-- /footer-footer -->
+
+
+</body>
+</html>

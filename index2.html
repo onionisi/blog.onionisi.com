@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+
+
+
+
+    <meta name="author" content="Chong Yang">
+
+    <title>onionisi</title>
+
+        <link rel="stylesheet" href="./theme/css/style.min.css?981d7269">
+
+    <link rel="shortcut icon" href="./theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="./theme/img/favicon.ico">
+
+
+
+</head>
+
+<body>
+    <header id="sitehead">
+        <div class="sitehead">
+            <span id="sitehead">
+                <a href=".">onionisi</a>
+            </span>
+        </div>
+            <div id="tagline">
+                <strong>fprintf(post, "%s\n", daily_life)</strong>
+            </div>
+        <nav class="navbar">
+                <a href="./category/blog.html">Blog</a>&nbsp;
+                    <a href="./pages/about.html">About</a>&nbsp;
+        </nav>
+    </header><!-- /header-siteheader -->
+
+                    <section id="content">
+                        <ol id="posts-list" start="2">
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="./after-new-install.html" rel="bookmark" title="Permalink to After New Install">After New Install</a></h3>
+                            <aside class="entry-title-date">2014-05-10</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <p>升级到10.10的Yosemite第一个感觉是好多app要遭殃了，首先是alfred(虽然重点是workflow，但我很少用)，然后是各种输入法和一票终端。</p>
+<ul>
+<li>
+<p>给Terminal选个好看的配色，这货也可以切割面板了，不过我还是喜欢iterm2的全局键呼出。</p>
+</li>
+<li>
+<p>change host name，没有好听得名字怎么能行:</p>
+</li>
+</ul>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">scutil</span> <span class="o">--</span><span class="n">set</span> <span class="n">HostName</span> <span class="n">Yosemite</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p>Command Line Tools for Xcode 6找得我好辛苦，没有cmd我怎么活。</p>
+</li>
+<li>
+<p>迅速安装brew and brew cask，没有包管理器我怎么活。</p>
+</li>
+<li>
+<p>迅速安装一票app，tmux vim zsh firefox mou flux</p>
+</li>
+<li>
+<p>各种配置tmux，再也不用担心如何切分窗口，vim再也不要彷徨什么神编辑啦，zsh＝＝oh-my-zsh</p>
+</li>
+<li>
+<p>cross the gfw.安装goagentx。 pac and goagent and ...</p></li></ul>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="./after-new-install.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="./timemachine-on-archlinux.html" rel="bookmark" title="Permalink to TimeMachine on Archlinux">TimeMachine on Archlinux</a></h3>
+                            <aside class="entry-title-date">2014-05-08</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <h2>前因</h2>
+<p>之前拿到新电脑很是兴奋，捯饬很比较猛，主要还是想目的就是延长SSD使用寿命，于是乎找了各种措施来减少SSD的写入。万恶的是没有任何备份，当我满心欢喜的禁用了磁盘的日志功能时，心想怎么可能意外断电捏。哪里知道就在第二天浏览淘宝时，打开网页太多导致浏览器卡死了系统，任何操作都不灵了。妈蛋滴，果断强制关机，reboot，老有一个进度条过不来，打客服电话，最后把我弄到检查磁盘的时候，发现磁盘损坏根本修复不了。这时才焕然大悟想起自己关闭了日志，天要亡我，奈何啊，可怜我的资料啊。</p>
+<p>格式化磁盘的时候那叫个恋恋不舍啊，只能忍痛了，在线安装好Marvicks后，看着才出的Yosemite心痒痒，干脆一横心直接升了，这一来二回把我之前节约的写入全糟践了。心里便想着还是要搞个备份才行，Mac不是Linux，什么东西你都能Control，还是小心谨慎为好。</p>
+<h2>后果</h2>
+<p>恋恋不忘，必有回响，总算打起精神准备，把重装新系统以来各种资料备份一下，再丢了就只能掩面而泣了。linux世界的geek们不会让我们失望滴，netatalk就是来抢time capsule生意滴。</p>
+<p>配置文件位置 /etc/afp.conf</p>
+<div class="highlight"><pre><span class="k">[Global]</span>
+<span class="na">mimic model</span> <span class="o">=</span> <span class="s">TimeCapsule6,106 ...</span></pre></div>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="./timemachine-on-archlinux.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="./stat-and-close.html" rel="bookmark" title="Permalink to "stat and close()"">"stat and close()"</a></h3>
+                            <aside class="entry-title-date">2012-06-20</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <h1>file stat and file close</h1>
+<h2>file stat</h2>
+<p>中午吃饭的时候突然聊起了权限，笑777是bus，有点混淆stat的结构了，下午回来看了stat.h</p>
+<div class="highlight"><pre><span class="c1">// 出自bits/stat.h</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISUID</span>   <span class="mh">04000</span>   <span class="cm">/* Set user ID on execution.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISGID</span>   <span class="mh">02000</span>   <span class="cm">/* Set group ID on execution.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISVTX</span>   <span class="mh">01000</span>   <span class="cm">/* Save swapped text after use (sticky).  */</span>   
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_IREAD</span>   <span class="mh">0400</span>    <span class="cm">/* Read by owner.  */</span> 
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_IWRITE</span>  <span class="mh">0200</span>    <span class="cm">/* Write ...</span></pre></div>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="./stat-and-close.html">more</a>
+                    </article>
+                </li>
+                </ol><!-- /ol-posts-list -->
+<div class="paginationer">
+    <p class="paginator">
+            <a href="./index.html">&laquo;</a>
+        Page 2 / 4
+            <a href="./index3.html">&raquo;</a>
+    </p>
+</div>
+                </section><!-- /section-content -->
+    <section id="extras">
+    </section><!-- /sectin-extras -->
+
+    <footer id="footer">
+        <address id="about" class="vcard">
+            &copy; 2014 <a class="url fn" href=".">onionisi</a>
+        </address><!-- /address-about -->
+    </footer><!-- /footer-footer -->
+
+
+</body>
+</html>

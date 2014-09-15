@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+
+
+
+
+    <meta name="author" content="Chong Yang">
+
+    <title>onionisi - linux C</title>
+
+        <link rel="stylesheet" href="../theme/css/style.min.css?981d7269">
+
+    <link rel="shortcut icon" href="../theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="../theme/img/favicon.ico">
+
+
+
+</head>
+
+<body>
+    <header id="sitehead">
+        <div class="sitehead">
+            <span id="sitehead">
+                <a href="..">onionisi</a>
+            </span>
+        </div>
+            <div id="tagline">
+                <strong>fprintf(post, "%s\n", daily_life)</strong>
+            </div>
+        <nav class="navbar">
+                <a href="../category/blog.html">Blog</a>&nbsp;
+                    <a href="../pages/about.html">About</a>&nbsp;
+        </nav>
+    </header><!-- /header-siteheader -->
+
+                <aside id="featured">
+                    <article>
+                        <h1 class="entry-title"><a href="../stat-and-close.html">"stat and close()"</a></h1>
+                        <h1>file stat and file close</h1>
+<h2>file stat</h2>
+<p>中午吃饭的时候突然聊起了权限，笑777是bus，有点混淆stat的结构了，下午回来看了stat.h</p>
+<div class="highlight"><pre><span class="c1">// 出自bits/stat.h</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISUID</span>   <span class="mh">04000</span>   <span class="cm">/* Set user ID on execution.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISGID</span>   <span class="mh">02000</span>   <span class="cm">/* Set group ID on execution.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISVTX</span>   <span class="mh">01000</span>   <span class="cm">/* Save swapped text after use (sticky).  */</span>   
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_IREAD</span>   <span class="mh">0400</span>    <span class="cm">/* Read by owner.  */</span> 
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_IWRITE</span>  <span class="mh">0200</span>    <span class="cm">/* Write by owner.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_IEXEC</span>   <span class="mh">0100</span>    <span class="cm">/* Execute by owner.  */</span>
+
+<span class="c1">// 出自sys/stat.h </span>
+<span class="p">#</span><span class="n">define</span> <span class="no">S_ISUID</span> <span class="no">__S_ISUID</span>   <span class="cm">/* Set user ID on execution.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">S_ISGID</span> <span class="no">__S_ISGID</span>   <span class="cm">/* Set group ID on execution.  */</span>
+
+<span class="p">#</span><span class="k">if</span> <span class="n">defined</span> <span class="no">__USE_BSD</span> <span class="o">||</span> <span class="n">defined</span> <span class="no">__USE_MISC</span> <span class="o">||</span> <span class="n">defined</span> <span class="no">__USE_XOPEN</span>
+<span class="cm">/* Save swapped text after use (sticky bit).  This is pretty well obsolete.  */</span>
+<span class="p">#</span> <span class="n">define</span> <span class="no">S_ISVTX</span>    <span class="no">__S_ISVTX</span>
+<span class="p">#</span><span class="n">endif</span>
+
+<span class="p">#</span><span class="n">define</span> <span class="no">S_IWUSR</span> <span class="no">__S_IWRITE</span>  <span class="cm">/* Write by owner.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">S_IXUSR</span> <span class="no">__S_IEXEC</span>   <span class="cm">/* Execute by owner.  */</span>
+<span class="cm">/* Read, write, and execute by owner.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">S_IRWXU</span> <span class="p">(</span><span class="no">__S_IREAD</span><span class="o">|</span><span class="no">__S_IWRITE</span><span class="o">|</span><span class="no">__S_IEXEC</span><span class="p">)</span>
+
+<span class="p">#</span><span class="n">define</span> <span class="no">S_IRGRP</span> <span class="p">(</span><span class="no">S_IRUSR</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>  <span class="cm">/* Read by group.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">S_IWGRP</span> <span class="p">(</span><span class="no">S_IWUSR</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>  <span class="cm">/* Write by group.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">S_IXGRP</span> <span class="p">(</span><span class="no">S_IXUSR</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>  <span class="cm">/* Execute by group.  */</span>
+<span class="cm">/* Read, write, and execute by group.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">S_IRWXG</span> <span class="p">(</span><span class="no">S_IRWXU</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>
+
+<span class="p">#</span><span class="n">define</span> <span class="no">S_IROTH</span> <span class="p">(</span><span class="no">S_IRGRP</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>  <span class="cm">/* Read by others.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">S_IWOTH</span> <span class="p">(</span><span class="no">S_IWGRP</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>  <span class="cm">/* Write by others.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">S_IXOTH</span> <span class="p">(</span><span class="no">S_IXGRP</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>  <span class="cm">/* Execute by others.  */</span>
+<span class="cm">/* Read, write, and execute by others.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">S_IRWXO</span> <span class="p">(</span><span class="no">S_IRWXG</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>
+</pre></div>
+
+
+<p>另外还有就是lsattr的那一串属性，大伙知道是怎么来的不？</p>
+<h2>file close</h2>
+<p>下午上stack_over_flow发现一个问题，Why do I have to use close() to close a file？<a href="http://stackoverflow.com/questions/11095474/why-do-i-have-to-use-close-to-close-a-file">链接在此啊</a>
+热情的筒子们回答得很热烈，但是其中有个哥们觉得他们有些人说的有问题，就是关于close到底处理不处理数据写回到磁盘的操作，我也比较懵，还写了小程序测试，晕，还得出是要回写的结论，结果后边在close的man手册里边的NOTE发现如下一段话。</p>
+<blockquote>
+<p>A  successful  close does not guarantee that the data has been successfully saved to disk, as the kernel defers writes.  It is not common for a file
+system to flush the buffers when the stream is closed.  If you need to be sure that the data is physically stored use fsync(2).  (It will depend  on
+the disk hardware at this point.)</p>
+</blockquote>
+<p>所以要感谢那位执着的哥们。</p>
+<footer class="post-info">
+    <abbr class="published" title="2012-06-20T00:00:00">
+        Posted on 三 20 六月 2012 by Chong Yang |     tags: <a href="../tag/linux-c.html">linux C</a> <a href="../tag/filesystem.html">filesystem</a>     </abbr>
+</footer><!-- /footer-post-info -->
+                    </article>
+<div class="paginationer">
+    <p class="paginator">
+        Page 1 / 1
+    </p>
+</div>
+                </aside><!-- /aside-featured -->
+                </ol><!-- /ol-posts-list -->
+                </section><!-- /section-content -->
+    <section id="extras">
+    </section><!-- /sectin-extras -->
+
+    <footer id="footer">
+        <address id="about" class="vcard">
+            &copy; 2014 <a class="url fn" href="..">onionisi</a>
+        </address><!-- /address-about -->
+    </footer><!-- /footer-footer -->
+
+
+</body>
+</html>

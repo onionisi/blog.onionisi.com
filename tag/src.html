@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+
+
+
+
+    <meta name="author" content="Chong Yang">
+
+    <title>onionisi - src</title>
+
+        <link rel="stylesheet" href="../theme/css/style.min.css?981d7269">
+
+    <link rel="shortcut icon" href="../theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="../theme/img/favicon.ico">
+
+
+
+</head>
+
+<body>
+    <header id="sitehead">
+        <div class="sitehead">
+            <span id="sitehead">
+                <a href="..">onionisi</a>
+            </span>
+        </div>
+            <div id="tagline">
+                <strong>fprintf(post, "%s\n", daily_life)</strong>
+            </div>
+        <nav class="navbar">
+                <a href="../category/blog.html">Blog</a>&nbsp;
+                    <a href="../pages/about.html">About</a>&nbsp;
+        </nav>
+    </header><!-- /header-siteheader -->
+
+                <aside id="featured">
+                    <article>
+                        <h1 class="entry-title"><a href="../oh-my-zsh.html">oh-my-zsh的芯</a></h1>
+                        <p>用zsh有一段时间了，前段时间在github上找见了这个神奇的项目，试用起来果然还是
+很有爱。但是之前的配置已经有我比较熟悉的快捷键，所以还是要改造一番，美其名曰
+本地化。</p>
+<h2>主配置.zshrc</h2>
+<p>主配置很简洁，主要功能就是选主题选插件，形式各样的千奇百怪的prompt，各种功能
+不同的插件，可根据发行版，版本控制工具进行选择，大家各取所需。
+这也就是vim、firefox这些软件强大的原因---有广大的同志还开发插件！所以说群众
+的力量是无穷的。</p>
+<p>下边就是主体程序的目录结构：</p>
+<div class="highlight"><pre><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">onionisi</span><span class="o">/</span><span class="p">.</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">cache</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">custom</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">lib</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">log</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">plugins</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">templates</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">themes</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">tools</span><span class="o">/</span>
+<span class="o">|-</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="p">.</span><span class="n">sh</span>
+<span class="err">`</span><span class="o">-</span><span class="n">README</span><span class="p">.</span><span class="n">textile</span>
+</pre></div>
+
+
+<h2>oh-my-zsh.sh</h2>
+<p>这个脚本才开始真正进入主题。</p>
+<h3>upgrade</h3>
+<div class="highlight"><pre><span class="cp"># Check for updates on initial load...</span>
+<span class="k">if</span> <span class="p">[</span> <span class="s">&quot;$DISABLE_AUTO_UPDATE&quot;</span> <span class="o">!=</span> <span class="s">&quot;true&quot;</span> <span class="p">]</span>
+<span class="n">then</span>
+  <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">env</span> <span class="n">ZSH</span><span class="o">=</span><span class="err">$</span><span class="n">ZSH</span> <span class="n">zsh</span> <span class="err">$</span><span class="n">ZSH</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">check_for_upgrade</span><span class="p">.</span><span class="n">sh</span>
+<span class="n">fi</span>
+</pre></div>
+
+
+<p>如果没有禁止自动升级的，首先会upgrade，oh-my-zsh作为一个公共项目，每天的更新
+还是挺频繁，从github的图上就能看出来。再来看check_for_upgrade</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">_current_epoch</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">echo</span> <span class="nx">$</span><span class="p">((</span><span class="nx">$</span><span class="p">(</span><span class="nx">date</span> <span class="o">+%</span><span class="nx">s</span><span class="p">)</span> <span class="o">/</span> <span class="mi">60</span> <span class="o">/</span> <span class="mi">60</span> <span class="o">/</span> <span class="mi">24</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">_update_zsh_update</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">echo</span> <span class="s2">&quot;LAST_EPOCH=$(_current_epoch)&quot;</span> <span class="o">&gt;</span> <span class="o">~</span><span class="err">/.zsh-update</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">_upgrade_zsh</span><span class="p">()</span> <span class="p">{</span>
+  <span class="err">/usr/bin/env ZSH=$ZSH /bin/sh $ZSH/tools/upgrade.sh</span>
+  <span class="err">#</span> <span class="nx">update</span> <span class="nx">the</span> <span class="nx">zsh</span> <span class="nx">file</span>
+  <span class="nx">_update_zsh_update</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>使用了天数来比较，比较有意思，若大于6天就要自己选择了，在upgrade中就主要用
+git来pull最近的更新了，办公室的电脑是代理上网的所以我前边加上了proxychains。</p>
+<h3>初始化</h3>
+<p>首先就是要载入一些“库”，呵呵...有个custom可以自定义哦。</p>
+<div class="highlight"><pre><span class="err">#</span> <span class="nx">add</span> <span class="nx">a</span> <span class="kd">function</span> <span class="nx">path</span>
+<span class="nx">fpath</span><span class="o">=</span><span class="p">(</span><span class="nx">$ZSH</span><span class="o">/</span><span class="nx">functions</span> <span class="nx">$ZSH</span><span class="o">/</span><span class="nx">completions</span> <span class="nx">$fpath</span><span class="p">)</span>
+
+<span class="err">#</span> <span class="nx">Load</span> <span class="nx">all</span> <span class="nx">of</span> <span class="nx">the</span> <span class="nx">config</span> <span class="nx">files</span> <span class="k">in</span> <span class="o">~</span><span class="err">/oh-my-zsh that end in .zsh</span>
+<span class="err">#</span> <span class="nx">TIP</span><span class="o">:</span> <span class="nx">Add</span> <span class="nx">files</span> <span class="nx">you</span> <span class="nx">don</span><span class="err">&#39;</span><span class="nx">t</span> <span class="nx">want</span> <span class="k">in</span> <span class="nx">git</span> <span class="nx">to</span> <span class="p">.</span><span class="nx">gitignore</span>
+<span class="k">for</span> <span class="nx">config_file</span> <span class="p">(</span><span class="nx">$ZSH</span><span class="o">/</span><span class="nx">lib</span><span class="o">/*</span><span class="p">.</span><span class="nx">zsh</span><span class="p">)</span> <span class="nx">source</span> <span class="nx">$config_file</span>
+
+<span class="err">#</span> <span class="nx">Set</span> <span class="nx">ZSH_CUSTOM</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">path</span> <span class="nx">where</span> <span class="nx">your</span> <span class="nx">custom</span> <span class="nx">config</span> <span class="nx">files</span>
+<span class="err">#</span> <span class="nx">and</span> <span class="nx">plugins</span> <span class="nx">exists</span><span class="p">,</span> <span class="nx">or</span> <span class="k">else</span> <span class="nx">we</span> <span class="nx">will</span> <span class="nx">use</span> <span class="nx">the</span> <span class="k">default</span> <span class="nx">custom</span><span class="o">/</span>
+<span class="k">if</span> <span class="cp">[</span><span class="err">[</span> <span class="na">-z</span> <span class="s2">&quot;$ZSH_CUSTOM&quot;</span> <span class="cp">]</span><span class="p">];</span> <span class="nx">then</span>
+    <span class="nx">ZSH_CUSTOM</span><span class="o">=</span><span class="s2">&quot;$ZSH/custom&quot;</span>
+<span class="nx">fi</span>
+
+<span class="nx">is_plugin</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">local</span> <span class="nx">base_dir</span><span class="o">=</span><span class="nx">$1</span>
+  <span class="nx">local</span> <span class="nx">name</span><span class="o">=</span><span class="nx">$2</span>
+  <span class="nx">test</span> <span class="o">-</span><span class="nx">f</span> <span class="nx">$base_dir</span><span class="o">/</span><span class="nx">plugins</span><span class="o">/</span><span class="nx">$name</span><span class="o">/</span><span class="nx">$name</span><span class="p">.</span><span class="nx">plugin</span><span class="p">.</span><span class="nx">zsh</span> <span class="o">\</span>
+    <span class="o">||</span> <span class="nx">test</span> <span class="o">-</span><span class="nx">f</span> <span class="nx">$base_dir</span><span class="o">/</span><span class="nx">plugins</span><span class="o">/</span><span class="nx">$name</span><span class="o">/</span><span class="nx">_$name</span>
+<span class="p">}</span>
+<span class="err">#</span> <span class="nx">Add</span> <span class="nx">all</span> <span class="nx">defined</span> <span class="nx">plugins</span> <span class="nx">to</span> <span class="nx">fpath</span><span class="p">.</span> <span class="nx">This</span> <span class="nx">must</span> <span class="nx">be</span> <span class="nx">done</span>
+<span class="err">#</span> <span class="nx">before</span> <span class="nx">running</span> <span class="nx">compinit</span><span class="p">.</span>
+<span class="k">for</span> <span class="nx">plugin</span> <span class="p">(</span><span class="nx">$plugins</span><span class="p">);</span> <span class="k">do</span>
+  <span class="k">if</span> <span class="nx">is_plugin</span> <span class="nx">$ZSH_CUSTOM</span> <span class="nx">$plugin</span><span class="p">;</span> <span class="nx">then</span>
+    <span class="nx">fpath</span><span class="o">=</span><span class="p">(</span><span class="nx">$ZSH_CUSTOM</span><span class="o">/</span><span class="nx">plugins</span><span class="o">/</span><span class="nx">$plugin</span> <span class="nx">$fpath</span><span class="p">)</span>
+  <span class="nx">elif</span> <span class="nx">is_plugin</span> <span class="nx">$ZSH</span> <span class="nx">$plugin</span><span class="p">;</span> <span class="nx">then</span>
+    <span class="nx">fpath</span><span class="o">=</span><span class="p">(</span><span class="nx">$ZSH</span><span class="o">/</span><span class="nx">plugins</span><span class="o">/</span><span class="nx">$plugin</span> <span class="nx">$fpath</span><span class="p">)</span>
+  <span class="nx">fi</span>
+<span class="nx">done</span>
+</pre></div>
+
+
+<h3>keypoint</h3>
+<p>俗话说得好包子好吃不在褶儿上，这配置好用可都在插件里，下边上插件</p>
+<div class="highlight"><pre># Load all of the plugins that were defined in ~/.zshrc
+for plugin (<span class="nv">$plugins</span>); do
+  if [ -f <span class="nv">$ZSH_CUSTOM</span>/plugins/<span class="nv">$plugin</span>/<span class="nv">$plugin.plugin.zsh</span> ]; then
+    source <span class="nv">$ZSH_CUSTOM</span>/plugins/<span class="nv">$plugin</span>/<span class="nv">$plugin.plugin.zsh</span>
+  elif [ -f <span class="nv">$ZSH</span>/plugins/<span class="nv">$plugin</span>/<span class="nv">$plugin.plugin.zsh</span> ]; then
+    source <span class="nv">$ZSH</span>/plugins/<span class="nv">$plugin</span>/<span class="nv">$plugin.plugin.zsh</span>
+  fi
+done
+
+# Load all of your custom configurations from custom/
+for config_file (<span class="nv">$ZSH_CUSTOM</span>/*.zsh) source <span class="nv">$config_file</span>
+
+# Load the theme
+if [ &quot;<span class="nv">$ZSH_THEME</span>&quot; = &quot;random&quot; ]
+then
+  themes=(<span class="nv">$ZSH</span>/themes/*zsh-theme)
+  N=<span class="cp">${</span><span class="c">#themes[@]</span><span class="cp">}</span>
+  ((N=(RANDOM%N)+1))
+  RANDOM_THEME=<span class="cp">${</span><span class="n">themes</span><span class="p">[</span><span class="err">$</span><span class="n">N</span><span class="p">]</span><span class="cp">}</span>
+  source &quot;<span class="nv">$RANDOM_THEME</span>&quot;
+  echo &quot;[oh-my-zsh] Random theme &#39;<span class="nv">$RANDOM_THEME</span>&#39; loaded...&quot;
+else
+  if [ ! &quot;<span class="nv">$ZSH_THEME</span>&quot; = &quot;&quot;  ]
+  then
+    if [ -f &quot;<span class="nv">$ZSH</span>/custom/<span class="nv">$ZSH_THEME.zsh</span>-theme&quot; ]
+    then
+      source &quot;<span class="nv">$ZSH</span>/custom/<span class="nv">$ZSH_THEME.zsh</span>-theme&quot;
+    else
+      source &quot;<span class="nv">$ZSH</span>/themes/<span class="nv">$ZSH_THEME.zsh</span>-theme&quot;
+    fi
+  fi
+fi
+</pre></div>
+
+
+<p>欧欧欧...我觉得我都在粘代码了，还是大神linus说得对RTFSC，同志们还是直接去看
+吧，直接明了。</p>
+<p>下一步就是我要把我先前的顺手货拆开再组装上去，未完待续哦...</p>
+<footer class="post-info">
+    <abbr class="published" title="2012-04-17T00:00:00">
+        Posted on 二 17 四月 2012 by Chong Yang |     tags: <a href="../tag/shell.html">shell</a> <a href="../tag/src.html">src</a> <a href="../tag/zsh.html">zsh</a>     </abbr>
+</footer><!-- /footer-post-info -->
+                    </article>
+<div class="paginationer">
+    <p class="paginator">
+        Page 1 / 1
+    </p>
+</div>
+                </aside><!-- /aside-featured -->
+                </ol><!-- /ol-posts-list -->
+                </section><!-- /section-content -->
+    <section id="extras">
+    </section><!-- /sectin-extras -->
+
+    <footer id="footer">
+        <address id="about" class="vcard">
+            &copy; 2014 <a class="url fn" href="..">onionisi</a>
+        </address><!-- /address-about -->
+    </footer><!-- /footer-footer -->
+
+
+</body>
+</html>

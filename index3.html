@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+
+
+
+
+    <meta name="author" content="Chong Yang">
+
+    <title>onionisi</title>
+
+        <link rel="stylesheet" href="./theme/css/style.min.css?981d7269">
+
+    <link rel="shortcut icon" href="./theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="./theme/img/favicon.ico">
+
+
+
+</head>
+
+<body>
+    <header id="sitehead">
+        <div class="sitehead">
+            <span id="sitehead">
+                <a href=".">onionisi</a>
+            </span>
+        </div>
+            <div id="tagline">
+                <strong>fprintf(post, "%s\n", daily_life)</strong>
+            </div>
+        <nav class="navbar">
+                <a href="./category/blog.html">Blog</a>&nbsp;
+                    <a href="./pages/about.html">About</a>&nbsp;
+        </nav>
+    </header><!-- /header-siteheader -->
+
+                    <section id="content">
+                        <ol id="posts-list" start="2">
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="./proxy-of-ubuntu.html" rel="bookmark" title="Permalink to "the proxy of Ubuntu"">"the proxy of Ubuntu"</a></h3>
+                            <aside class="entry-title-date">2012-05-17</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <h1>ubuntu的代理</h1>
+<p>办公室的网络总是那么不给力，每个所部各分了一个IP能够上外网，我们只能用代理
+来凑合上网了。</p>
+<h2>全局代理</h2>
+<p>ubuntu的全局代理保存在/etc/enviroment，如果是使用gnome桌面的同志可以直接
+通过图形界面进行操作，最近办公室的同事都流行轻量且不过太简单的xfce，没有
+这个直接的功能，还是操作文件来的快捷。</p>
+<h2>apt代理</h2>
+<p>之前我还以为他直接用的环境变量的全局值，结果事实证明我错了，额还是没有apt
+（聪明）聪明啊，他的代理在他的配置文件里，打开就能看见，路径就不用说了吧</p>
+<h2>其他代理</h2>
+<p>wget这个老当亦壮的东东也能在配置文件中设置代理，各位看官自行打开做相应更改
+便行。</p>
+<p>其实这些软件设不设代理都不重要，只要你配好了proxychains，再来个行头的自行
+插入proxychains，呵呵...自行放狗搜搜</p>
+<h2>吐槽</h2>
+<p>升了12.04的系统没多大感觉，本来本人又不用unity，口味越发清淡，想往WM转了，
+之前整了个#！，也没时间玩，最近项目空闲点了，把超级本的arch也好好配配。</p>
+<p>PS:主要是来冒个泡，很久没更新了，另入了kindle3，webos的东东，玩着还有意思 ...</p>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="./proxy-of-ubuntu.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="./LFS_build_process.html" rel="bookmark" title="Permalink to "旧文翻新之LFS和我第一次"">"旧文翻新之LFS和我第一次"</a></h3>
+                            <aside class="entry-title-date">2012-04-18</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <p>此文乃去年上班闲暇之余，作为深入学习linux之用，发表于内部服务器，今转过来以示纪念。当中各种陋见只怕贻笑大方了，若不慎入眼还望海涵。</p>
+<h2>任务综述</h2>
+<p>断断续续折腾近两周了今天我的LFS已经启动起来了啊，呵呵。。。</p>
+<p>HOST=Ubuntu 2.6.35
+TARGET=LFS 6.7</p>
+<p>最新发布的 LFS 是 6.8，好像就在我决定开始弄6.7的那天起发布的</p>
+<p>LFS的项目有好几个，LFS是最基本的，完成之后也只是个最最基础的系统，要想更顺手更丰富的就有BLFS，是基于LFS的，之后还有更进阶的 HLFS</p>
+<p>还有CLFS和ALFS，C 就是 Cross交叉编译的，A 就是Auto，用脚本自动的实现的</p>
+<p>为了好好学习，我还是老老实实 step by step来吧 </p>
+<p>手册其实写得相当详尽，但难免有自己手动的时候有事物，另外手册对原码包的操作都只提了一下，有些地方还需要注意</p>
+<p>比较麻烦的是就是编译工具链的时候，其中GCC ...</p>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="./LFS_build_process.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="./oh-my-zsh.html" rel="bookmark" title="Permalink to oh-my-zsh的芯">oh-my-zsh的芯</a></h3>
+                            <aside class="entry-title-date">2012-04-17</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <p>用zsh有一段时间了，前段时间在github上找见了这个神奇的项目，试用起来果然还是
+很有爱。但是之前的配置已经有我比较熟悉的快捷键，所以还是要改造一番，美其名曰
+本地化。</p>
+<h2>主配置.zshrc</h2>
+<p>主配置很简洁，主要功能就是选主题选插件，形式各样的千奇百怪的prompt，各种功能
+不同的插件，可根据发行版，版本控制工具进行选择，大家各取所需。
+这也就是vim、firefox这些软件强大的原因---有广大的同志还开发插件！所以说群众
+的力量是无穷的。</p>
+<p>下边就是主体程序的目录结构：</p>
+<div class="highlight"><pre><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">onionisi</span><span class="o">/</span><span class="p">.</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">cache</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">custom</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">lib</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">log</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">plugins</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">templates</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">themes</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">tools</span><span class="o">/</span>
+<span class="o">|-</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="p">.</span><span class="n">sh</span>
+<span class="err">`</span><span class="o">-</span><span class="n">README</span><span class="p">.</span><span class="n">textile</span>
+</pre></div>
+
+
+<h2>oh-my-zsh.sh</h2>
+<p>这个脚本才开始真正进入主题。</p>
+<h3>upgrade</h3>
+<div class="highlight"><pre><span class="cp"># Check for updates on ...</span></pre></div>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="./oh-my-zsh.html">more</a>
+                    </article>
+                </li>
+                </ol><!-- /ol-posts-list -->
+<div class="paginationer">
+    <p class="paginator">
+            <a href="./index2.html">&laquo;</a>
+        Page 3 / 4
+            <a href="./index4.html">&raquo;</a>
+    </p>
+</div>
+                </section><!-- /section-content -->
+    <section id="extras">
+    </section><!-- /sectin-extras -->
+
+    <footer id="footer">
+        <address id="about" class="vcard">
+            &copy; 2014 <a class="url fn" href=".">onionisi</a>
+        </address><!-- /address-about -->
+    </footer><!-- /footer-footer -->
+
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+
+
+
+
+    <meta name="author" content="Chong Yang">
+
+    <title>onionisi</title>
+
+        <link rel="stylesheet" href="./theme/css/style.min.css?981d7269">
+
+    <link rel="shortcut icon" href="./theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="./theme/img/favicon.ico">
+
+
+
+</head>
+
+<body>
+    <header id="sitehead">
+        <div class="sitehead">
+            <span id="sitehead">
+                <a href=".">onionisi</a>
+            </span>
+        </div>
+            <div id="tagline">
+                <strong>fprintf(post, "%s\n", daily_life)</strong>
+            </div>
+        <nav class="navbar">
+                <a href="./category/blog.html">Blog</a>&nbsp;
+                    <a href="./pages/about.html">About</a>&nbsp;
+        </nav>
+    </header><!-- /header-siteheader -->
+
+                    <section id="content">
+                        <ol id="posts-list" start="2">
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="./linux-run-dir.html" rel="bookmark" title="Permalink to "/run的由来"">"/run的由来"</a></h3>
+                            <aside class="entry-title-date">2012-03-27</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <p>熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。</p>
+<h2>/run目录的诞生</h2>
+<blockquote>
+<p>各主要发行版阵营的重要人物讨论了/dev目录被滥用的情况，希望在该问题还没有扩大化前找到解决方案。他们提出了各种方案，但所有方案都归结到一点，/var/run目录不应在/var目录下，它可以提升到根目录下，这是唯一简洁明了的方案。</p>
+</blockquote>
+<h2>事件原委</h2>
+<p>以下文字翻译自Lennart Poetteringu邮件，一名Fedora的开发者，详细解释了原因。</p>
+<p>我在F15中上传了systemd的新版本，它在根目录下创建了/run这个目录。迟早你都会对此感到困惑，所以下面就讲讲它是肿么来的，为虾米要这么做。</p>
+<p>其实这只是一个相当小的变动，但是大伙儿可能会认为这是一个很大的政策变动，所以我觉得还是相当地有必要解释一下：</p>
+<p>在早期启动的程序里，相当一段时间里他们用/dev目录上很多隐藏文件存储运行时数据。第一个文件就是/dev/.udev，随着时间的推移，又逐步增加了/dev/.mdadm，/dev/.systemd，/dev/.mount，dracut，initscripts以及更多的工具。（其他发行版还有更多 ...</p>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="./linux-run-dir.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="./recently.html" rel="bookmark" title="Permalink to Recently">Recently</a></h3>
+                            <aside class="entry-title-date">2012-03-21</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <h1>spring come</h1>
+<p>这是我在绵阳的第一个春天，今天又降温了，下班回宿舍的路上还是有一些些冷，食堂
+依然是那么车水马龙。本来照例今天应该是要会江油的，可是亲爱的在上课，天气又不
+好，周一周二晚上也没做什么事情，趁着今晚把最近的资料整整。</p>
+<p>博客都说要弄很久了，之前说用WP，后边干脆就用jekyll，虽然我不懂ruby，但是看着
+这么简洁和方便，确实很喜欢，先写着，慢慢搭，反正用md写很舒服，用git管理更不
+用说。</p>
+<h2>周末</h2>
+<p>还要追溯到上上周，我们两个又去买了辆自行车，为虾米说“又”捏，because我们之前
+去看失恋33天外加逛超市外加吃韩国拌饭的时候，丢了一辆我们很喜欢的“小红”，貌似
+蒋雯丽童鞋在某某电视剧里的装备。这回完全是看在春暖花开的面子上，我们想出去骑
+游了，加上之前我们单位也在召唤组织骑游and上上上周几个公务员同志策划的出游因
+下雨而泡汤。对不起，我的stack够深，跟不上的同志慢慢回溯啊。</p>
+<p>上上周我们很兴奋的骑行去了武都，一个跟龙门town很相似的地方------------灰大！
+回来被告知有另外一条羊肠小道，遂决定上周末再此出行。怎料 ...</p>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="./recently.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="./born-this-way.html" rel="bookmark" title="Permalink to Born this way">Born this way</a></h3>
+                            <aside class="entry-title-date">2012-03-07</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <p>说了好久弄个人博客的事情了，但总是这样那样，说白了也就是自己懒，好歹现在勉强能看了。</p>
+<h2>WP</h2>
+<p>其实早之前就想自己弄块地，记得去年还是神马时候，还专门找了视频认真观摩，后边也不了了之，前段手头没多少活就在公司的机子上自己弄了个WP，玩了两天，后边因为重装系统，也没活多长时间。</p>
+<p>这玩意儿确实要麻烦点，平台，数据库，要想好看还得还一大堆插件，关键你写东西还要登入后台，而且还要在那个输入的小框用各种格式来控制格式，用惯了纯文本的编辑器来倒腾这些真的很让人受不了啊亲。</p>
+<h2>jekyll</h2>
+<p>遇见这个神器还要谢谢<a href="http://www.yangzhiping.com/">阳志平老师的博客</a>的推荐，其实一开始我感兴趣的是<a href="http://octopress.org/">Octopress</a>，因为他看着跟WP差不多，但是随着深入理解我发现了幕后的英雄<a href="https://github.com/mojombo/jekyll">jekyll</a>。
+本着从简从的原则，我开始摆弄这玩意儿。因为办公室的狗屁网络环境，之前在弄ruby的工具gem时候费了我不少周章。具体动手玩的指南请看<a href="https://github.com/mojombo/jekyll/wiki">WiKi</a> 。就像玩Arch的同志一样，不看wiki你注定要死得很惨或者毫无头绪。
+伟大的开源造就了很多让你想不到的神物，这是我使用github之后唯一的感慨，无疑jekyll就是其中之一，当然还有现在我正在使用中的Oh-My-Zsh等等。虽然作为半个苦逼的写C的码农，对于前端的各式五花八门的技术不懂，但觉着这么简洁给力的博客系统不用实在是太对不起我码农的称号了，在加上git和md的加持，真的是方便到没话说。</p>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="./born-this-way.html">more</a>
+                    </article>
+                </li>
+                </ol><!-- /ol-posts-list -->
+<div class="paginationer">
+    <p class="paginator">
+            <a href="./index3.html">&laquo;</a>
+        Page 4 / 4
+    </p>
+</div>
+                </section><!-- /section-content -->
+    <section id="extras">
+    </section><!-- /sectin-extras -->
+
+    <footer id="footer">
+        <address id="about" class="vcard">
+            &copy; 2014 <a class="url fn" href=".">onionisi</a>
+        </address><!-- /address-about -->
+    </footer><!-- /footer-footer -->
+
+
+</body>
+</html>
