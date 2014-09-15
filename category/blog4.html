@@ -42,7 +42,47 @@
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="../linux-run-dir.html" rel="bookmark" title="Permalink to "/run的由来"">"/run的由来"</a></h3>
+                            <h3 class="entry-title"><a href="../oh-my-zsh.html" rel="bookmark" title="Permalink to oh-my-zsh的芯">oh-my-zsh的芯</a></h3>
+                            <aside class="entry-title-date">2012-04-17</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <p>用zsh有一段时间了，前段时间在github上找见了这个神奇的项目，试用起来果然还是
+很有爱。但是之前的配置已经有我比较熟悉的快捷键，所以还是要改造一番，美其名曰
+本地化。</p>
+<h2>主配置.zshrc</h2>
+<p>主配置很简洁，主要功能就是选主题选插件，形式各样的千奇百怪的prompt，各种功能
+不同的插件，可根据发行版，版本控制工具进行选择，大家各取所需。
+这也就是vim、firefox这些软件强大的原因---有广大的同志还开发插件！所以说群众
+的力量是无穷的。</p>
+<p>下边就是主体程序的目录结构：</p>
+<div class="highlight"><pre><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">onionisi</span><span class="o">/</span><span class="p">.</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">cache</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">custom</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">lib</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">log</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">plugins</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">templates</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">themes</span><span class="o">/</span>
+<span class="o">|+</span><span class="n">tools</span><span class="o">/</span>
+<span class="o">|-</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="p">.</span><span class="n">sh</span>
+<span class="err">`</span><span class="o">-</span><span class="n">README</span><span class="p">.</span><span class="n">textile</span>
+</pre></div>
+
+
+<h2>oh-my-zsh.sh</h2>
+<p>这个脚本才开始真正进入主题。</p>
+<h3>upgrade</h3>
+<div class="highlight"><pre><span class="cp"># Check for updates on ...</span></pre></div>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="../oh-my-zsh.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="../linux-run-dir.html" rel="bookmark" title="Permalink to /run的由来">/run的由来</a></h3>
                             <aside class="entry-title-date">2012-03-27</aside>
                         </header>
 
@@ -89,32 +129,12 @@
                         <a class="jump" href="../recently.html">more</a>
                     </article>
                 </li>
-
-                <li>
-                    <article class="entry">
-                        <header>
-                            <h3 class="entry-title"><a href="../born-this-way.html" rel="bookmark" title="Permalink to Born this way">Born this way</a></h3>
-                            <aside class="entry-title-date">2012-03-07</aside>
-                        </header>
-
-                        <div class="entry-content">
-                            <p>说了好久弄个人博客的事情了，但总是这样那样，说白了也就是自己懒，好歹现在勉强能看了。</p>
-<h2>WP</h2>
-<p>其实早之前就想自己弄块地，记得去年还是神马时候，还专门找了视频认真观摩，后边也不了了之，前段手头没多少活就在公司的机子上自己弄了个WP，玩了两天，后边因为重装系统，也没活多长时间。</p>
-<p>这玩意儿确实要麻烦点，平台，数据库，要想好看还得还一大堆插件，关键你写东西还要登入后台，而且还要在那个输入的小框用各种格式来控制格式，用惯了纯文本的编辑器来倒腾这些真的很让人受不了啊亲。</p>
-<h2>jekyll</h2>
-<p>遇见这个神器还要谢谢<a href="http://www.yangzhiping.com/">阳志平老师的博客</a>的推荐，其实一开始我感兴趣的是<a href="http://octopress.org/">Octopress</a>，因为他看着跟WP差不多，但是随着深入理解我发现了幕后的英雄<a href="https://github.com/mojombo/jekyll">jekyll</a>。
-本着从简从的原则，我开始摆弄这玩意儿。因为办公室的狗屁网络环境，之前在弄ruby的工具gem时候费了我不少周章。具体动手玩的指南请看<a href="https://github.com/mojombo/jekyll/wiki">WiKi</a> 。就像玩Arch的同志一样，不看wiki你注定要死得很惨或者毫无头绪。
-伟大的开源造就了很多让你想不到的神物，这是我使用github之后唯一的感慨，无疑jekyll就是其中之一，当然还有现在我正在使用中的Oh-My-Zsh等等。虽然作为半个苦逼的写C的码农，对于前端的各式五花八门的技术不懂，但觉着这么简洁给力的博客系统不用实在是太对不起我码农的称号了，在加上git和md的加持，真的是方便到没话说。</p>
-                        </div><!-- /dev-entry-content -->
-                        <a class="jump" href="../born-this-way.html">more</a>
-                    </article>
-                </li>
                 </ol><!-- /ol-posts-list -->
 <div class="paginationer">
     <p class="paginator">
             <a href="../category/blog3.html">&laquo;</a>
-        Page 4 / 4
+        Page 4 / 5
+            <a href="../category/blog5.html">&raquo;</a>
     </p>
 </div>
                 </section><!-- /section-content -->

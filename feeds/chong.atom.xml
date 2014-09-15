@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>onionisi</title><link href="www.onionisi.com/" rel="alternate"></link><link href="www.onionisi.com/feeds/chong.atom.xml" rel="self"></link><id>www.onionisi.com/</id><updated>2012-06-20T00:00:00+08:00</updated><entry><title>"stat and close()"</title><link href="www.onionisi.com/stat-and-close.html" rel="alternate"></link><updated>2012-06-20T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2012-06-20:www.onionisi.com/stat-and-close.html</id><summary type="html">&lt;h1&gt;file stat and file close&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>onionisi</title><link href="www.onionisi.com/" rel="alternate"></link><link href="www.onionisi.com/feeds/chong.atom.xml" rel="self"></link><id>www.onionisi.com/</id><updated>2013-06-05T00:00:00+08:00</updated><entry><title>工作的一天</title><link href="www.onionisi.com/common_day.html" rel="alternate"></link><updated>2013-06-05T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2013-06-05:www.onionisi.com/common_day.html</id><summary type="html">&lt;h3&gt;学习依然是头等大事&lt;/h3&gt;
+&lt;p&gt;早上就initrd和initramfs进行了一下深入的学习，主要参考文档就是黄敬群老师的博客。打个比方，可能不确切，但是话糙理不糙，init阶段的文件系统就像你高考前的备考，没有这个阶段注定要失败滴。话说黄老师真的是牛X，特别是对于一些系统底层的细节。&lt;/p&gt;
+&lt;p&gt;中午波哥吃完午饭就回家准备收麦子了，真的是幸福的码农，请了半个月农忙假。&lt;/p&gt;
+&lt;p&gt;下午遇到个奇怪的事情，整理文档发现原来写的小程序demo.py，想试试运行效率，却始终始终执行不了。妈蛋是权限问题么，查看了都没有问题。后边发现是磁盘挂载时忘了&lt;code&gt;exec&lt;/code&gt;了，我的个乖乖，改之遂好。&lt;/p&gt;
+&lt;h3&gt;萌生去意&lt;/h3&gt;
+&lt;p&gt;下午开会讨论了一下后续EOC工作的分工，心里很复杂，一群照着demo板布PCB的硬件工程师要指挥软件架构，还是好好准备简历吧。&lt;/p&gt;
+&lt;h3&gt;新室友到来&lt;/h3&gt;
+&lt;p&gt;晚上李佑成准备要搬过来，和他聊了会，家常琐碎。亮点就是他可能有5V2.5A的电源，虽然我需要的是3A，不过明天还是可以试试的硬盘能带起来不能。我手头的cubieboard因为没有合适的电源，那块2.5寸的硬盘已经快积灰了。早就装上了archlinux_arm，还是不错，平时在办公室因为网络的限制，也只能弄来玩玩驱动，配配网络。如若硬盘能带起来，就搞个NAS玩啰。&lt;/p&gt;
+&lt;h3&gt;洗洗睡&lt;/h3&gt;
+&lt;p&gt;看会十亿消费者就准备睡了，明天见。&lt;/p&gt;</summary><category term="daily"></category><category term="work"></category></entry><entry><title>stat and close()</title><link href="www.onionisi.com/stat-and-close.html" rel="alternate"></link><updated>2012-06-20T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2012-06-20:www.onionisi.com/stat-and-close.html</id><summary type="html">&lt;h1&gt;file stat and file close&lt;/h1&gt;
 &lt;h2&gt;file stat&lt;/h2&gt;
 &lt;p&gt;中午吃饭的时候突然聊起了权限，笑777是bus，有点混淆stat的结构了，下午回来看了stat.h&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// 出自bits/stat.h&lt;/span&gt;
@@ -47,7 +56,7 @@
 system to flush the buffers when the stream is closed.  If you need to be sure that the data is physically stored use fsync(2).  (It will depend  on
 the disk hardware at this point.)&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;所以要感谢那位执着的哥们。&lt;/p&gt;</summary><category term="linux C"></category><category term="filesystem"></category></entry><entry><title>"the proxy of Ubuntu"</title><link href="www.onionisi.com/proxy-of-ubuntu.html" rel="alternate"></link><updated>2012-05-17T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2012-05-17:www.onionisi.com/proxy-of-ubuntu.html</id><summary type="html">&lt;h1&gt;ubuntu的代理&lt;/h1&gt;
+&lt;p&gt;所以要感谢那位执着的哥们。&lt;/p&gt;</summary><category term="linux C"></category><category term="filesystem"></category></entry><entry><title>the proxy of Ubuntu</title><link href="www.onionisi.com/proxy-of-ubuntu.html" rel="alternate"></link><updated>2012-05-17T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2012-05-17:www.onionisi.com/proxy-of-ubuntu.html</id><summary type="html">&lt;h1&gt;ubuntu的代理&lt;/h1&gt;
 &lt;p&gt;办公室的网络总是那么不给力，每个所部各分了一个IP能够上外网，我们只能用代理
 来凑合上网了。&lt;/p&gt;
 &lt;h2&gt;全局代理&lt;/h2&gt;
@@ -481,7 +490,7 @@ fi
 
 &lt;p&gt;欧欧欧...我觉得我都在粘代码了，还是大神linus说得对RTFSC，同志们还是直接去看
 吧，直接明了。&lt;/p&gt;
-&lt;p&gt;下一步就是我要把我先前的顺手货拆开再组装上去，未完待续哦...&lt;/p&gt;</summary><category term="shell"></category><category term="src"></category><category term="zsh"></category></entry><entry><title>"/run的由来"</title><link href="www.onionisi.com/linux-run-dir.html" rel="alternate"></link><updated>2012-03-27T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2012-03-27:www.onionisi.com/linux-run-dir.html</id><summary type="html">&lt;p&gt;熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。&lt;/p&gt;
+&lt;p&gt;下一步就是我要把我先前的顺手货拆开再组装上去，未完待续哦...&lt;/p&gt;</summary><category term="shell"></category><category term="src"></category><category term="zsh"></category></entry><entry><title>/run的由来</title><link href="www.onionisi.com/linux-run-dir.html" rel="alternate"></link><updated>2012-03-27T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:,2012-03-27:www.onionisi.com/linux-run-dir.html</id><summary type="html">&lt;p&gt;熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。&lt;/p&gt;
 &lt;h2&gt;/run目录的诞生&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;各主要发行版阵营的重要人物讨论了/dev目录被滥用的情况，希望在该问题还没有扩大化前找到解决方案。他们提出了各种方案，但所有方案都归结到一点，/var/run目录不应在/var目录下，它可以提升到根目录下，这是唯一简洁明了的方案。&lt;/p&gt;

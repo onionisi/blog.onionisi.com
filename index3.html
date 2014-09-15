@@ -41,7 +41,29 @@
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="./proxy-of-ubuntu.html" rel="bookmark" title="Permalink to "the proxy of Ubuntu"">"the proxy of Ubuntu"</a></h3>
+                            <h3 class="entry-title"><a href="./stat-and-close.html" rel="bookmark" title="Permalink to stat and close()">stat and close()</a></h3>
+                            <aside class="entry-title-date">2012-06-20</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <h1>file stat and file close</h1>
+<h2>file stat</h2>
+<p>中午吃饭的时候突然聊起了权限，笑777是bus，有点混淆stat的结构了，下午回来看了stat.h</p>
+<div class="highlight"><pre><span class="c1">// 出自bits/stat.h</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISUID</span>   <span class="mh">04000</span>   <span class="cm">/* Set user ID on execution.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISGID</span>   <span class="mh">02000</span>   <span class="cm">/* Set group ID on execution.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISVTX</span>   <span class="mh">01000</span>   <span class="cm">/* Save swapped text after use (sticky).  */</span>   
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_IREAD</span>   <span class="mh">0400</span>    <span class="cm">/* Read by owner.  */</span> 
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_IWRITE</span>  <span class="mh">0200</span>    <span class="cm">/* Write ...</span></pre></div>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="./stat-and-close.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="./proxy-of-ubuntu.html" rel="bookmark" title="Permalink to the proxy of Ubuntu">the proxy of Ubuntu</a></h3>
                             <aside class="entry-title-date">2012-05-17</aside>
                         </header>
 
@@ -93,51 +115,11 @@ TARGET=LFS 6.7</p>
                         <a class="jump" href="./LFS_build_process.html">more</a>
                     </article>
                 </li>
-
-                <li>
-                    <article class="entry">
-                        <header>
-                            <h3 class="entry-title"><a href="./oh-my-zsh.html" rel="bookmark" title="Permalink to oh-my-zsh的芯">oh-my-zsh的芯</a></h3>
-                            <aside class="entry-title-date">2012-04-17</aside>
-                        </header>
-
-                        <div class="entry-content">
-                            <p>用zsh有一段时间了，前段时间在github上找见了这个神奇的项目，试用起来果然还是
-很有爱。但是之前的配置已经有我比较熟悉的快捷键，所以还是要改造一番，美其名曰
-本地化。</p>
-<h2>主配置.zshrc</h2>
-<p>主配置很简洁，主要功能就是选主题选插件，形式各样的千奇百怪的prompt，各种功能
-不同的插件，可根据发行版，版本控制工具进行选择，大家各取所需。
-这也就是vim、firefox这些软件强大的原因---有广大的同志还开发插件！所以说群众
-的力量是无穷的。</p>
-<p>下边就是主体程序的目录结构：</p>
-<div class="highlight"><pre><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">onionisi</span><span class="o">/</span><span class="p">.</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">cache</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">custom</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">lib</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">log</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">plugins</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">templates</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">themes</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">tools</span><span class="o">/</span>
-<span class="o">|-</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="p">.</span><span class="n">sh</span>
-<span class="err">`</span><span class="o">-</span><span class="n">README</span><span class="p">.</span><span class="n">textile</span>
-</pre></div>
-
-
-<h2>oh-my-zsh.sh</h2>
-<p>这个脚本才开始真正进入主题。</p>
-<h3>upgrade</h3>
-<div class="highlight"><pre><span class="cp"># Check for updates on ...</span></pre></div>
-                        </div><!-- /dev-entry-content -->
-                        <a class="jump" href="./oh-my-zsh.html">more</a>
-                    </article>
-                </li>
                 </ol><!-- /ol-posts-list -->
 <div class="paginationer">
     <p class="paginator">
             <a href="./index2.html">&laquo;</a>
-        Page 3 / 4
+        Page 3 / 5
             <a href="./index4.html">&raquo;</a>
     </p>
 </div>

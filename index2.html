@@ -103,29 +103,30 @@
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="./stat-and-close.html" rel="bookmark" title="Permalink to "stat and close()"">"stat and close()"</a></h3>
-                            <aside class="entry-title-date">2012-06-20</aside>
+                            <h3 class="entry-title"><a href="./common_day.html" rel="bookmark" title="Permalink to 工作的一天">工作的一天</a></h3>
+                            <aside class="entry-title-date">2013-06-05</aside>
                         </header>
 
                         <div class="entry-content">
-                            <h1>file stat and file close</h1>
-<h2>file stat</h2>
-<p>中午吃饭的时候突然聊起了权限，笑777是bus，有点混淆stat的结构了，下午回来看了stat.h</p>
-<div class="highlight"><pre><span class="c1">// 出自bits/stat.h</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISUID</span>   <span class="mh">04000</span>   <span class="cm">/* Set user ID on execution.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISGID</span>   <span class="mh">02000</span>   <span class="cm">/* Set group ID on execution.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISVTX</span>   <span class="mh">01000</span>   <span class="cm">/* Save swapped text after use (sticky).  */</span>   
-<span class="p">#</span><span class="n">define</span> <span class="no">__S_IREAD</span>   <span class="mh">0400</span>    <span class="cm">/* Read by owner.  */</span> 
-<span class="p">#</span><span class="n">define</span> <span class="no">__S_IWRITE</span>  <span class="mh">0200</span>    <span class="cm">/* Write ...</span></pre></div>
+                            <h3>学习依然是头等大事</h3>
+<p>早上就initrd和initramfs进行了一下深入的学习，主要参考文档就是黄敬群老师的博客。打个比方，可能不确切，但是话糙理不糙，init阶段的文件系统就像你高考前的备考，没有这个阶段注定要失败滴。话说黄老师真的是牛X，特别是对于一些系统底层的细节。</p>
+<p>中午波哥吃完午饭就回家准备收麦子了，真的是幸福的码农，请了半个月农忙假。</p>
+<p>下午遇到个奇怪的事情，整理文档发现原来写的小程序demo.py，想试试运行效率，却始终始终执行不了。妈蛋是权限问题么，查看了都没有问题。后边发现是磁盘挂载时忘了<code>exec</code>了，我的个乖乖，改之遂好。</p>
+<h3>萌生去意</h3>
+<p>下午开会讨论了一下后续EOC工作的分工，心里很复杂，一群照着demo板布PCB的硬件工程师要指挥软件架构，还是好好准备简历吧。</p>
+<h3>新室友到来</h3>
+<p>晚上李佑成准备要搬过来，和他聊了会，家常琐碎。亮点就是他可能有5V2.5A的电源，虽然我需要的是3A，不过明天还是可以试试的硬盘能带起来不能。我手头的cubieboard因为没有合适的电源，那块2.5寸的硬盘已经快积灰了。早就装上了archlinux_arm，还是不错，平时在办公室因为网络的限制，也只能弄来玩玩驱动，配配网络。如若硬盘能带起来，就搞个NAS玩啰。</p>
+<h3>洗洗睡</h3>
+<p>看会十亿消费者就准备睡了 ...</p>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="./stat-and-close.html">more</a>
+                        <a class="jump" href="./common_day.html">more</a>
                     </article>
                 </li>
                 </ol><!-- /ol-posts-list -->
 <div class="paginationer">
     <p class="paginator">
             <a href="./index.html">&laquo;</a>
-        Page 2 / 4
+        Page 2 / 5
             <a href="./index3.html">&raquo;</a>
     </p>
 </div>
