@@ -266,4 +266,568 @@ untrust！！！&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;再也不用担心NFS挂载的麻烦啦。&lt;/p&gt;</summary><category term="OSX"></category><category term="linux"></category><category term="timemachine"></category></entry></feed>
+&lt;p&gt;再也不用担心NFS挂载的麻烦啦。&lt;/p&gt;</summary><category term="OSX"></category><category term="linux"></category><category term="timemachine"></category></entry><entry><title>工作的一天</title><link href="http://www.onionisi.com/common_day.html" rel="alternate"></link><updated>2013-06-05T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2013-06-05:common_day.html</id><summary type="html">&lt;h3&gt;学习依然是头等大事&lt;/h3&gt;
+&lt;p&gt;早上就initrd和initramfs进行了一下深入的学习，主要参考文档就是黄敬群老师的博客。打个比方，可能不确切，但是话糙理不糙，init阶段的文件系统就像你高考前的备考，没有这个阶段注定要失败滴。话说黄老师真的是牛X，特别是对于一些系统底层的细节。&lt;/p&gt;
+&lt;p&gt;中午波哥吃完午饭就回家准备收麦子了，真的是幸福的码农，请了半个月农忙假。&lt;/p&gt;
+&lt;p&gt;下午遇到个奇怪的事情，整理文档发现原来写的小程序demo.py，想试试运行效率，却始终始终执行不了。妈蛋是权限问题么，查看了都没有问题。后边发现是磁盘挂载时忘了&lt;code&gt;exec&lt;/code&gt;了，我的个乖乖，改之遂好。&lt;/p&gt;
+&lt;h3&gt;萌生去意&lt;/h3&gt;
+&lt;p&gt;下午开会讨论了一下后续EOC工作的分工，心里很复杂，一群照着demo板布PCB的硬件工程师要指挥软件架构，还是好好准备简历吧。&lt;/p&gt;
+&lt;h3&gt;新室友到来&lt;/h3&gt;
+&lt;p&gt;晚上李佑成准备要搬过来，和他聊了会，家常琐碎。亮点就是他可能有5V2.5A的电源，虽然我需要的是3A，不过明天还是可以试试的硬盘能带起来不能。我手头的cubieboard因为没有合适的电源，那块2.5寸的硬盘已经快积灰了。早就装上了archlinux_arm，还是不错，平时在办公室因为网络的限制，也只能弄来玩玩驱动，配配网络。如若硬盘能带起来，就搞个NAS玩啰。&lt;/p&gt;
+&lt;h3&gt;洗洗睡&lt;/h3&gt;
+&lt;p&gt;看会十亿消费者就准备睡了，明天见。&lt;/p&gt;</summary><category term="daily"></category><category term="work"></category></entry><entry><title>stat and close()</title><link href="http://www.onionisi.com/stat-and-close.html" rel="alternate"></link><updated>2012-06-20T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-06-20:stat-and-close.html</id><summary type="html">&lt;h1&gt;file stat and file close&lt;/h1&gt;
+&lt;h2&gt;file stat&lt;/h2&gt;
+&lt;p&gt;中午吃饭的时候突然聊起了权限，笑777是bus，有点混淆stat的结构了，下午回来看了stat.h&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// 出自bits/stat.h&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;__S_ISUID&lt;/span&gt;   &lt;span class="mh"&gt;04000&lt;/span&gt;   &lt;span class="cm"&gt;/* Set user ID on execution.  */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;__S_ISGID&lt;/span&gt;   &lt;span class="mh"&gt;02000&lt;/span&gt;   &lt;span class="cm"&gt;/* Set group ID on execution.  */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;__S_ISVTX&lt;/span&gt;   &lt;span class="mh"&gt;01000&lt;/span&gt;   &lt;span class="cm"&gt;/* Save swapped text after use (sticky).  */&lt;/span&gt;   
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;__S_IREAD&lt;/span&gt;   &lt;span class="mh"&gt;0400&lt;/span&gt;    &lt;span class="cm"&gt;/* Read by owner.  */&lt;/span&gt; 
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;__S_IWRITE&lt;/span&gt;  &lt;span class="mh"&gt;0200&lt;/span&gt;    &lt;span class="cm"&gt;/* Write by owner.  */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;__S_IEXEC&lt;/span&gt;   &lt;span class="mh"&gt;0100&lt;/span&gt;    &lt;span class="cm"&gt;/* Execute by owner.  */&lt;/span&gt;
+
+&lt;span class="c1"&gt;// 出自sys/stat.h &lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_ISUID&lt;/span&gt; &lt;span class="no"&gt;__S_ISUID&lt;/span&gt;   &lt;span class="cm"&gt;/* Set user ID on execution.  */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_ISGID&lt;/span&gt; &lt;span class="no"&gt;__S_ISGID&lt;/span&gt;   &lt;span class="cm"&gt;/* Set group ID on execution.  */&lt;/span&gt;
+
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;defined&lt;/span&gt; &lt;span class="no"&gt;__USE_BSD&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;defined&lt;/span&gt; &lt;span class="no"&gt;__USE_MISC&lt;/span&gt; &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="n"&gt;defined&lt;/span&gt; &lt;span class="no"&gt;__USE_XOPEN&lt;/span&gt;
+&lt;span class="cm"&gt;/* Save swapped text after use (sticky bit).  This is pretty well obsolete.  */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt; &lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_ISVTX&lt;/span&gt;    &lt;span class="no"&gt;__S_ISVTX&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;endif&lt;/span&gt;
+
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_IWUSR&lt;/span&gt; &lt;span class="no"&gt;__S_IWRITE&lt;/span&gt;  &lt;span class="cm"&gt;/* Write by owner.  */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_IXUSR&lt;/span&gt; &lt;span class="no"&gt;__S_IEXEC&lt;/span&gt;   &lt;span class="cm"&gt;/* Execute by owner.  */&lt;/span&gt;
+&lt;span class="cm"&gt;/* Read, write, and execute by owner.  */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_IRWXU&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;__S_IREAD&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="no"&gt;__S_IWRITE&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="no"&gt;__S_IEXEC&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_IRGRP&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;S_IRUSR&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mh"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="cm"&gt;/* Read by group.  */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_IWGRP&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;S_IWUSR&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mh"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="cm"&gt;/* Write by group.  */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_IXGRP&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;S_IXUSR&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mh"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="cm"&gt;/* Execute by group.  */&lt;/span&gt;
+&lt;span class="cm"&gt;/* Read, write, and execute by group.  */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_IRWXG&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;S_IRWXU&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mh"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_IROTH&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;S_IRGRP&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mh"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="cm"&gt;/* Read by others.  */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_IWOTH&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;S_IWGRP&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mh"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="cm"&gt;/* Write by others.  */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_IXOTH&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;S_IXGRP&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mh"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="cm"&gt;/* Execute by others.  */&lt;/span&gt;
+&lt;span class="cm"&gt;/* Read, write, and execute by others.  */&lt;/span&gt;
+&lt;span class="p"&gt;#&lt;/span&gt;&lt;span class="n"&gt;define&lt;/span&gt; &lt;span class="no"&gt;S_IRWXO&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="no"&gt;S_IRWXG&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="mh"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;另外还有就是lsattr的那一串属性，大伙知道是怎么来的不？&lt;/p&gt;
+&lt;h2&gt;file close&lt;/h2&gt;
+&lt;p&gt;下午上stack_over_flow发现一个问题，Why do I have to use close() to close a file？&lt;a href="http://stackoverflow.com/questions/11095474/why-do-i-have-to-use-close-to-close-a-file"&gt;链接在此啊&lt;/a&gt;
+热情的筒子们回答得很热烈，但是其中有个哥们觉得他们有些人说的有问题，就是关于close到底处理不处理数据写回到磁盘的操作，我也比较懵，还写了小程序测试，晕，还得出是要回写的结论，结果后边在close的man手册里边的NOTE发现如下一段话。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A  successful  close does not guarantee that the data has been successfully saved to disk, as the kernel defers writes.  It is not common for a file
+system to flush the buffers when the stream is closed.  If you need to be sure that the data is physically stored use fsync(2).  (It will depend  on
+the disk hardware at this point.)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以要感谢那位执着的哥们。&lt;/p&gt;</summary><category term="linux C"></category><category term="filesystem"></category></entry><entry><title>the proxy of Ubuntu</title><link href="http://www.onionisi.com/proxy-of-ubuntu.html" rel="alternate"></link><updated>2012-05-17T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-05-17:proxy-of-ubuntu.html</id><summary type="html">&lt;h1&gt;ubuntu的代理&lt;/h1&gt;
+&lt;p&gt;办公室的网络总是那么不给力，每个所部各分了一个IP能够上外网，我们只能用代理
+来凑合上网了。&lt;/p&gt;
+&lt;h2&gt;全局代理&lt;/h2&gt;
+&lt;p&gt;ubuntu的全局代理保存在/etc/enviroment，如果是使用gnome桌面的同志可以直接
+通过图形界面进行操作，最近办公室的同事都流行轻量且不过太简单的xfce，没有
+这个直接的功能，还是操作文件来的快捷。&lt;/p&gt;
+&lt;h2&gt;apt代理&lt;/h2&gt;
+&lt;p&gt;之前我还以为他直接用的环境变量的全局值，结果事实证明我错了，额还是没有apt
+（聪明）聪明啊，他的代理在他的配置文件里，打开就能看见，路径就不用说了吧&lt;/p&gt;
+&lt;h2&gt;其他代理&lt;/h2&gt;
+&lt;p&gt;wget这个老当亦壮的东东也能在配置文件中设置代理，各位看官自行打开做相应更改
+便行。&lt;/p&gt;
+&lt;p&gt;其实这些软件设不设代理都不重要，只要你配好了proxychains，再来个行头的自行
+插入proxychains，呵呵...自行放狗搜搜&lt;/p&gt;
+&lt;h2&gt;吐槽&lt;/h2&gt;
+&lt;p&gt;升了12.04的系统没多大感觉，本来本人又不用unity，口味越发清淡，想往WM转了，
+之前整了个#！，也没时间玩，最近项目空闲点了，把超级本的arch也好好配配。&lt;/p&gt;
+&lt;p&gt;PS:主要是来冒个泡，很久没更新了，另入了kindle3，webos的东东，玩着还有意思，
+哪天实在是闲着没事，在分享个心得。&lt;/p&gt;</summary><category term="system"></category><category term="skill"></category><category term="linux"></category><category term="distro"></category></entry><entry><title>"旧文翻新之LFS和我第一次"</title><link href="http://www.onionisi.com/LFS_build_process.html" rel="alternate"></link><updated>2012-04-18T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-04-18:LFS_build_process.html</id><summary type="html">&lt;p&gt;此文乃去年上班闲暇之余，作为深入学习linux之用，发表于内部服务器，今转过来以示纪念。当中各种陋见只怕贻笑大方了，若不慎入眼还望海涵。&lt;/p&gt;
+&lt;h2&gt;任务综述&lt;/h2&gt;
+&lt;p&gt;断断续续折腾近两周了今天我的LFS已经启动起来了啊，呵呵。。。&lt;/p&gt;
+&lt;p&gt;HOST=Ubuntu 2.6.35
+TARGET=LFS 6.7&lt;/p&gt;
+&lt;p&gt;最新发布的 LFS 是 6.8，好像就在我决定开始弄6.7的那天起发布的&lt;/p&gt;
+&lt;p&gt;LFS的项目有好几个，LFS是最基本的，完成之后也只是个最最基础的系统，要想更顺手更丰富的就有BLFS，是基于LFS的，之后还有更进阶的 HLFS&lt;/p&gt;
+&lt;p&gt;还有CLFS和ALFS，C 就是 Cross交叉编译的，A 就是Auto，用脚本自动的实现的&lt;/p&gt;
+&lt;p&gt;为了好好学习，我还是老老实实 step by step来吧 &lt;/p&gt;
+&lt;p&gt;手册其实写得相当详尽，但难免有自己手动的时候有事物，另外手册对原码包的操作都只提了一下，有些地方还需要注意&lt;/p&gt;
+&lt;p&gt;比较麻烦的是就是编译工具链的时候，其中GCC Glibc Binutils这三兄弟相当关键，先是要用他们编译出编译工具链的编译环境，然后再用他们出来的工具链编译整个儿系统&lt;/p&gt;
+&lt;p&gt;这三兄弟要来回折腾三下，其中的Gcc Glibc尤为关键，也容易出错&lt;/p&gt;
+&lt;p&gt;一般的源码安装方式为 ./configure &amp;amp;&amp;amp; make &amp;amp;&amp;amp; make install&lt;/p&gt;
+&lt;p&gt;在LFS中由于特定的版本和包相互之间的依赖，所以在配置之前还会patch上相应的补丁，用 sed 修改某些配置文件 &lt;/p&gt;
+&lt;p&gt;另外比较重要的就是关于分区，权限以及命令执行路径的问题，
+分区看个人喜好而定，我的磁盘空间不多，挤了5G出来直接挂/，swap和HOST共用，有条件把盘分细点最好
+新建一个用户，重新配置他的环境变量一系列，特别涉及到 PATH ，为的都是要和HOST分开从而使用自己新编译的工具链&lt;/p&gt;
+&lt;p&gt;其中关于 PATH ，他的几次变化相当相当有里程碑意义啊&lt;/p&gt;
+&lt;p&gt;切记！！！！！！！！！每次reboot之后一定要重新挂载你的分区啊，或者直接写进 fstab 
+不然你就悲剧了，邮件组就有这样的兄弟，看得我扼腕叹息啊&lt;/p&gt;
+&lt;p&gt;最后就是关于包的 test ,我认为除了Gcc和Glibc外，其他的没多大必要，而且相当耗时&lt;/p&gt;
+&lt;h3&gt;九九八十一难&lt;/h3&gt;
+&lt;hr /&gt;
+&lt;p&gt;LFS  Gcc Pass1 08.19/2011&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;../gcc-4.5.1/configure --target=$LFS_TGT --prefix=/tools --disable-nls --disable-shared --disable-multilib --disable-decimal-float --disable-threads --disable-libmudflap --disable-libssp --disable-libgomp --enable-languages=c --with-gmp-include=$LFS/sources/gmp --with-gmp-lib=$LFS/sources/gmp/.libs --without-ppl --without-cloog --with-gmp=$LFS/sources/gmp --with-mpfr=$LFS/sources/mpfr --with-mpc=$LFS/sources/mpc --with-mpfr-include=$LFS/sources/mpfr --with-mpfr-lib=$LFS/sources/mpfr/.libs --with-mpc-include=$LFS/sources/mpc --with-mpc-lib=$LFS/sources/mpc/.libs&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;要注意的是gmp mpc mpfr这三个math库的包解压之后要放入Gcc的包内，不然会比较悲剧，我之前就在这儿犯了错，然后直接将gmp mpc mpfr安装在HOST上，通过--with-gmp=/usr/local --with-mpfr=/usr/local --with-mpc=/usr/local调用他们的.so，幸好是第一遍，都用主机的环境&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;LFS  Glibc  08.22/2011&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;../glibc-2.12.1/configure --prefix=/tools --host=$LFS_TGT --build=$(../glibc-2.12.1/scripts/config.guess) --disable-profile --enable-add-ons --enable-kernel=2.6.22.5 --with-headers=/tools/include libc_cv_forced_unwind=yes libc_cv_c_cleanup=yes&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;In file included from ../sysdeps/unix/sysv/linux/syslog.c:10:0:
+../misc/syslog.c: In function '__vsyslog_chk':
+../misc/syslog.c:123:1: sorry, unimplemented: inlining failed in call to 'syslog': function body not available
+../misc/syslog.c:155:9: sorry, unimplemented: called from here&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这是 make 直接提示的错误，下边是 log 里详细的错误&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;/mnt/lfs/sources/glibc-build/elf/librtld.os: In function &lt;code&gt;print_statistics':
+/mnt/lfs/sources/glibc-2.12.1/elf/rtld.c:2842: undefined reference to&lt;/code&gt;__stack_chk_fail_local'
+/mnt/lfs/sources/glibc-build/elf/librtld.os: In function &lt;code&gt;process_dl_debug':
+/mnt/lfs/sources/glibc-2.12.1/elf/rtld.c:2478: undefined reference to&lt;/code&gt;__stack_chk_fail_local'
+/mnt/lfs/sources/glibc-build/elf/librtld.os: In function &lt;code&gt;process_envvars':
+/mnt/lfs/sources/glibc-2.12.1/elf/rtld.c:2737: undefined reference to&lt;/code&gt;__stack_chk_fail_local'
+/mnt/lfs/sources/glibc-build/elf/librtld.os: In function &lt;code&gt;dl_main':
+/mnt/lfs/sources/glibc-2.12.1/elf/rtld.c:2358: undefined reference to&lt;/code&gt;__stack_chk_fail_local'
+/mnt/lfs/sources/glibc-build/elf/librtld.os: In function &lt;code&gt;print_search_path':
+/mnt/lfs/sources/glibc-2.12.1/elf/dl-load.c:1558: undefined reference to&lt;/code&gt;__stack_chk_fail_local'
+/mnt/lfs/sources/glibc-build/elf/librtld.os:/mnt/lfs/sources/glibc-2.12.1/elf/dl-load.c:1808: more undefined references to &lt;code&gt;__stack_chk_fail_local' follow
+/usr/bin/ld: /mnt/lfs/sources/glibc-build/elf/ld.so: hidden symbol&lt;/code&gt;__stack_chk_fail_local' isn't defined
+/usr/bin/ld: final link failed: Nonrepresentable section on output&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;上邮件列表找了之后发现，有人说是重复编译了，我确实是忘了clean了  ；）...&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The reason: An already compiled xxx.o file which "uses" the __stack_chk_fail_local.&lt;/p&gt;
+&lt;p&gt;This is the cause of not compiling the original xxx.cxx file due to performance.&lt;/p&gt;
+&lt;p&gt;Solution: make clean and than make&lt;/p&gt;
+&lt;p&gt;Hope this helps....
+PS: always make clean&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;不过还是不行，我还重新又解压，还是不行，只好继续放狗（google）,终于如下，当时草草看了一下帮助，记得还有个与-U_FORTIFY_SOURCE长的差不多的选项，
+也没细看，不知道是神马意思，有知道的童鞋，就谢谢了啊，麻烦告知一声&lt;/p&gt;
+&lt;p&gt;原手册：echo "CFLAGS  += -march=i686 -mtune=native" &amp;gt;&amp;gt; configparms
+创建文件：echo "CFLAGS  += -march=i686 -mtune=native -U_FORTIFY_SOURCE" &amp;gt;&amp;gt; configparms&lt;/p&gt;
+&lt;p&gt;这句据说容易出错，特摘录再次，以便copy             另手册对sed疼爱有加，故童鞋门要多多熟悉&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;LFS_TGT&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;gcc&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dumpspecs&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;64&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="o"&gt;?/&lt;/span&gt;&lt;span class="n"&gt;ld&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;/^\*cpp:$/{n;s,$, -isystem /tools/include,}&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;SPECS&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+&lt;p&gt;LFS  Gcc - pass2  08.23/2011&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;CC&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;$LFS_TGT-gcc -B/tools/lib/&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;AR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;LFS_TGT&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ar&lt;/span&gt; &lt;span class="n"&gt;RANLIB&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;LFS_TGT&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ranlib&lt;/span&gt; &lt;span class="p"&gt;..&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;gcc&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;4.5.1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;configure&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;prefix&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;with&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;prefix&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;clocale&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;gnu&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;shared&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;threads&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;posix&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;__cxa_atexit&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;languages&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;disable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;libstdcxx&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pch&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;disable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;multilib&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;disable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;bootstrap&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;disable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;libgomp&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;with&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;gmp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;include&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pwd&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;gmp&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;with&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;gmp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pwd&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;gmp&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;libs&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;without&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ppl&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;without&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;cloog&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;正&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;CC&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;$LFS_TGT-gcc -B/tools/lib/&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;AR&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;LFS_TGT&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ar&lt;/span&gt; &lt;span class="n"&gt;RANLIB&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;LFS_TGT&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ranlib&lt;/span&gt; &lt;span class="p"&gt;..&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;gcc&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;4.5.1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;configure&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;prefix&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;with&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;prefix&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;clocale&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;gnu&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;shared&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;threads&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;posix&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;__cxa_atexit&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;enable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;languages&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;disable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;libstdcxx&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pch&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;disable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;multilib&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;disable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;bootstrap&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;disable&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;libgomp&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;without&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ppl&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;without&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;cloog&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;with&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;gmp&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;with&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mpfr&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;with&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mpc&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;误&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;鄙人延用第一次的命令，果然错你没商量，谨记记得包的位置，因为此时已经是Pass 2,用的是之前编译出来的零时工具链&lt;/p&gt;
+&lt;p&gt;这句也是不好输入，留作印刷&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;/^&lt;/span&gt;&lt;span class="n"&gt;T_CFLAGS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="o"&gt;/&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fomit&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pointer&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;gcc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Makefile&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;in&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tmp&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;gcc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Makefile&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;in&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+&lt;p&gt;LFS  chroot  08.25/2011&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;mount&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda13&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;LFS&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;mount&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;bind&lt;/span&gt;     &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;LFS&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;mount&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;vt&lt;/span&gt; &lt;span class="n"&gt;devpts&lt;/span&gt;    &lt;span class="n"&gt;devpts&lt;/span&gt;  &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;LFS&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pts&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;mount&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;vt&lt;/span&gt; &lt;span class="n"&gt;tmpfs&lt;/span&gt;     &lt;span class="n"&gt;shm&lt;/span&gt;     &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;LFS&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;shm&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;mount&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;vt&lt;/span&gt; &lt;span class="n"&gt;proc&lt;/span&gt;      &lt;span class="n"&gt;proc&lt;/span&gt;    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;LFS&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;proc&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;mount&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;vt&lt;/span&gt; &lt;span class="n"&gt;sysfs&lt;/span&gt;     &lt;span class="n"&gt;sysfs&lt;/span&gt;   &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;LFS&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这里很关键，这是每次重启之后居家旅行必备之指令，我把他们合几为一了
+再次提醒，一定要挂载你的磁盘啊，之后就 chroot ，看好这里的 PATH 变啦&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;chroot&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;$LFS&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;HOME&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="n"&gt;TERM&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;$TERM&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;PS1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;\&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="err"&gt;\$&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="n"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bash&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;login&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;编译完第6章之后，chroot 的 PATH 还要发生变化，真是变形金刚啊&lt;/p&gt;
+&lt;h3&gt;工具链初长成&lt;/h3&gt;
+&lt;p&gt;之后再编译进去几个包，我们的完整工具链就好啦，我把我的已经打好包了，有需要的同学可以问我要，就不用经受上边一系列痛苦了&lt;/p&gt;
+&lt;p&gt;下边我们就可以开始构建系统啦，一定要小心小心再小心啊，下边就是我两个手误的表现&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;LFS  Glibc  08.25/2011&lt;/p&gt;
+&lt;p&gt;编译完 C 库之后有个检验，cc 直接刮掉，吓死我了，这都不过，岂不前功尽弃
+翻 log ，细错如下&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;attempt to open /usr/lib/crt1.o succeeded
+/usr/lib/crt1.o
+attempt to open /usr/lib/crti.o succeeded
+/usr/lib/crti.o
+attempt to open /tools/lib/gcc/i686-pc-linux-gnu/4.0.3/crtbegin.o succeeded
+/tools/lib/gcc/i686-pc-linux-gnu/4.0.3/crtbegin.o
+attempt to open /tmp/ccTyfGyo.o succeeded
+/tmp/ccTyfGyo.o
+attempt to open /tools/lib/gcc/i686-pc-linux-gnu/4.0.3/libgcc.so failed
+attempt to open /tools/lib/gcc/i686-pc-linux-gnu/4.0.3/libgcc.a succeeded
+attempt to open /tools/lib/gcc/i686-pc-linux-gnu/4.0.3/libgcc_s.so failed
+attempt to open /tools/lib/gcc/i686-pc-linux-gnu/4.0.3/libgcc_s.a failed
+attempt to open /tools/lib/gcc/i686-pc-linux-gnu/4.0.3/../../../../i686-pc-linux-gnu/lib/libgcc_s.so failed
+attempt to open /tools/lib/gcc/i686-pc-linux-gnu/4.0.3/../../../../i686-pc-linux-gnu/lib/libgcc_s.a failed
+attempt to open /tools/bin/../i686-pc-linux-gnu/lib/libgcc_s.so failed
+attempt to open /tools/bin/../i686-pc-linux-gnu/lib/libgcc_s.a failed
+attempt to open /tools/i686-pc-linux-gnu/lib/libgcc_s.so failed
+attempt to open /tools/i686-pc-linux-gnu/lib/libgcc_s.a failed
+attempt to open /usr/lib/libgcc_s.so failed
+attempt to open /usr/lib/libgcc_s.a failed
+attempt to/tools/lib/gcc/i686-pc-linux-gnu/4.0.3/../../../../i686-pc-linux-gnu/bin/ld: cannot find -lgcc_s
+open /lib/libgcc_s.so failed
+attempt to open /lib/libgcc_s.a failed
+collect2: ld returned 1 exit status&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;查看相应文件，健在
+肿么啦，不都有么？为嘛failed
+不断放狗，见同错，无人解啊，心灰意冷准备重新编译
+遂前往 /usr/bin 查看文件以备删除，无意撞见 .so 混迹于此
+大怒，细查之，发现出现如此低级失误，lib bin竟傻傻分不清楚&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;ln&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;sv&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;bash&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;cat&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;echo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;pwd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;stty&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;
+&lt;span class="n"&gt;ln&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;sv&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;perl&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;
+&lt;span class="err"&gt;@@@&lt;/span&gt; &lt;span class="err"&gt;自己路径出错&lt;/span&gt; &lt;span class="o"&gt;^&lt;/span&gt;&lt;span class="n"&gt;_&lt;/span&gt;&lt;span class="o"&gt;^&lt;/span&gt;
+&lt;span class="n"&gt;ln&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;sv&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;libgcc_s&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;so&lt;/span&gt;&lt;span class="p"&gt;{,&lt;/span&gt;&lt;span class="mf"&gt;.1&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;
+&lt;span class="n"&gt;ln&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;sv&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;libstdc&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;so&lt;/span&gt;&lt;span class="p"&gt;{,&lt;/span&gt;&lt;span class="mf"&gt;.6&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;
+&lt;span class="err"&gt;@@@&lt;/span&gt;
+&lt;span class="n"&gt;ln&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;sv&lt;/span&gt; &lt;span class="n"&gt;bash&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+&lt;p&gt;LFS  Perl  08.25/2011&lt;/p&gt;
+&lt;p&gt;perl 应该也是某个神马咚咚敲错了，连 make 都问题连连，我愤而直接Ctrl + c，再 Shift + Ctrl + v&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;s|BUILD_ZLIB\s*= True|BUILD_ZLIB = False|&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;s|INCLUDE\s*= ./zlib-src|INCLUDE = /usr/include|&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;s|LIB\s*= ./zlib-src|LIB = /usr/lib|&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;cpan&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Compress&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Raw&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Zlib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;in&lt;/span&gt;
+
+
+&lt;span class="n"&gt;sh&lt;/span&gt; &lt;span class="n"&gt;Configure&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;des&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Dprefix&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Dvendorprefix&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Dman1dir&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;share&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;man&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;man1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Dman3dir&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;share&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;man&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;man3&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Dpager&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;/usr/bin/less -isR&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Duseshrplib&lt;/span&gt;
+
+
+&lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="err"&gt;@#&lt;/span&gt;&lt;span class="n"&gt;ENCRYPT_METHOD&lt;/span&gt; &lt;span class="n"&gt;DES&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;ENCRYPT_METHOD&lt;/span&gt; &lt;span class="n"&gt;MD5&lt;/span&gt;&lt;span class="err"&gt;@&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;spool&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mail&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mail&lt;/span&gt;&lt;span class="err"&gt;@&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;login&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;defs&lt;/span&gt;
+
+&lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;Sending&lt;/span&gt; &lt;span class="n"&gt;processes&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;configured&lt;/span&gt; &lt;span class="n"&gt;via&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;inittab&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;init&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;
+
+&lt;span class="n"&gt;sed&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;utmpdump&lt;/span&gt; &lt;span class="n"&gt;wall&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;utmpdump&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mountpoint&lt;/span&gt;&lt;span class="mf"&gt;.1&lt;/span&gt; &lt;span class="n"&gt;wall&lt;/span&gt;&lt;span class="mf"&gt;.1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mountpoint&lt;/span&gt;&lt;span class="mf"&gt;.1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Makefile&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;成人礼&lt;/h3&gt;
+&lt;p&gt;系统软件编译完后就又要变身了，进而好编辑相应的配置文件，前边提到的 chroot 再度登场，以后就是他唱主角了&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;chroot&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;$LFS&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;HOME&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="n"&gt;TERM&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;$TERM&amp;quot;&lt;/span&gt; &lt;span class="n"&gt;PS1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;\&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt;&lt;span class="err"&gt;\$&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="n"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;:/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sbin&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bash&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;login&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+&lt;p&gt;LFS  locale  08.25/2011&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pv&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;locale&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;cs_CZ&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="n"&gt;cs_CZ&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;de_DE&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;ISO&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8859&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;de_DE&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;de_DE&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;euro&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;ISO&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8859&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt; &lt;span class="n"&gt;de_DE&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;euro&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;de_DE&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="n"&gt;de_DE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;en_HK&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;ISO&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8859&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;en_HK&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;en_PH&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;ISO&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8859&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;en_PH&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;en_US&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;ISO&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8859&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;en_US&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;en_US&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="n"&gt;en_US&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;es_MX&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;ISO&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8859&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;es_MX&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;fa_IR&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="n"&gt;fa_IR&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;fr_FR&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;ISO&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8859&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;fr_FR&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;fr_FR&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;euro&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;ISO&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8859&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt; &lt;span class="n"&gt;fr_FR&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;euro&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;fr_FR&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="n"&gt;fr_FR&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;it_IT&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;ISO&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8859&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;it_IT&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;ja_JP&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;EUC&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;JP&lt;/span&gt; &lt;span class="n"&gt;ja_JP&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;tr_TR&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt; &lt;span class="n"&gt;tr_TR&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;UTF&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;
+&lt;span class="n"&gt;localedef&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;zh_CN&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;GB18030&lt;/span&gt; &lt;span class="n"&gt;zh_CN&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GB18030&lt;/span&gt;
+
+&lt;span class="n"&gt;cp&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;remove&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;destination&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;share&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;zoneinfo&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Asia&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Chongqing&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;localtime&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;时区我们肯定选重庆的啦&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;LFS  grub  09.01/2011&lt;/p&gt;
+&lt;p&gt;grub 现在的配置文件是 grub.cfg ,不再是 menu.lst 了，我没有安装 grub, 只是用grub-mkconfig -o /boot/grub/grub.cfg生成了配置文件&lt;/p&gt;
+&lt;p&gt;然后将其中引导系统那一段 copy 到 HOST 的/boot/grub/grub.cfg中了。&lt;/p&gt;
+&lt;p&gt;注意下边的那段话，是一位仁兄在LFS的邮件列表里说的，这位就是那位悲摧的筒子，没有挂载相应分区，做完之后启动不了才发现，太坑爹了......................&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;You&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;not&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;rebooting&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;chroot&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="n"&gt;If&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;followed&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt; &lt;span class="n"&gt;precisely&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;kernel&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; 
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hda0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;boot&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;but&lt;/span&gt; &lt;span class="n"&gt;GRUB&lt;/span&gt; &lt;span class="n"&gt;needs&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;able&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;find&lt;/span&gt; &lt;span class="n"&gt;menu&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfg&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;  &lt;span class="n"&gt;That&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;why&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; 
+&lt;span class="n"&gt;recommend&lt;/span&gt; &lt;span class="n"&gt;installing&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;boot&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;partition&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;about&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="n"&gt;M&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;itself&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;  &lt;span class="n"&gt;All&lt;/span&gt; 
+&lt;span class="n"&gt;distros&lt;/span&gt; &lt;span class="n"&gt;can&lt;/span&gt; &lt;span class="n"&gt;then&lt;/span&gt; &lt;span class="n"&gt;access&lt;/span&gt; &lt;span class="n"&gt;that&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="n"&gt;You&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;procedures&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;Section&lt;/span&gt; &lt;span class="mf"&gt;8.4.3&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+
+&lt;span class="n"&gt;First&lt;/span&gt; &lt;span class="n"&gt;exit&lt;/span&gt; &lt;span class="n"&gt;chroot&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sbin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;reboot&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;  &lt;span class="n"&gt;Then&lt;/span&gt; &lt;span class="n"&gt;go&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;GRUB2&lt;/span&gt; &lt;span class="n"&gt;command&lt;/span&gt; 
+&lt;span class="n"&gt;line&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+
+&lt;span class="n"&gt;grub&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;ls&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hd0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;boot&lt;/span&gt;
+
+&lt;span class="n"&gt;This&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;kernels&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="n"&gt;Then&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;should&lt;/span&gt; &lt;span class="n"&gt;just&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+
+&lt;span class="n"&gt;linux&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hd0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;boot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;my&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;kernel&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;hda3&lt;/span&gt;
+&lt;span class="n"&gt;boot&lt;/span&gt;
+
+&lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;note&lt;/span&gt; &lt;span class="n"&gt;that&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;instructions&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt; &lt;span class="n"&gt;can&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;misread&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;  &lt;span class="mf"&gt;8.4.3&lt;/span&gt; &lt;span class="n"&gt;says&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="s"&gt;&amp;quot;you will need to exit the chroot environment and re-enter it to finish &lt;/span&gt;
+&lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;few&lt;/span&gt; &lt;span class="n"&gt;remaining&lt;/span&gt; &lt;span class="n"&gt;portions&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;   What that means is that you &lt;/span&gt;
+&lt;span class="n"&gt;ned&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;host&lt;/span&gt; &lt;span class="n"&gt;system&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;instructions&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="mf"&gt;8.4.3&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; 
+&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;back&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;chroot&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="mf"&gt;8.4.4&lt;/span&gt; &lt;span class="n"&gt;until&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="mf"&gt;9.3&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+   &lt;span class="o"&gt;--&lt;/span&gt; &lt;span class="n"&gt;Bruce&lt;/span&gt;
+
+&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;Yes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;are&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="n"&gt;ls&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hd0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;msdos3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="n"&gt;and&lt;/span&gt;
+&lt;span class="n"&gt;ls&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hd0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="n"&gt;give&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;same&lt;/span&gt; &lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;that&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt;
+&lt;span class="n"&gt;lost&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;found&lt;/span&gt; &lt;span class="n"&gt;sources&lt;/span&gt; &lt;span class="n"&gt;sys&lt;/span&gt;
+
+&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;mount&lt;/span&gt; &lt;span class="n"&gt;command&lt;/span&gt; &lt;span class="n"&gt;gives&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;following&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+
+&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda1&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="n"&gt;ext4&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rw&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;errors&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;remount&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ro&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;commit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;proc&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;proc&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="n"&gt;proc&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rw&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;noexec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;nosuid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;nodev&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;none&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="n"&gt;sysfs&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rw&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;noexec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;nosuid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;nodev&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;fusectl&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;fs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;fuse&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;connections&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="n"&gt;fusectl&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rw&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;none&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;kernel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;debug&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="n"&gt;debugfs&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rw&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;none&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;kernel&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;security&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="n"&gt;securityfs&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rw&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;none&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="n"&gt;devtmpfs&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rw&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mo"&gt;0755&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;none&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pts&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="n"&gt;devpts&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rw&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;noexec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;nosuid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;gid&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mo"&gt;0620&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;none&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;shm&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="n"&gt;tmpfs&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rw&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;nosuid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;nodev&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;none&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="n"&gt;tmpfs&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rw&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;nosuid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mo"&gt;0755&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;none&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lock&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="n"&gt;tmpfs&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rw&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;noexec&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;nosuid&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;nodev&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;
+
+&lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;am&lt;/span&gt; &lt;span class="n"&gt;sure&lt;/span&gt; &lt;span class="n"&gt;that&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;mounted&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda3&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mnt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lfs&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;running&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;command&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;mount&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;ext3&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda3&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;LFS&lt;/span&gt;
+&lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;problem&lt;/span&gt; &lt;span class="n"&gt;though&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;that&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;rebooted&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;system&lt;/span&gt; &lt;span class="n"&gt;several&lt;/span&gt; &lt;span class="n"&gt;times&lt;/span&gt; &lt;span class="n"&gt;without&lt;/span&gt;
+&lt;span class="n"&gt;remounting&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="n"&gt;manually&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="n"&gt;automatically&lt;/span&gt; &lt;span class="n"&gt;through&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;fstab&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="n"&gt;If&lt;/span&gt; &lt;span class="n"&gt;that&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="n"&gt;one&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;mistakes&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;made&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;then&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;have&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="n"&gt;go&lt;/span&gt; &lt;span class="n"&gt;through&lt;/span&gt; &lt;span class="n"&gt;all&lt;/span&gt;
+&lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;chapters&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;book&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;beginning&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;&lt;span class="o"&gt;?&lt;/span&gt;
+
+&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;Yes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;are&lt;/span&gt; &lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;got&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;bit&lt;/span&gt; &lt;span class="n"&gt;confused&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="mf"&gt;8.4.3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;where&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;found&lt;/span&gt;
+&lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;sentence&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;To accomplish this, you will need to exit the chroot&lt;/span&gt;
+&lt;span class="n"&gt;environment&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;enter&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;finish&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;few&lt;/span&gt; &lt;span class="n"&gt;remaining&lt;/span&gt; &lt;span class="n"&gt;portions&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt;
+&lt;span class="n"&gt;book&lt;/span&gt;&lt;span class="s"&gt;&amp;quot; to be a bit obscure. However, I went back to it and in fact I think&lt;/span&gt;
+&lt;span class="n"&gt;that&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;careful&lt;/span&gt; &lt;span class="n"&gt;reader&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;probably&lt;/span&gt; &lt;span class="n"&gt;understand&lt;/span&gt; &lt;span class="n"&gt;what&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;meant&lt;/span&gt; &lt;span class="n"&gt;there&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;am&lt;/span&gt; &lt;span class="n"&gt;very&lt;/span&gt; &lt;span class="n"&gt;much&lt;/span&gt; &lt;span class="n"&gt;afraid&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;have&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="n"&gt;everything&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;beginning&lt;/span&gt; &lt;span class="n"&gt;due&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt;
+&lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;fact&lt;/span&gt; &lt;span class="n"&gt;that&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda3&lt;/span&gt; &lt;span class="n"&gt;was&lt;/span&gt; &lt;span class="n"&gt;not&lt;/span&gt; &lt;span class="n"&gt;mounted&lt;/span&gt; &lt;span class="n"&gt;throughout&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;installation&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;In&lt;/span&gt;
+&lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="k"&gt;case&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;take&lt;/span&gt; &lt;span class="n"&gt;into&lt;/span&gt; &lt;span class="n"&gt;account&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;remark&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;boot&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;span class="n"&gt;separate&lt;/span&gt; &lt;span class="n"&gt;partition&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;it&lt;/span&gt; &lt;span class="n"&gt;accessible&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;all&lt;/span&gt; &lt;span class="n"&gt;operating&lt;/span&gt; &lt;span class="n"&gt;systems&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;that&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt;
+&lt;span class="n"&gt;Kubuntu&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="n"&gt;LFS&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;can&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;believe&lt;/span&gt; &lt;span class="n"&gt;I&lt;/span&gt; &lt;span class="n"&gt;have&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="n"&gt;everything&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;scratch&lt;/span&gt;
+&lt;span class="n"&gt;again&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt; &lt;span class="n"&gt;thanks&lt;/span&gt; &lt;span class="n"&gt;very&lt;/span&gt; &lt;span class="n"&gt;much&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;help&lt;/span&gt; &lt;span class="n"&gt;though&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;remarks&lt;/span&gt; &lt;span class="n"&gt;helpded&lt;/span&gt; &lt;span class="n"&gt;me&lt;/span&gt;
+&lt;span class="n"&gt;understand&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;few&lt;/span&gt; &lt;span class="n"&gt;mistakes&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;mine&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+
+&lt;span class="n"&gt;Theo&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在 grub 之前，kernel 的配置和编译也是相当杀脑细胞滴，我为了尽量将内核编译小点，尽量去除一些看着不沾边的设备，特别是驱动那，没想到结果就那出问题&lt;/p&gt;
+&lt;p&gt;有两次都是kernel panic，cannot open root device，于是乎我就把 HOST 的 kernel config 拷贝了过去对 driver 完全没有动刀，其他地方就针对&lt;/p&gt;
+&lt;p&gt;CPU 以及 FS 做了改动，去了IPv6，俗话说事不过三嘛，还好启动起来了，只是网卡不知道为什么启动失败了，下来还要在探究一下&lt;/p&gt;
+&lt;p&gt;然后就要开始 BLFS 的征途了&lt;/p&gt;
+&lt;h2&gt;结语&lt;/h2&gt;
+&lt;p&gt;BLFS后边由于上项目了，也拖了很久结果连openssl都还没有编译现在7.1都出来了，呵呵...有机会再玩一把，现在挺喜欢这种轻便快捷定制型儿的了&lt;/p&gt;</summary><category term="system"></category><category term="linux"></category><category term="compile"></category></entry><entry><title>oh-my-zsh的芯</title><link href="http://www.onionisi.com/oh-my-zsh.html" rel="alternate"></link><updated>2012-04-17T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-04-17:oh-my-zsh.html</id><summary type="html">&lt;p&gt;用zsh有一段时间了，前段时间在github上找见了这个神奇的项目，试用起来果然还是
+很有爱。但是之前的配置已经有我比较熟悉的快捷键，所以还是要改造一番，美其名曰
+本地化。&lt;/p&gt;
+&lt;h2&gt;主配置.zshrc&lt;/h2&gt;
+&lt;p&gt;主配置很简洁，主要功能就是选主题选插件，形式各样的千奇百怪的prompt，各种功能
+不同的插件，可根据发行版，版本控制工具进行选择，大家各取所需。
+这也就是vim、firefox这些软件强大的原因---有广大的同志还开发插件！所以说群众
+的力量是无穷的。&lt;/p&gt;
+&lt;p&gt;下边就是主体程序的目录结构：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;onionisi&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;oh&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;my&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;zsh&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="o"&gt;|+&lt;/span&gt;&lt;span class="n"&gt;cache&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="o"&gt;|+&lt;/span&gt;&lt;span class="n"&gt;custom&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="o"&gt;|+&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="o"&gt;|+&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="o"&gt;|+&lt;/span&gt;&lt;span class="n"&gt;plugins&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="o"&gt;|+&lt;/span&gt;&lt;span class="n"&gt;templates&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="o"&gt;|+&lt;/span&gt;&lt;span class="n"&gt;themes&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="o"&gt;|+&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="o"&gt;|-&lt;/span&gt;&lt;span class="n"&gt;oh&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;my&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;zsh&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;
+&lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;README&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;textile&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;oh-my-zsh.sh&lt;/h2&gt;
+&lt;p&gt;这个脚本才开始真正进入主题。&lt;/p&gt;
+&lt;h3&gt;upgrade&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# Check for updates on initial load...&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;$DISABLE_AUTO_UPDATE&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;true&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;then&lt;/span&gt;
+  &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;usr&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bin&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;env&lt;/span&gt; &lt;span class="n"&gt;ZSH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;ZSH&lt;/span&gt; &lt;span class="n"&gt;zsh&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;ZSH&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;tools&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;check_for_upgrade&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;
+&lt;span class="n"&gt;fi&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如果没有禁止自动升级的，首先会upgrade，oh-my-zsh作为一个公共项目，每天的更新
+还是挺频繁，从github的图上就能看出来。再来看check_for_upgrade&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;_current_epoch&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;echo&lt;/span&gt; &lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;date&lt;/span&gt; &lt;span class="o"&gt;+%&lt;/span&gt;&lt;span class="nx"&gt;s&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="mi"&gt;60&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="mi"&gt;60&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="mi"&gt;24&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;_update_zsh_update&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;LAST_EPOCH=$(_current_epoch)&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="err"&gt;/.zsh-update&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;_upgrade_zsh&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="err"&gt;/usr/bin/env ZSH=$ZSH /bin/sh $ZSH/tools/upgrade.sh&lt;/span&gt;
+  &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;update&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nx"&gt;zsh&lt;/span&gt; &lt;span class="nx"&gt;file&lt;/span&gt;
+  &lt;span class="nx"&gt;_update_zsh_update&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;使用了天数来比较，比较有意思，若大于6天就要自己选择了，在upgrade中就主要用
+git来pull最近的更新了，办公室的电脑是代理上网的所以我前边加上了proxychains。&lt;/p&gt;
+&lt;h3&gt;初始化&lt;/h3&gt;
+&lt;p&gt;首先就是要载入一些“库”，呵呵...有个custom可以自定义哦。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;add&lt;/span&gt; &lt;span class="nx"&gt;a&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;path&lt;/span&gt;
+&lt;span class="nx"&gt;fpath&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;$ZSH&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;functions&lt;/span&gt; &lt;span class="nx"&gt;$ZSH&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;completions&lt;/span&gt; &lt;span class="nx"&gt;$fpath&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;Load&lt;/span&gt; &lt;span class="nx"&gt;all&lt;/span&gt; &lt;span class="nx"&gt;of&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nx"&gt;config&lt;/span&gt; &lt;span class="nx"&gt;files&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="err"&gt;/oh-my-zsh that end in .zsh&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;TIP&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;Add&lt;/span&gt; &lt;span class="nx"&gt;files&lt;/span&gt; &lt;span class="nx"&gt;you&lt;/span&gt; &lt;span class="nx"&gt;don&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="nx"&gt;t&lt;/span&gt; &lt;span class="nx"&gt;want&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="nx"&gt;git&lt;/span&gt; &lt;span class="nx"&gt;to&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;gitignore&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nx"&gt;config_file&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;$ZSH&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/*&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;zsh&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="nx"&gt;source&lt;/span&gt; &lt;span class="nx"&gt;$config_file&lt;/span&gt;
+
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;Set&lt;/span&gt; &lt;span class="nx"&gt;ZSH_CUSTOM&lt;/span&gt; &lt;span class="nx"&gt;to&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="nx"&gt;path&lt;/span&gt; &lt;span class="nx"&gt;where&lt;/span&gt; &lt;span class="nx"&gt;your&lt;/span&gt; &lt;span class="nx"&gt;custom&lt;/span&gt; &lt;span class="nx"&gt;config&lt;/span&gt; &lt;span class="nx"&gt;files&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;and&lt;/span&gt; &lt;span class="nx"&gt;plugins&lt;/span&gt; &lt;span class="nx"&gt;exists&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;or&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="nx"&gt;we&lt;/span&gt; &lt;span class="nx"&gt;will&lt;/span&gt; &lt;span class="nx"&gt;use&lt;/span&gt; &lt;span class="nx"&gt;the&lt;/span&gt; &lt;span class="k"&gt;default&lt;/span&gt; &lt;span class="nx"&gt;custom&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="cp"&gt;[&lt;/span&gt;&lt;span class="err"&gt;[&lt;/span&gt; &lt;span class="na"&gt;-z&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$ZSH_CUSTOM&amp;quot;&lt;/span&gt; &lt;span class="cp"&gt;]&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt; &lt;span class="nx"&gt;then&lt;/span&gt;
+    &lt;span class="nx"&gt;ZSH_CUSTOM&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;$ZSH/custom&amp;quot;&lt;/span&gt;
+&lt;span class="nx"&gt;fi&lt;/span&gt;
+
+&lt;span class="nx"&gt;is_plugin&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;local&lt;/span&gt; &lt;span class="nx"&gt;base_dir&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nx"&gt;$1&lt;/span&gt;
+  &lt;span class="nx"&gt;local&lt;/span&gt; &lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nx"&gt;$2&lt;/span&gt;
+  &lt;span class="nx"&gt;test&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;f&lt;/span&gt; &lt;span class="nx"&gt;$base_dir&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;plugins&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;$name&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;$name&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;plugin&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;zsh&lt;/span&gt; &lt;span class="o"&gt;\&lt;/span&gt;
+    &lt;span class="o"&gt;||&lt;/span&gt; &lt;span class="nx"&gt;test&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;f&lt;/span&gt; &lt;span class="nx"&gt;$base_dir&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;plugins&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;$name&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;_$name&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;Add&lt;/span&gt; &lt;span class="nx"&gt;all&lt;/span&gt; &lt;span class="nx"&gt;defined&lt;/span&gt; &lt;span class="nx"&gt;plugins&lt;/span&gt; &lt;span class="nx"&gt;to&lt;/span&gt; &lt;span class="nx"&gt;fpath&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="nx"&gt;This&lt;/span&gt; &lt;span class="nx"&gt;must&lt;/span&gt; &lt;span class="nx"&gt;be&lt;/span&gt; &lt;span class="nx"&gt;done&lt;/span&gt;
+&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;before&lt;/span&gt; &lt;span class="nx"&gt;running&lt;/span&gt; &lt;span class="nx"&gt;compinit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="nx"&gt;plugin&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;$plugins&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+  &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nx"&gt;is_plugin&lt;/span&gt; &lt;span class="nx"&gt;$ZSH_CUSTOM&lt;/span&gt; &lt;span class="nx"&gt;$plugin&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;then&lt;/span&gt;
+    &lt;span class="nx"&gt;fpath&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;$ZSH_CUSTOM&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;plugins&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;$plugin&lt;/span&gt; &lt;span class="nx"&gt;$fpath&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nx"&gt;elif&lt;/span&gt; &lt;span class="nx"&gt;is_plugin&lt;/span&gt; &lt;span class="nx"&gt;$ZSH&lt;/span&gt; &lt;span class="nx"&gt;$plugin&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nx"&gt;then&lt;/span&gt;
+    &lt;span class="nx"&gt;fpath&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;$ZSH&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;plugins&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nx"&gt;$plugin&lt;/span&gt; &lt;span class="nx"&gt;$fpath&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+  &lt;span class="nx"&gt;fi&lt;/span&gt;
+&lt;span class="nx"&gt;done&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;keypoint&lt;/h3&gt;
+&lt;p&gt;俗话说得好包子好吃不在褶儿上，这配置好用可都在插件里，下边上插件&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# Load all of the plugins that were defined in ~/.zshrc
+for plugin (&lt;span class="nv"&gt;$plugins&lt;/span&gt;); do
+  if [ -f &lt;span class="nv"&gt;$ZSH_CUSTOM&lt;/span&gt;/plugins/&lt;span class="nv"&gt;$plugin&lt;/span&gt;/&lt;span class="nv"&gt;$plugin.plugin.zsh&lt;/span&gt; ]; then
+    source &lt;span class="nv"&gt;$ZSH_CUSTOM&lt;/span&gt;/plugins/&lt;span class="nv"&gt;$plugin&lt;/span&gt;/&lt;span class="nv"&gt;$plugin.plugin.zsh&lt;/span&gt;
+  elif [ -f &lt;span class="nv"&gt;$ZSH&lt;/span&gt;/plugins/&lt;span class="nv"&gt;$plugin&lt;/span&gt;/&lt;span class="nv"&gt;$plugin.plugin.zsh&lt;/span&gt; ]; then
+    source &lt;span class="nv"&gt;$ZSH&lt;/span&gt;/plugins/&lt;span class="nv"&gt;$plugin&lt;/span&gt;/&lt;span class="nv"&gt;$plugin.plugin.zsh&lt;/span&gt;
+  fi
+done
+
+# Load all of your custom configurations from custom/
+for config_file (&lt;span class="nv"&gt;$ZSH_CUSTOM&lt;/span&gt;/*.zsh) source &lt;span class="nv"&gt;$config_file&lt;/span&gt;
+
+# Load the theme
+if [ &amp;quot;&lt;span class="nv"&gt;$ZSH_THEME&lt;/span&gt;&amp;quot; = &amp;quot;random&amp;quot; ]
+then
+  themes=(&lt;span class="nv"&gt;$ZSH&lt;/span&gt;/themes/*zsh-theme)
+  N=&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="c"&gt;#themes[@]&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+  ((N=(RANDOM%N)+1))
+  RANDOM_THEME=&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;themes&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+  source &amp;quot;&lt;span class="nv"&gt;$RANDOM_THEME&lt;/span&gt;&amp;quot;
+  echo &amp;quot;[oh-my-zsh] Random theme &amp;#39;&lt;span class="nv"&gt;$RANDOM_THEME&lt;/span&gt;&amp;#39; loaded...&amp;quot;
+else
+  if [ ! &amp;quot;&lt;span class="nv"&gt;$ZSH_THEME&lt;/span&gt;&amp;quot; = &amp;quot;&amp;quot;  ]
+  then
+    if [ -f &amp;quot;&lt;span class="nv"&gt;$ZSH&lt;/span&gt;/custom/&lt;span class="nv"&gt;$ZSH_THEME.zsh&lt;/span&gt;-theme&amp;quot; ]
+    then
+      source &amp;quot;&lt;span class="nv"&gt;$ZSH&lt;/span&gt;/custom/&lt;span class="nv"&gt;$ZSH_THEME.zsh&lt;/span&gt;-theme&amp;quot;
+    else
+      source &amp;quot;&lt;span class="nv"&gt;$ZSH&lt;/span&gt;/themes/&lt;span class="nv"&gt;$ZSH_THEME.zsh&lt;/span&gt;-theme&amp;quot;
+    fi
+  fi
+fi
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;欧欧欧...我觉得我都在粘代码了，还是大神linus说得对RTFSC，同志们还是直接去看
+吧，直接明了。&lt;/p&gt;
+&lt;p&gt;下一步就是我要把我先前的顺手货拆开再组装上去，未完待续哦...&lt;/p&gt;</summary><category term="shell"></category><category term="src"></category><category term="zsh"></category></entry><entry><title>/run的由来</title><link href="http://www.onionisi.com/linux-run-dir.html" rel="alternate"></link><updated>2012-03-27T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-03-27:linux-run-dir.html</id><summary type="html">&lt;p&gt;熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。&lt;/p&gt;
+&lt;h2&gt;/run目录的诞生&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;各主要发行版阵营的重要人物讨论了/dev目录被滥用的情况，希望在该问题还没有扩大化前找到解决方案。他们提出了各种方案，但所有方案都归结到一点，/var/run目录不应在/var目录下，它可以提升到根目录下，这是唯一简洁明了的方案。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;事件原委&lt;/h2&gt;
+&lt;p&gt;以下文字翻译自Lennart Poetteringu邮件，一名Fedora的开发者，详细解释了原因。&lt;/p&gt;
+&lt;p&gt;我在F15中上传了systemd的新版本，它在根目录下创建了/run这个目录。迟早你都会对此感到困惑，所以下面就讲讲它是肿么来的，为虾米要这么做。&lt;/p&gt;
+&lt;p&gt;其实这只是一个相当小的变动，但是大伙儿可能会认为这是一个很大的政策变动，所以我觉得还是相当地有必要解释一下：&lt;/p&gt;
+&lt;p&gt;在早期启动的程序里，相当一段时间里他们用/dev目录上很多隐藏文件存储运行时数据。第一个文件就是/dev/.udev，随着时间的推移，又逐步增加了/dev/.mdadm，/dev/.systemd，/dev/.mount，dracut，initscripts以及更多的工具。（其他发行版还有更多）他们使用这些目录的缘由很简单，总所周知/dev是tmpfs，系统启动后就立即可用。/var/run则只能在启动后半段可用，因为/var可能挂载在某个单独的分区。&lt;/p&gt;
+&lt;p&gt;然而/dev始终不是个适合运行时数据存放的地方，因为这些数据不是设备节点，所以他们不属于这个地方。同时，隐藏这些文件对管理员来说是个坏主意。事实上，用户们也不能理解这些数据为什么要存放在/var/run/xxx以及/dev/.yyy，特别是当启动之后，需要使用的一些工具，因为在启动的时候发生在这些目录之间复杂的数据移动。&lt;/p&gt;
+&lt;p&gt;此前不同的发行版针对“early-runtime-dir”都采用过不是很完整的解决方案：Debian---&amp;gt;/lib/init/rw, 启动早期挂载的tmpfs;Ubuntu---&amp;gt;/var/run,在/var之前挂载的tmpfs，使用了一些mount特有的丑陋技巧。但大多数软件都回避这个问题，还是继续使用/dev/.xxx。&lt;/p&gt;
+&lt;p&gt;在过去的几周里，各大发行版Debian，Suse，Ubuntu以及Fedora阵营(当然还有其他的哈)的主要负责人探讨了这个问题的前因后果，为的就是找到一个最终的解决办法防止/对/dev的滥用以阻止这个问题的不断扩大。有各式各样的建议被提出来，但最终讨论下来发现了一点共识，那就是/var/run不应该挂载在/var下，我们真正需要的一个一级目录/run，这才是真正干净利落的解决方案。但是为什么没有人敢真正实现这个目录，原因就是大伙儿都不想去处理那些与标准对立带来的问题，特别是邮件列表上那些乱七八糟的讨论（就像是这一篇一样）。&lt;/p&gt;
+&lt;p&gt;基于这一点，我们觉得我们应当实现大家都认为对的技术解决方案，而不是去规避标准。因此我们实现了他。&lt;/p&gt;
+&lt;p&gt;此实现上载后，Fedora和Suse现在已经在使用/run了。Debian的同志们也会在下一版中采纳此建议。Ubuntu同样也同意引入/run。&lt;/p&gt;
+&lt;p&gt;Dracut，udev和systemd为了使用/run，已经更新了上游源码，希望mdadm和mount要尽快跟上。&lt;/p&gt;
+&lt;p&gt;其实早在几年前Debian的筒子就建议引入/run，甚至还询问LSB的同志，更甚的是居然还得到了一个虽然含糊但却正面的回应。&lt;/p&gt;
+&lt;p&gt;那么F15都具体实现了虾米，我们来看看。&lt;/p&gt;
+&lt;p&gt;/run是tmpfs，/var/run挂载在上边。/var/lock则挂载在/run/lock上。从现在开始，只有早期启动的程序应当使用/run，之后的程序还是按照FHS/LSB来。那些有相关应用软件包的作者我们都已经通知到了。如果你没有接到我们的任何通知，说明不会影响到你的程序。&lt;/p&gt;
+&lt;p&gt;那么这么做的好处捏？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;现在只使用一个tmpfs，同时挂载/run，/var/lock和/var/run三个目录，减少了tmpfs的占用。&lt;/li&gt;
+&lt;li&gt;所有的运行时数据都在同一个地方。systemd,udev,dracut的数据都在/run和/var/run下边，方便查看易于管理。这让你第一次有机会只需要"ls /var/run"就能看见这些重要工具对于数据的处理。&lt;/li&gt;
+&lt;li&gt;数据无处遁形。管理员掌控一切，神马都在/var/run和/run里边，再也没有点藏文件。&lt;/li&gt;
+&lt;li&gt;我们标准化了"early-runtime-dir"在所有主流发行版的方案。&lt;/li&gt;
+&lt;li&gt;开发的同志们也会很爽，不用在滥用/dev鸟。&lt;/li&gt;
+&lt;li&gt;一级目录的名称显式表明了属性。各目录树下的文件夹属性保持一致，比如/var---&amp;gt;"persistant runtime data"，/run---&amp;gt;"volatile runtime data"，/etc---&amp;gt;"persistant system config data"等等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这就是目前在F15中实现的，在F16中我们会做一个小改动：/var/lock和/var/run会成为软链接指向/run/lock和/run，于是我们就不用采用直接挂载这种不优雅的方式，而且管理也不方便。因为软链接和RPM的隐讳关联，我们暂不对F15做如此更改。&lt;/p&gt;
+&lt;p&gt;我们实现这个方案实际需要的代码改动很小（基本上就是用新的tmpfs挂载/var/run以及/var/lock取代原来的绑定挂载），这也是我们会选择在F15周期这么后期做这件事。&lt;/p&gt;
+&lt;h2&gt;个人感想&lt;/h2&gt;
+&lt;p&gt;话说Fedora真的是很有创新的版本，新的F17还会有D语言的开发环境，另目前一直在Ubuntu上，一直没有机会感受systemd的机会啊，前段时间倒是工作需要装了一个F14，坑爹的连源都撤了，近期有打算弄弄FreeBSD，换换环境。&lt;/p&gt;
+&lt;p&gt;这篇文章战线还挺长，0406才截稿啊，blog再不写就可惜我倒腾了，呵呵......&lt;/p&gt;</summary><category term="fs"></category><category term="linux"></category><category term="distro"></category><category term="trans"></category></entry><entry><title>Recently</title><link href="http://www.onionisi.com/recently.html" rel="alternate"></link><updated>2012-03-21T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-03-21:recently.html</id><summary type="html">&lt;h1&gt;spring come&lt;/h1&gt;
+&lt;p&gt;这是我在绵阳的第一个春天，今天又降温了，下班回宿舍的路上还是有一些些冷，食堂
+依然是那么车水马龙。本来照例今天应该是要会江油的，可是亲爱的在上课，天气又不
+好，周一周二晚上也没做什么事情，趁着今晚把最近的资料整整。&lt;/p&gt;
+&lt;p&gt;博客都说要弄很久了，之前说用WP，后边干脆就用jekyll，虽然我不懂ruby，但是看着
+这么简洁和方便，确实很喜欢，先写着，慢慢搭，反正用md写很舒服，用git管理更不
+用说。&lt;/p&gt;
+&lt;h2&gt;周末&lt;/h2&gt;
+&lt;p&gt;还要追溯到上上周，我们两个又去买了辆自行车，为虾米说“又”捏，because我们之前
+去看失恋33天外加逛超市外加吃韩国拌饭的时候，丢了一辆我们很喜欢的“小红”，貌似
+蒋雯丽童鞋在某某电视剧里的装备。这回完全是看在春暖花开的面子上，我们想出去骑
+游了，加上之前我们单位也在召唤组织骑游and上上上周几个公务员同志策划的出游因
+下雨而泡汤。对不起，我的stack够深，跟不上的同志慢慢回溯啊。&lt;/p&gt;
+&lt;p&gt;上上周我们很兴奋的骑行去了武都，一个跟龙门town很相似的地方------------灰大！
+回来被告知有另外一条羊肠小道，遂决定上周末再此出行。怎料，judy被通知要去上该
+死的什么什么会计资格考试培训，下周末才考试，也就是说，这阳春三月的周末我都得
+一个人过了。&lt;/p&gt;
+&lt;p&gt;周五正上班，彬哥来一电话，我还些许诧异，说是金忠伟来成都了，叫我也过去玩，哎
+呀呀想想毕业都快三年了，还真的蛮想念大家的。记得去年才来绵阳没多久，小强从上
+海回来，咱俩聚了聚，之前在成都跟彬哥、波C也小聚了一把。这回这小子跑来干嘛，
+周六一早我慢悠悠的坐火车到了成都。&lt;/p&gt;
+&lt;p&gt;在文殊院碰头了，好嘛，小子越来越潮了，哈哈......大家一路欢畅地聊着，彬哥带着
+我们径直去了明婷，成都最牛的苍蝇馆子，脑花豆腐不错，但水煮鱼就差点了。金大伟
+还是不喝酒，对了，他扛了个长枪大炮来成都拍美女，也不知道战果如何，忘了找他要
+两张来晒晒了。&lt;/p&gt;
+&lt;p&gt;席间聊起来，哥几个都混得不错，彬哥人家猎头挖，波C肩挑成都地铁二号线重任，金
+大伟就更不用说了，把了个南航的空姐，说还是twins，这回是去人家重庆家里登门，
+顺便来成都玩的，看样子好事不远了。想我们一帮子大学同学，学强电的，我却倒腾上
+了代码，原来也就玩个单片机，跑的也算个单线程了吧，贻笑大方了，哈哈。&lt;/p&gt;
+&lt;p&gt;下午这小子要回重庆，彬哥安排他感受了把成都血战的风采，波C可是久经沙场，可苦
+了我这个“报伙子”。一个小时左右，两三百个大洋就流走了，呵呵，杀得我胆颤心惊啊
+。&lt;/p&gt;
+&lt;p&gt;欢乐的时光总是那么短暂，彬哥留我周日再走，确实不行，周日请了松林和海岩来家做
+客，于是相约下次再聚。我目送他们离去，心里有说不出的感觉，高兴又难受，下回去
+杭州得好好宰他一刀。&lt;/p&gt;</summary><category term="daily"></category><category term="weekend"></category></entry><entry><title>Born this way</title><link href="http://www.onionisi.com/born-this-way.html" rel="alternate"></link><updated>2012-03-07T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-03-07:born-this-way.html</id><summary type="html">&lt;p&gt;说了好久弄个人博客的事情了，但总是这样那样，说白了也就是自己懒，好歹现在勉强能看了。&lt;/p&gt;
+&lt;h2&gt;WP&lt;/h2&gt;
+&lt;p&gt;其实早之前就想自己弄块地，记得去年还是神马时候，还专门找了视频认真观摩，后边也不了了之，前段手头没多少活就在公司的机子上自己弄了个WP，玩了两天，后边因为重装系统，也没活多长时间。&lt;/p&gt;
+&lt;p&gt;这玩意儿确实要麻烦点，平台，数据库，要想好看还得还一大堆插件，关键你写东西还要登入后台，而且还要在那个输入的小框用各种格式来控制格式，用惯了纯文本的编辑器来倒腾这些真的很让人受不了啊亲。&lt;/p&gt;
+&lt;h2&gt;jekyll&lt;/h2&gt;
+&lt;p&gt;遇见这个神器还要谢谢&lt;a href="http://www.yangzhiping.com/"&gt;阳志平老师的博客&lt;/a&gt;的推荐，其实一开始我感兴趣的是&lt;a href="http://octopress.org/"&gt;Octopress&lt;/a&gt;，因为他看着跟WP差不多，但是随着深入理解我发现了幕后的英雄&lt;a href="https://github.com/mojombo/jekyll"&gt;jekyll&lt;/a&gt;。
+本着从简从的原则，我开始摆弄这玩意儿。因为办公室的狗屁网络环境，之前在弄ruby的工具gem时候费了我不少周章。具体动手玩的指南请看&lt;a href="https://github.com/mojombo/jekyll/wiki"&gt;WiKi&lt;/a&gt; 。就像玩Arch的同志一样，不看wiki你注定要死得很惨或者毫无头绪。
+伟大的开源造就了很多让你想不到的神物，这是我使用github之后唯一的感慨，无疑jekyll就是其中之一，当然还有现在我正在使用中的Oh-My-Zsh等等。虽然作为半个苦逼的写C的码农，对于前端的各式五花八门的技术不懂，但觉着这么简洁给力的博客系统不用实在是太对不起我码农的称号了，在加上git和md的加持，真的是方便到没话说。&lt;/p&gt;</summary><category term="daily"></category><category term="jekyll"></category><category term="web"></category></entry></feed>
