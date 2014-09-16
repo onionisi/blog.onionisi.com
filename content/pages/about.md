@@ -11,7 +11,7 @@ GNU/Linux fan，Vimer，Pythoner。
 
 自08年关注和使用 Linux，最喜 Arch Linux 和 Gentoo Linux。
 
-个人以简约为美，less is more，热爱CLI以及一票自由软件：vim • zsh • tmux • git • cmus • graphicsmagic • mplayer • rtorrent • python。
+个人以简约为美，less is more，热爱CLI以及一票自由软件：vim • zsh • tmux • git • cmus • graphicsmagic • mplayer • rtorrent • python • ranger。
 
 Contact me:
 
@@ -21,5 +21,7 @@ Contact me:
 
 
 ### About the Blog
+
+The sitename TALO means "The Adventures of Little Onion".
 
 Blog 在 [Vim](http://vim.org) 中书写，之前用 [jekyll](http://jekyllrb.com)，现采用 [Pelican](http://blog.getpelican.com) 生成，样式来自 [burrito](http://burrito.sh)。先前托管在[Digital Ocean](https://www.digitalocean.com/?refcode=4c35bee6258e)，现迁回 [Github](https://github.com/onionisi/onionisi.github.com)。

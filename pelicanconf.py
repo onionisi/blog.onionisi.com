@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'Chong'
 AUTHOR_FULLNAME = u'Chong Yang'
-SITENAME = u'onionisi'
+SITENAME = u'TALO'
 SITEURL = 'www.onionisi.com'
 SITETAGLINE = 'fprintf(post, "%s\\n", daily_life)'
 DISPLAY_PAGES_ON_MENU = True
@@ -31,6 +31,7 @@ PLUGINS = ['assets']
 
 # track
 GOOGLE_ANALYTICS = "UA-54841037-1"
+DISQUS_SITENAME = "chong"
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
