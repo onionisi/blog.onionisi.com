@@ -33,45 +33,65 @@
         <nav class="navbar">
                 <a href="../category/blog.html">Blog</a>&nbsp;
                     <a href="../pages/about.html">About</a>&nbsp;
-                    <a href="../pages/cv.html">Resume</a>&nbsp;
         </nav>
     </header><!-- /header-siteheader -->
 
                 <aside id="featured">
                     <article>
-                        <h1 class="entry-title"><a href="../osx-ipv6.html">OSX ipv6</a></h1>
-                        <p>今天心血来潮想弄把IPv6，因为这PAC让部分网站抽风。不用说只能通过tunnel实现，我大西南地区向来就是敢为人后的代表。之前在Archlinux上配过aiccu和gogoc都挺好，两个都要自行去申请账号哦。其中gogoc需要时间同步，误差太大就连不上啦，之前折腾了半天，注意同步网络时间。</p>
-<p>brew里没找见gogoc，直接就上aiccu了，得知需要tuntap依赖，其实就是内核扩展，这里就有个坑（主要是用Yosemite的同学）了，各位注意：<strong>tuntap的ext没法加载<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>，console日志报错没有签名，10.10的不允许使用未签名kexts<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>。</strong>解决方式如下：</p>
-<ol>
-<li>
-<p>disable kext signing checks for everything, by doing <code>sudo nvram boot-args="kext-dev-mode=1"</code>and rebooting.</p>
-</li>
-<li>
-<p>signed tun/tap.ext in the bundle of tunnelblick, just copy it to /Library/Extensions.</p>
-</li>
-</ol>
-<p>1st我认为还是会有风险将影响整个系统内核的加载，虽然有盆友成功了。2nd还是安全无痛滴，先行安装tunnelblick，然后cp，一load就出现了/dev/tun0等装置。</p>
-<p>毕竟是同根生，配置文件都没动，直接从dropbox down下来，<code>sudo aiccu start /path/config</code>，当当当当。。。我的ipv6地址：2401:e800:100:bb::2</p>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:1">
-<p><a href="https://github.com/Homebrew/homebrew/issues/31153">tuntap does not work on Yosemite 10.10</a>&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-<li id="fn:2">
-<p><a href="https://github.com/Homebrew/homebrew/issues/31164">Unsigned kexts cannot be used on 10.10</a>&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div>
+                        <h1 class="entry-title"><a href="../serial_driver.html">FTDI串口驱动</a></h1>
+                        <p>用MAC的同学应该搞应用和设计的居多，什么嵌入式啊，串口啊，定时器的很多同学应该都不感冒的。偶尔自己也玩玩一些硬件，所以串口这个东西还是少不了的。说起驱动，Linux对硬件的支持自不必多说，OS X就得自己动手了。</p>
+<h3>FTDI2232</h3>
+<p>普通的USB转232的芯片不支持热拔插，原来的办公室已经躺尸了很多了，手中的2232其实是上大学的参加ZLG的竞赛发的一块开发版，旁边带的JTAG的调试，我顺手就用来当串口了，很是好使。最近想玩玩好久没碰的毕业论文的小车车了，想当年的巡线和遥控，哈哈，还是很佩服我自己的。</p>
+<p>话不多说先上官网下驱动和doc，真的是不看官方的<a href="http://www.ftdichip.com/Support/Documents/AppNotes/AN_134_FTDI_Drivers_Installation_Guide_for_MAC_OSX.pdf">Install Guide</a>，你还真弄不对。</p>
+<div class="highlight"><pre><span class="n">The</span> <span class="n">VCP</span> <span class="n">driver</span> <span class="n">is</span> <span class="n">provided</span> <span class="n">as</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">kernel</span> <span class="n">in</span> <span class="n">OSX</span> <span class="mf">10.9</span><span class="p">,</span> <span class="n">therefore</span> <span class="n">no</span> <span class="n">driver</span> <span class="n">installation</span> <span class="n">is</span> <span class="n">required</span> <span class="n">to</span> <span class="n">create</span> <span class="n">a</span> <span class="n">virtual</span> <span class="n">COM</span> <span class="n">port</span> <span class="n">in</span> <span class="n">Mavericks</span><span class="p">.</span> 
+</pre></div>
+
+
+<p>因为是Yosemite，自己又重新去<code>/System/Library/Extensions/IOUSBFamily.kext/Contents/Plugins</code>确认了一下<code>AppleUSBFTDI.kext</code>的存在。插上USB接口，查看<code>/dev/tty.usbserial-xxxxxxxx</code>是否出现，但是结果是令人失望的。</p>
+<p>Troubleshooting里还是解答了我的疑惑</p>
+<div class="highlight"><pre><span class="n">If</span> <span class="n">the</span> <span class="n">device</span> <span class="n">does</span> <span class="n">not</span> <span class="n">work</span> <span class="n">after</span> <span class="n">installing</span> <span class="n">the</span> <span class="n">driver</span><span class="p">,</span> <span class="n">it</span> <span class="n">is</span> <span class="n">likely</span> <span class="n">to</span> <span class="n">be</span> <span class="n">because</span> <span class="n">the</span> <span class="n">PID</span> <span class="n">is</span> <span class="n">not</span> <span class="n">supported</span> <span class="n">by</span> <span class="n">the</span> <span class="n">driver</span><span class="p">.</span> 
+</pre></div>
+
+
+<p>因为没有lsusb，只能去系统信息里去确认了一下VID为0x0403，PID为0xbcd8，与原厂0x6001不同，需要调整。</p>
+<h3><a href="http://www.ftdichip.com/Support/Documents/TechnicalNotes/TN_105%20Adding%20Support%20for%20New%20FTDI%20Devices%20to%20Mac%20Driver.pdf">Solution</a>:</h3>
+<div class="highlight"><pre><span class="n">The</span> <span class="n">Info</span><span class="p">.</span><span class="n">plist</span> <span class="n">file</span> <span class="n">contains</span> <span class="n">entries</span> <span class="k">for</span> <span class="n">various</span> <span class="n">FTDI</span> <span class="n">devices</span> <span class="n">in</span> <span class="n">the</span> <span class="n">IOKitPersonalities</span> <span class="n">dictionary</span><span class="p">.</span> <span class="n">A</span> <span class="n">new</span> <span class="n">entry</span> <span class="k">for</span> <span class="n">an</span> <span class="n">OEM</span> <span class="n">device</span> <span class="n">can</span> <span class="n">be</span> <span class="n">created</span> <span class="n">by</span> <span class="n">copying</span> <span class="n">the</span> <span class="n">personality</span> <span class="n">of</span> <span class="n">the</span> <span class="n">equivalent</span> <span class="n">FTDI</span> <span class="n">device</span><span class="p">.</span> <span class="n">In</span> <span class="n">the</span> <span class="n">simplest</span> <span class="k">case</span><span class="p">,</span> <span class="n">only</span> <span class="n">the</span> <span class="n">new</span> <span class="n">device</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">name</span> <span class="n">and</span> <span class="n">idProduct</span> <span class="n">key</span> <span class="n">have</span> <span class="n">to</span> <span class="n">be</span> <span class="n">provided</span><span class="p">.</span> <span class="n">FTDI</span> <span class="n">recommends</span> <span class="n">that</span> <span class="n">new</span> <span class="n">OEM</span> <span class="n">device</span> <span class="n">personalities</span> <span class="n">are</span> <span class="n">added</span> <span class="n">to</span> <span class="n">the</span> <span class="n">plist</span> <span class="n">file</span><span class="p">,</span> <span class="n">and</span> <span class="n">existing</span> <span class="n">FTDI</span> <span class="n">personalities</span> <span class="n">are</span> <span class="n">retained</span><span class="p">.</span> 
+</pre></div>
+
+
+<p>重新添加来一条2232D的描述，注意VID与PID即可。</p>
+<h3>串口软件</h3>
+<p>这个主要看大家口味了，putty，screen大家用的比较多，反正我是minicom的忠实用户了。主要就是波特率的设置了，乱码了什么的除了线接错了，就是波特率不对了，have fun，buddy！</p>
 <footer class="post-info">
-    <abbr class="published" title="2014-08-14T00:00:00">
-        Posted on 四 14 八月 2014 by Chong Yang |     tags: <a href="../tag/osx.html">OSX</a> <a href="../tag/network.html">network</a> <a href="../tag/ipv6.html">ipv6</a>     </abbr>
+    <abbr class="published" title="2014-08-28T00:00:00">
+        Posted on 四 28 八月 2014 by Chong Yang |     tags: <a href="../tag/osx.html">OSX</a> <a href="../tag/driver.html">driver</a>     </abbr>
 </footer><!-- /footer-post-info -->
                     </article>
                 </aside><!-- /aside-featured -->
                     <section id="content">
                         <hr />
                         <ol id="posts-list">
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="../osx-ipv6.html" rel="bookmark" title="Permalink to OSX ipv6">OSX ipv6</a></h3>
+                            <aside class="entry-title-date">2014-08-14</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <p>今天心血来潮想弄把IPv6，因为这PAC让部分网站抽风。不用说只能通过tunnel实现，我大西南地区向来就是敢为人后的代表。之前在Archlinux上配过aiccu和gogoc都挺好，两个都要自行去申请账号哦。其中gogoc需要时间同步，误差太大就连不上啦，之前折腾了半天，注意同步网络时间。</p>
+<p>brew里没找见gogoc，直接就上aiccu了，得知需要tuntap依赖，其实就是内核扩展，这里就有个坑（主要是用Yosemite的同学）了，各位注意：<strong>tuntap的ext没法加载<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>，console日志报错没有签名，10.10的不允许使用未签名kexts<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>。</strong>解决方式如下：</p>
+<ol>
+<li>
+<p>disable kext signing checks for everything, by doing <code>sudo nvram boot-args="kext-dev-mode=1"</code>and rebooting.</p>
+</li>
+<li>
+<p>signed tun/tap.ext in the bundle of tunnelblick, just ...</p></li></ol>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="../osx-ipv6.html">more</a>
+                    </article>
+                </li>
 
                 <li>
                     <article class="entry">
@@ -91,28 +111,6 @@
     <span class="o">/</span><span class="n">System</span><span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">LaunchDaemons</span>  <span class="n">OS</span> <span class="n">X ...</span></pre></div>
                         </div><!-- /dev-entry-content -->
                         <a class="jump" href="../osx-launchd.html">more</a>
-                    </article>
-                </li>
-
-                <li>
-                    <article class="entry">
-                        <header>
-                            <h3 class="entry-title"><a href="../taglist_failed.html" rel="bookmark" title="Permalink to Mac vim taglist failed">Mac vim taglist failed</a></h3>
-                            <aside class="entry-title-date">2014-05-13</aside>
-                        </header>
-
-                        <div class="entry-content">
-                            <p>vim的常规插件taglist报错了，妈蛋，没有你我怎么看C code</p>
-<div class="highlight"><pre><span class="n">Taglist</span><span class="o">:</span> <span class="n">Failed</span> <span class="n">to</span> <span class="n">generate</span> <span class="n">tags</span> <span class="k">for</span> <span class="sr">/Users/chong/code/redis-3.0-annotated/src/</span><span class="n">ae</span><span class="o">.</span><span class="na">c</span>
-<span class="sr">/Library/Developer/CommandLineTools/usr/bin/</span><span class="n">ctags</span><span class="o">:</span> <span class="n">illegal</span> <span class="n">option</span> <span class="o">--</span> <span class="o">-^</span><span class="err">@</span><span class="n">usage</span><span class="o">:</span> <span class="n">ctags</span> <span class="o">[-</span><span class="n">BFadtuwvx</span><span class="o">]</span> <span class="o">[-</span><span class="n">f</span> <span class="n">tagsfile</span><span class="o">]</span> <span class="n">file</span> <span class="o">...^</span><span class="err">@</span>
-</pre></div>
-
-
-<p>出了问题习惯性先看源码，跑到taglist.vim里边找了一圈，4k多行，没有线索，只能发大招Google-fu了，顺带吐槽gfw。</p>
-<p>taglist faq原文如下：</p>
-<div class="highlight"><pre><span class="n">Q</span><span class="o">:</span><span class="n">Are</span> <span class="n">you</span> <span class="n">using</span> <span class="n">exuberant</span> <span class="n">ctags</span> <span class="n">version</span> <span class="mf">5.0 ...</span></pre></div>
-                        </div><!-- /dev-entry-content -->
-                        <a class="jump" href="../taglist_failed.html">more</a>
                     </article>
                 </li>
                 </ol><!-- /ol-posts-list -->
