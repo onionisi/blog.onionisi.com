@@ -41,6 +41,29 @@
                 <li>
                     <article class="entry">
                         <header>
+                            <h3 class="entry-title"><a href="./linux-run-dir.html" rel="bookmark" title="Permalink to /run的由来">/run的由来</a></h3>
+                            <aside class="entry-title-date">2012-03-27</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <p>熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。</p>
+<h2>/run目录的诞生</h2>
+<blockquote>
+<p>各主要发行版阵营的重要人物讨论了/dev目录被滥用的情况，希望在该问题还没有扩大化前找到解决方案。他们提出了各种方案，但所有方案都归结到一点，/var/run目录不应在/var目录下，它可以提升到根目录下，这是唯一简洁明了的方案。</p>
+</blockquote>
+<h2>事件原委</h2>
+<p>以下文字翻译自Lennart Poetteringu邮件，一名Fedora的开发者，详细解释了原因。</p>
+<p>我在F15中上传了systemd的新版本，它在根目录下创建了/run这个目录。迟早你都会对此感到困惑，所以下面就讲讲它是肿么来的，为虾米要这么做。</p>
+<p>其实这只是一个相当小的变动，但是大伙儿可能会认为这是一个很大的政策变动，所以我觉得还是相当地有必要解释一下：</p>
+<p>在早期启动的程序里，相当一段时间里他们用/dev目录上很多隐藏文件存储运行时数据。第一个文件就是/dev/.udev，随着时间的推移，又逐步增加了/dev/.mdadm，/dev/.systemd，/dev/.mount，dracut，initscripts以及更多的工具。（其他发行版还有更多 ...</p>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="./linux-run-dir.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
                             <h3 class="entry-title"><a href="./recently.html" rel="bookmark" title="Permalink to Recently">Recently</a></h3>
                             <aside class="entry-title-date">2012-03-21</aside>
                         </header>
