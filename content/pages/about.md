@@ -22,6 +22,6 @@ Contact me:
 
 ### About the Blog
 
-The sitename TALO means "The Adventures of Little Onion".
+TALO，名称来自 The Adventures of Little Onion 的缩写。
 
 Blog 在 [Vim](http://vim.org) 中书写，之前用 [jekyll](http://jekyllrb.com)，现采用 [Pelican](http://blog.getpelican.com) 生成，样式来自 [burrito](http://burrito.sh)。先前托管在[Digital Ocean](https://www.digitalocean.com/?refcode=4c35bee6258e)，现迁回 [Github](https://github.com/onionisi/onionisi.github.com)。
