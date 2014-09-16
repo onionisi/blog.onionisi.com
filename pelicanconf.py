@@ -29,6 +29,9 @@ EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}
 PLUGIN_PATHS = ['/Users/chong/code/pelican-plugins']
 PLUGINS = ['assets']
 
+# track
+GOOGLE_ANALYTICS = "UA-54841037-1"
+
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
