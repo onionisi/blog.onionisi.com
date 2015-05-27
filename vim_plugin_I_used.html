@@ -4,18 +4,20 @@
 
     <meta charset="utf-8">
 
+    <meta name="tags" content="vimplugin">
 
+    <meta name="category" content="Blog">
 
+    <meta name="date" content="2015-03-19 00:00:00">
 
     <meta name="author" content="Chong Yang">
 
-    <title>    TALO - Blog
-</title>
+    <title>TALO | vim二三事</title>
 
-        <link rel="stylesheet" href="../theme/css/style.min.css?981d7269">
+        <link rel="stylesheet" href="./theme/css/style.min.css?981d7269">
 
-    <link rel="shortcut icon" href="../theme/img/favicon.ico" />
-    <link rel="icon" sizes="16x16 32x32" href="../theme/img/favicon.ico">
+    <link rel="shortcut icon" href="./theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="./theme/img/favicon.ico">
 
 
 
@@ -25,22 +27,28 @@
     <header id="sitehead">
         <div class="sitehead">
             <span id="sitehead">
-                <a href="..">TALO</a>
+                <a href=".">TALO</a>
             </span>
         </div>
             <div id="tagline">
                 <strong>fprintf(post, "%s\n", daily_life)</strong>
             </div>
         <nav class="navbar">
-                <a href="../category/blog.html">Blog</a>&nbsp;
-                    <a href="../pages/about.html">About</a>&nbsp;
+                <a href="./category/blog.html">Blog</a>&nbsp;
+                    <a href="./pages/about.html">About</a>&nbsp;
         </nav>
     </header><!-- /header-siteheader -->
+<section id="content">
+    <article>
+        <header>
+            <h1 class="entry-title">
+                <a href="" id="entry-title-link" rel="bookmark" title="Permalink to vim二三事">vim二三事</a>
+            </h1>
+        </header>
 
-                <aside id="featured">
-                    <article>
-                        <h1 class="entry-title"><a href="../vim_plugin_I_used.html">vim二三事</a></h1>
-                        <p>话说天下编辑器分为两派，不知不觉从了vim老久了，老夫老妻就感觉没激情了，不想捯饬各种配置，这不趁着neo-vim的新鲜劲儿，重新梳理了一遍配置。</p>
+
+        <div class="entry-content">
+            <p>话说天下编辑器分为两派，不知不觉从了vim老久了，老夫老妻就感觉没激情了，不想捯饬各种配置，这不趁着neo-vim的新鲜劲儿，重新梳理了一遍配置。</p>
 <h3>nvim</h3>
 <p>这个vim的岁数也不小了，几十年来，江湖众人想搞个小鲜肉大家尝尝，neo-vim便是其中之一。这货骨骼精奇，尽得前辈真传，同时还自创不少武术套路，确实是值得会会。</p>
 <div class="highlight"><pre><span class="n">alias</span> <span class="n">vi</span><span class="o">=</span><span class="err">&#39;</span><span class="n">nvim</span><span class="err">&#39;</span>
@@ -127,65 +135,27 @@ syntastic语法检测，避免出错    </p>
 </pre></div>
 <footer class="post-info">
     <abbr class="published" title="2015-03-19T00:00:00">
-        Posted on 四 19 三月 2015 by Chong Yang |     tags: <a href="../tag/vim.html">vim</a> <a href="../tag/plugin.html">plugin</a>     </abbr>
+        Posted on 四 19 三月 2015 by Chong Yang |     tags: <a href="./tag/vim.html">vim</a> <a href="./tag/plugin.html">plugin</a>     </abbr>
 </footer><!-- /footer-post-info -->
-                    </article>
-                </aside><!-- /aside-featured -->
-                    <section id="content">
-                        <hr />
-                        <ol id="posts-list">
-
-                <li>
-                    <article class="entry">
-                        <header>
-                            <h3 class="entry-title"><a href="../CP_of_tmux.html" rel="bookmark" title="Permalink to tmux的粘贴复制">tmux的粘贴复制</a></h3>
-                            <aside class="entry-title-date">2014-10-15</aside>
-                        </header>
-
-                        <div class="entry-content">
-                            <p>电脑打开用的就是终端和浏览器，终端又是tmux掌控，所以不管tmux下cmd各程序或与桌面程序互通有无的时候，把tmux伺候好就OK啦。</p>
-<h3>复制模式</h3>
-<p>业务部门，又有新特性要开发啦。咦，这个功能点实现似曾相识，找找代码片段啊，打印机模式开启。JJYY一句，肯定有人说vim能粘贴复制要你干嘛，拜托同学们看看，clipboard特性打开没有。没有的同学用tmux先顶着，空了再去倒腾自定义编译。还有屏中某个小窗口程序的输出很有用，需编辑或记录，鼠标一拖，整屏都下来了，愁人。</p>
-<p>tmux下凡走过必留痕，copy模式下一览无疑。下边的配置，几个命令都被我作了映射，可以改成自己熟悉的键位。不论一屏分几个窗口，都不会串行啦。one more thing, 我经常用copy-mode当历史模式使用，翻屏棒棒哒。</p>
-<div class="highlight"><pre><span class="cp"># copy mode</span>
-<span class="n">setw</span> <span class="o">-</span><span class="n">g</span> <span class="n">mode</span><span class="o">-</span><span class="n">keys</span> <span class="n">vi</span>              <span class="err">#</span> <span class="n">keymap</span> <span class="n">in</span> <span class="n">copy</span> <span class="n">mode</span>
-<span class="n">bind</span> <span class="n">Escape</span> <span class="n">copy</span><span class="o">-</span><span class="n">mode</span>             <span class="err">#</span> <span class="n">enter ...</span></pre></div>
-                        </div><!-- /dev-entry-content -->
-                        <a class="jump" href="../CP_of_tmux.html">more</a>
-                    </article>
-                </li>
-
-                <li>
-                    <article class="entry">
-                        <header>
-                            <h3 class="entry-title"><a href="../serial_driver.html" rel="bookmark" title="Permalink to FTDI串口驱动">FTDI串口驱动</a></h3>
-                            <aside class="entry-title-date">2014-08-28</aside>
-                        </header>
-
-                        <div class="entry-content">
-                            <p>用MAC的同学应该搞应用和设计的居多，什么嵌入式啊，串口啊，定时器的很多同学应该都不感冒的。偶尔自己也玩玩一些硬件，所以串口这个东西还是少不了的。说起驱动，Linux对硬件的支持自不必多说，OS X就得自己动手了。</p>
-<h3>FTDI2232</h3>
-<p>普通的USB转232的芯片不支持热拔插，原来的办公室已经躺尸了很多了，手中的2232其实是上大学的参加ZLG的竞赛发的一块开发版，旁边带的JTAG的调试，我顺手就用来当串口了，很是好使。最近想玩玩好久没碰的毕业论文的小车车了，想当年的巡线和遥控，哈哈，还是很佩服我自己的。</p>
-<p>话不多说先上官网下驱动和doc，真的是不看官方的<a href="http://www.ftdichip.com/Support/Documents/AppNotes/AN_134_FTDI_Drivers_Installation_Guide_for_MAC_OSX.pdf">Install Guide</a>，你还真弄不对。</p>
-<div class="highlight"><pre><span class="n">The</span> <span class="n">VCP</span> <span class="n">driver</span> <span class="n">is</span> <span class="n">provided</span> <span class="n">as</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">kernel</span> <span class="n">in</span> <span class="n">OSX</span> <span class="mf">10.9</span><span class="p">,</span> <span class="n">therefore</span> <span class="n">no</span> <span class="n">driver</span> <span class="n">installation</span> <span class="n">is</span> <span class="n">required</span> <span class="n">to</span> <span class="n">create</span> <span class="n">a</span> <span class="n">virtual ...</span></pre></div>
-                        </div><!-- /dev-entry-content -->
-                        <a class="jump" href="../serial_driver.html">more</a>
-                    </article>
-                </li>
-                </ol><!-- /ol-posts-list -->
-<div class="paginationer">
-    <p class="paginator">
-        Page 1 / 6
-            <a href="../category/blog2.html">&raquo;</a>
-    </p>
-</div>
-                </section><!-- /section-content -->
+        </div><!-- /.entry-content -->
+<script src="https://apis.google.com/js/plusone.js"></script>
+<div id="comments"></div>
+<script>
+    gapi.comments.render('comments', {
+        href: window.location,
+        width: '635',
+        first_party_property: 'BLOGGER',
+        view_type: 'FILTERED_POSTMOD'
+    });
+</script>
+    </article>
+</section>
     <section id="extras">
     </section><!-- /sectin-extras -->
 
     <footer id="footer">
         <address id="about" class="vcard">
-            &copy; 2014 <a class="url fn" href="..">TALO</a>
+            &copy; 2014 <a class="url fn" href=".">TALO</a>
         </address><!-- /address-about -->
     </footer><!-- /footer-footer -->
 
@@ -195,7 +165,7 @@ syntastic语法检测，避免出错    </p>
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//stats.g.doubleclick.net/dc.js','ga');
 
-        ga('create', 'UA-54841037-1', '..');
+        ga('create', 'UA-54841037-1', '.');
         ga('send', 'pageview');
     </script>
 

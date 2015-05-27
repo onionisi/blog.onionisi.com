@@ -41,6 +41,85 @@
                 <li>
                     <article class="entry">
                         <header>
+                            <h3 class="entry-title"><a href="./notes_of_2013.html" rel="bookmark" title="Permalink to 13年年中记事">13年年中记事</a></h3>
+                            <aside class="entry-title-date">2013-06-04</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <h3>时光飞逝，忆过往</h3>
+<p>看着dropbox里同步过来的文章<br />
+都是去年这个时候的<br />
+很久都没有详细记录一下自己<br />
+让我想想这快一年的时间<br />
+都有些什么事情发生<br />
+不要让他变成记忆真空<br />
+时间真是快啊<br />
+又要高考了<br />
+总是想起自己高考的时候</p>
+<h3>苦乐交加，年相似</h3>
+<p>去年六月的也是如此 <br />
+光猫的案子不了了之  <br />
+陆续开始EOC的工作  <br />
+包括Mstar500和AR74<br />
+9月份决定买车<br />
+红色bravo<br />
+为手续和车款奔波<br />
+下半年自己开始基于8198和7410做方案<br />
+要求元旦搞定时间明显很紧<br />
+各种加班与吹促，烦<br />
+后北研介入重头来过<br />
+1月份出差北京联合开发<br />
+遭遇毒物，北京咳<br />
+冬季的北京萧肃<br />
+又触发了刚毕业的情景<br />
+独自一人在北京工作的心酸<br />
+年前回川<br />
+热闹的春节<br />
+但还是觉得少点什么 </p>
+<h3>忙中偷乐，境不同</h3>
+<p>年后Judy开始忙碌<br />
+CPA考试在即<br />
+5月要go aboard<br />
+后勤保障要搞好<br />
+第一关签证<br />
+成都美使馆4号窗口的高个白人<br />
+不太近人情<br />
+成为我们的梦魇<br />
+感谢周哥和姜猪的招待<br />
+多少缓和了一点我们失落的情绪<br />
+舒服的春日里油菜花和莘夷花<br />
+迎来送往了各位来访的亲友<br />
+二签准备十足 ...</p>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="./notes_of_2013.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="./stat-and-close.html" rel="bookmark" title="Permalink to stat and close()">stat and close()</a></h3>
+                            <aside class="entry-title-date">2012-06-20</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <h1>file stat and file close</h1>
+<h2>file stat</h2>
+<p>中午吃饭的时候突然聊起了权限，笑777是bus，有点混淆stat的结构了，下午回来看了stat.h</p>
+<div class="highlight"><pre><span class="c1">// 出自bits/stat.h</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISUID</span>   <span class="mh">04000</span>   <span class="cm">/* Set user ID on execution.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISGID</span>   <span class="mh">02000</span>   <span class="cm">/* Set group ID on execution.  */</span>
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISVTX</span>   <span class="mh">01000</span>   <span class="cm">/* Save swapped text after use (sticky).  */</span>   
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_IREAD</span>   <span class="mh">0400</span>    <span class="cm">/* Read by owner.  */</span> 
+<span class="p">#</span><span class="n">define</span> <span class="no">__S_IWRITE</span>  <span class="mh">0200</span>    <span class="cm">/* Write ...</span></pre></div>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="./stat-and-close.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
                             <h3 class="entry-title"><a href="./proxy-of-ubuntu.html" rel="bookmark" title="Permalink to the proxy of Ubuntu">the proxy of Ubuntu</a></h3>
                             <aside class="entry-title-date">2012-05-17</aside>
                         </header>
@@ -69,75 +148,11 @@
                         <a class="jump" href="./proxy-of-ubuntu.html">more</a>
                     </article>
                 </li>
-
-                <li>
-                    <article class="entry">
-                        <header>
-                            <h3 class="entry-title"><a href="./LFS_build_process.html" rel="bookmark" title="Permalink to "旧文翻新之LFS和我第一次"">"旧文翻新之LFS和我第一次"</a></h3>
-                            <aside class="entry-title-date">2012-04-18</aside>
-                        </header>
-
-                        <div class="entry-content">
-                            <p>此文乃去年上班闲暇之余，作为深入学习linux之用，发表于内部服务器，今转过来以示纪念。当中各种陋见只怕贻笑大方了，若不慎入眼还望海涵。</p>
-<h2>任务综述</h2>
-<p>断断续续折腾近两周了今天我的LFS已经启动起来了啊，呵呵。。。</p>
-<p>HOST=Ubuntu 2.6.35
-TARGET=LFS 6.7</p>
-<p>最新发布的 LFS 是 6.8，好像就在我决定开始弄6.7的那天起发布的</p>
-<p>LFS的项目有好几个，LFS是最基本的，完成之后也只是个最最基础的系统，要想更顺手更丰富的就有BLFS，是基于LFS的，之后还有更进阶的 HLFS</p>
-<p>还有CLFS和ALFS，C 就是 Cross交叉编译的，A 就是Auto，用脚本自动的实现的</p>
-<p>为了好好学习，我还是老老实实 step by step来吧 </p>
-<p>手册其实写得相当详尽，但难免有自己手动的时候有事物，另外手册对原码包的操作都只提了一下，有些地方还需要注意</p>
-<p>比较麻烦的是就是编译工具链的时候，其中GCC ...</p>
-                        </div><!-- /dev-entry-content -->
-                        <a class="jump" href="./LFS_build_process.html">more</a>
-                    </article>
-                </li>
-
-                <li>
-                    <article class="entry">
-                        <header>
-                            <h3 class="entry-title"><a href="./oh-my-zsh.html" rel="bookmark" title="Permalink to oh-my-zsh的芯">oh-my-zsh的芯</a></h3>
-                            <aside class="entry-title-date">2012-04-17</aside>
-                        </header>
-
-                        <div class="entry-content">
-                            <p>用zsh有一段时间了，前段时间在github上找见了这个神奇的项目，试用起来果然还是
-很有爱。但是之前的配置已经有我比较熟悉的快捷键，所以还是要改造一番，美其名曰
-本地化。</p>
-<h2>主配置.zshrc</h2>
-<p>主配置很简洁，主要功能就是选主题选插件，形式各样的千奇百怪的prompt，各种功能
-不同的插件，可根据发行版，版本控制工具进行选择，大家各取所需。
-这也就是vim、firefox这些软件强大的原因---有广大的同志还开发插件！所以说群众
-的力量是无穷的。</p>
-<p>下边就是主体程序的目录结构：</p>
-<div class="highlight"><pre><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">onionisi</span><span class="o">/</span><span class="p">.</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">cache</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">custom</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">lib</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">log</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">plugins</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">templates</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">themes</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">tools</span><span class="o">/</span>
-<span class="o">|-</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="p">.</span><span class="n">sh</span>
-<span class="err">`</span><span class="o">-</span><span class="n">README</span><span class="p">.</span><span class="n">textile</span>
-</pre></div>
-
-
-<h2>oh-my-zsh.sh</h2>
-<p>这个脚本才开始真正进入主题。</p>
-<h3>upgrade</h3>
-<div class="highlight"><pre><span class="cp"># Check for updates on ...</span></pre></div>
-                        </div><!-- /dev-entry-content -->
-                        <a class="jump" href="./oh-my-zsh.html">more</a>
-                    </article>
-                </li>
                 </ol><!-- /ol-posts-list -->
 <div class="paginationer">
     <p class="paginator">
             <a href="./index3.html">&laquo;</a>
-        Page 4 / 5
+        Page 4 / 6
             <a href="./index5.html">&raquo;</a>
     </p>
 </div>

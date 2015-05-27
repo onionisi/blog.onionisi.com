@@ -38,33 +38,95 @@
 
                 <aside id="featured">
                     <article>
-                        <h1 class="entry-title"><a href="./serial_driver.html">FTDI串口驱动</a></h1>
-                        <p>用MAC的同学应该搞应用和设计的居多，什么嵌入式啊，串口啊，定时器的很多同学应该都不感冒的。偶尔自己也玩玩一些硬件，所以串口这个东西还是少不了的。说起驱动，Linux对硬件的支持自不必多说，OS X就得自己动手了。</p>
-<h3>FTDI2232</h3>
-<p>普通的USB转232的芯片不支持热拔插，原来的办公室已经躺尸了很多了，手中的2232其实是上大学的参加ZLG的竞赛发的一块开发版，旁边带的JTAG的调试，我顺手就用来当串口了，很是好使。最近想玩玩好久没碰的毕业论文的小车车了，想当年的巡线和遥控，哈哈，还是很佩服我自己的。</p>
-<p>话不多说先上官网下驱动和doc，真的是不看官方的<a href="http://www.ftdichip.com/Support/Documents/AppNotes/AN_134_FTDI_Drivers_Installation_Guide_for_MAC_OSX.pdf">Install Guide</a>，你还真弄不对。</p>
-<div class="highlight"><pre><span class="n">The</span> <span class="n">VCP</span> <span class="n">driver</span> <span class="n">is</span> <span class="n">provided</span> <span class="n">as</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">kernel</span> <span class="n">in</span> <span class="n">OSX</span> <span class="mf">10.9</span><span class="p">,</span> <span class="n">therefore</span> <span class="n">no</span> <span class="n">driver</span> <span class="n">installation</span> <span class="n">is</span> <span class="n">required</span> <span class="n">to</span> <span class="n">create</span> <span class="n">a</span> <span class="n">virtual</span> <span class="n">COM</span> <span class="n">port</span> <span class="n">in</span> <span class="n">Mavericks</span><span class="p">.</span> 
+                        <h1 class="entry-title"><a href="./vim_plugin_I_used.html">vim二三事</a></h1>
+                        <p>话说天下编辑器分为两派，不知不觉从了vim老久了，老夫老妻就感觉没激情了，不想捯饬各种配置，这不趁着neo-vim的新鲜劲儿，重新梳理了一遍配置。</p>
+<h3>nvim</h3>
+<p>这个vim的岁数也不小了，几十年来，江湖众人想搞个小鲜肉大家尝尝，neo-vim便是其中之一。这货骨骼精奇，尽得前辈真传，同时还自创不少武术套路，确实是值得会会。</p>
+<div class="highlight"><pre><span class="n">alias</span> <span class="n">vi</span><span class="o">=</span><span class="err">&#39;</span><span class="n">nvim</span><span class="err">&#39;</span>
+<span class="n">cp</span> <span class="o">~/</span><span class="p">.</span><span class="n">vimrc</span> <span class="o">~/</span><span class="p">.</span><span class="n">nvimrc</span>
 </pre></div>
 
 
-<p>因为是Yosemite，自己又重新去<code>/System/Library/Extensions/IOUSBFamily.kext/Contents/Plugins</code>确认了一下<code>AppleUSBFTDI.kext</code>的存在。插上USB接口，查看<code>/dev/tty.usbserial-xxxxxxxx</code>是否出现，但是结果是令人失望的。</p>
-<p>Troubleshooting里还是解答了我的疑惑</p>
-<div class="highlight"><pre><span class="n">If</span> <span class="n">the</span> <span class="n">device</span> <span class="n">does</span> <span class="n">not</span> <span class="n">work</span> <span class="n">after</span> <span class="n">installing</span> <span class="n">the</span> <span class="n">driver</span><span class="p">,</span> <span class="n">it</span> <span class="n">is</span> <span class="n">likely</span> <span class="n">to</span> <span class="n">be</span> <span class="n">because</span> <span class="n">the</span> <span class="n">PID</span> <span class="n">is</span> <span class="n">not</span> <span class="n">supported</span> <span class="n">by</span> <span class="n">the</span> <span class="n">driver</span><span class="p">.</span> 
+<p>配置完全兼容，这丝滑。命令响应采用S/C模式，so后台会有一个单独pymodule neovim监听。得益于新的软件架构，插件执行效率更高更快。新特性还有vt，可直接集成终端，各位可自行前往github围观。</p>
+<h3>vundle</h3>
+<p>自由软件的世界不能没有包管理，你看看各大发行板，你看看node，你看看ruby/python，你看看go，现在新的编程语言没有这个好意思发布么，再看看rust。那么vim这个屌丝呢，也有很多包管理哦，vundle和github结合较好，比较好用的说。</p>
+<p>呃，vundle的interface早就更改了，Bundle变Plugin了，妈蛋，老子还一直纳闷怎么插件都不更新了，怪不得老是同步不上捏。是时候好好整理一下vim的插件啦，不然还说是vimer，囧rz。</p>
+<p>配置文件也有变化，晕</p>
+<div class="highlight"><pre><span class="n">call</span> <span class="n">vundle</span><span class="err">#</span><span class="n">rc</span><span class="p">()</span>
 </pre></div>
 
 
-<p>因为没有lsusb，只能去系统信息里去确认了一下VID为0x0403，PID为0xbcd8，与原厂0x6001不同，需要调整。</p>
-<h3><a href="http://www.ftdichip.com/Support/Documents/TechnicalNotes/TN_105%20Adding%20Support%20for%20New%20FTDI%20Devices%20to%20Mac%20Driver.pdf">Solution</a>:</h3>
-<div class="highlight"><pre><span class="n">The</span> <span class="n">Info</span><span class="p">.</span><span class="n">plist</span> <span class="n">file</span> <span class="n">contains</span> <span class="n">entries</span> <span class="k">for</span> <span class="n">various</span> <span class="n">FTDI</span> <span class="n">devices</span> <span class="n">in</span> <span class="n">the</span> <span class="n">IOKitPersonalities</span> <span class="n">dictionary</span><span class="p">.</span> <span class="n">A</span> <span class="n">new</span> <span class="n">entry</span> <span class="k">for</span> <span class="n">an</span> <span class="n">OEM</span> <span class="n">device</span> <span class="n">can</span> <span class="n">be</span> <span class="n">created</span> <span class="n">by</span> <span class="n">copying</span> <span class="n">the</span> <span class="n">personality</span> <span class="n">of</span> <span class="n">the</span> <span class="n">equivalent</span> <span class="n">FTDI</span> <span class="n">device</span><span class="p">.</span> <span class="n">In</span> <span class="n">the</span> <span class="n">simplest</span> <span class="k">case</span><span class="p">,</span> <span class="n">only</span> <span class="n">the</span> <span class="n">new</span> <span class="n">device</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">name</span> <span class="n">and</span> <span class="n">idProduct</span> <span class="n">key</span> <span class="n">have</span> <span class="n">to</span> <span class="n">be</span> <span class="n">provided</span><span class="p">.</span> <span class="n">FTDI</span> <span class="n">recommends</span> <span class="n">that</span> <span class="n">new</span> <span class="n">OEM</span> <span class="n">device</span> <span class="n">personalities</span> <span class="n">are</span> <span class="n">added</span> <span class="n">to</span> <span class="n">the</span> <span class="n">plist</span> <span class="n">file</span><span class="p">,</span> <span class="n">and</span> <span class="n">existing</span> <span class="n">FTDI</span> <span class="n">personalities</span> <span class="n">are</span> <span class="n">retained</span><span class="p">.</span> 
+<p>现在变成</p>
+<div class="highlight"><pre><span class="n">call</span> <span class="n">vundle</span><span class="err">#</span><span class="n">begin</span><span class="p">()</span>
+<span class="p">...</span>
+<span class="n">call</span> <span class="n">vundle</span><span class="err">#</span><span class="n">end</span><span class="p">()</span>
 </pre></div>
 
 
-<p>重新添加来一条2232D的描述，注意VID与PID即可。</p>
-<h3>串口软件</h3>
-<p>这个主要看大家口味了，putty，screen大家用的比较多，反正我是minicom的忠实用户了。主要就是波特率的设置了，乱码了什么的除了线接错了，就是波特率不对了，have fun，buddy！</p>
+<h3>常用Plugin</h3>
+<p>积累了不少插件和快捷键，和大家share一下</p>
+<h4>常规四件</h4>
+<div class="highlight"><pre><span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">scrooloose</span><span class="o">/</span><span class="n">nerdtree</span><span class="err">&#39;</span>
+<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">bling</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">airline</span><span class="err">&#39;</span>
+<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">majutsushi</span><span class="o">/</span><span class="n">tagbar</span><span class="err">&#39;</span>
+<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">minibufexpl</span><span class="p">.</span><span class="n">vim</span><span class="err">&#39;</span>
+</pre></div>
+
+
+<p>东南西北四大神兽打先锋，nerdtree作文件导航，airline替代powerline美化bar，tagbar替补taglist分析文本展现词条，minibufexpl管理buffer</p>
+<h4>编辑能手</h4>
+<div class="highlight"><pre><span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">tpope</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">commentary</span><span class="err">&#39;</span>
+<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">kien</span><span class="o">/</span><span class="n">ctrlp</span><span class="p">.</span><span class="n">vim</span><span class="err">&#39;</span>
+<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">Valloric</span><span class="o">/</span><span class="n">YouCompleteMe</span><span class="err">&#39;</span>
+<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">ervandew</span><span class="o">/</span><span class="n">supertab</span><span class="err">&#39;</span>
+<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">mattn</span><span class="o">/</span><span class="n">emmet</span><span class="o">-</span><span class="n">vim</span><span class="err">&#39;</span>
+<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">godlygeek</span><span class="o">/</span><span class="n">tabular</span><span class="err">&#39;</span>
+<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">rking</span><span class="o">/</span><span class="n">ag</span><span class="p">.</span><span class="n">vim</span><span class="err">&#39;</span>
+</pre></div>
+
+
+<p>commentary自动帮你识别注释符号，你只需要选中并注释，无需亲自编辑。  <br />
+ctrlp不必多说，文件查找神奇，同时注意ignore各种无关文件  <br />
+YCM更不必废话，但是更新后要重新编译，感叹为什么我写C的时候没出来？？一般与supertab配合使用。  <br />
+emmet，敲代码最烦的就是符号配对啦，你要编辑html怎么能少了她！  <br />
+tabular对齐神器，为了代码更有逼格，你值得试试  <br />
+ag全称advanced grep，完爆grep，you known，宇宙最强文本搜索，该插件直接调用的shell</p>
+<h4>类型识别</h4>
+<div class="highlight"><pre><span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">klen</span><span class="o">/</span><span class="n">python</span><span class="o">-</span><span class="n">mode</span><span class="err">&#39;</span>
+<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">fatih</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">go</span><span class="err">&#39;</span>
+<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">plasticboy</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">markdown</span><span class="err">&#39;</span>
+<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">elzr</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">json</span><span class="err">&#39;</span>
+<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">scrooloose</span><span class="o">/</span><span class="n">syntastic</span><span class="err">‘</span>
+</pre></div>
+
+
+<p>靠python养家的我怎能没有你，python-mode  <br />
+go有自己的官方插件，但是这个打包的更好，话说go真心不错，像极了python和C的bastard  <br />
+不写md的同学难道你写rst <br />
+json貌似在浏览器里看得多点  <br />
+syntastic语法检测，避免出错    </p>
+<h3>基本配置</h3>
+<p>还有一些可配置小点，各位小主有兴趣可以取用。</p>
+<p>集中各中间文件，方便统一处理。</p>
+<div class="highlight"><pre><span class="s">&quot; Centralize backups, swapfiles and undo history</span>
+<span class="n">set</span> <span class="n">backupdir</span><span class="o">=~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">backups</span>
+<span class="n">set</span> <span class="n">directory</span><span class="o">=~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">swaps</span>
+<span class="k">if</span> <span class="n">exists</span><span class="p">(</span><span class="s">&quot;&amp;undodir&quot;</span><span class="p">)</span>
+    <span class="n">set</span> <span class="n">undodir</span><span class="o">=~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">undo</span>
+    <span class="n">set</span> <span class="n">undofile</span>
+    <span class="n">set</span> <span class="n">undolevels</span><span class="o">=</span><span class="mi">500</span>
+    <span class="n">set</span> <span class="n">undoreload</span><span class="o">=</span><span class="mi">500</span>
+<span class="n">endif</span>
+</pre></div>
+
+
+<p>不同类型文档不同缩进</p>
+<div class="highlight"><pre><span class="n">au</span> <span class="n">FileType</span> <span class="n">javascript</span><span class="p">,</span><span class="n">sass</span> <span class="n">setlocal</span> <span class="n">ts</span><span class="o">=</span><span class="mi">2</span> <span class="n">sw</span><span class="o">=</span><span class="mi">2</span> <span class="n">sts</span><span class="o">=</span><span class="mi">2</span> <span class="n">et</span>
+<span class="n">au</span> <span class="n">FileType</span> <span class="n">python</span> <span class="n">setlocal</span> <span class="n">ts</span><span class="o">=</span><span class="mi">4</span> <span class="n">sw</span><span class="o">=</span><span class="mi">4</span> <span class="n">sts</span><span class="o">=</span><span class="mi">4</span> <span class="n">et</span>
+</pre></div>
 <footer class="post-info">
-    <abbr class="published" title="2014-08-28T00:00:00">
-        Posted on 四 28 八月 2014 by Chong Yang |     tags: <a href="./tag/osx.html">OSX</a> <a href="./tag/driver.html">driver</a>     </abbr>
+    <abbr class="published" title="2015-03-19T00:00:00">
+        Posted on 四 19 三月 2015 by Chong Yang |     tags: <a href="./tag/vim.html">vim</a> <a href="./tag/plugin.html">plugin</a>     </abbr>
 </footer><!-- /footer-post-info -->
                     </article>
                 </aside><!-- /aside-featured -->
@@ -75,48 +137,44 @@
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="./osx-ipv6.html" rel="bookmark" title="Permalink to OSX ipv6">OSX ipv6</a></h3>
-                            <aside class="entry-title-date">2014-08-14</aside>
+                            <h3 class="entry-title"><a href="./CP_of_tmux.html" rel="bookmark" title="Permalink to tmux的粘贴复制">tmux的粘贴复制</a></h3>
+                            <aside class="entry-title-date">2014-10-15</aside>
                         </header>
 
                         <div class="entry-content">
-                            <p>今天心血来潮想弄把IPv6，因为这PAC让部分网站抽风。不用说只能通过tunnel实现，我大西南地区向来就是敢为人后的代表。之前在Archlinux上配过aiccu和gogoc都挺好，两个都要自行去申请账号哦。其中gogoc需要时间同步，误差太大就连不上啦，之前折腾了半天，注意同步网络时间。</p>
-<p>brew里没找见gogoc，直接就上aiccu了，得知需要tuntap依赖，其实就是内核扩展，这里就有个坑（主要是用Yosemite的同学）了，各位注意：<strong>tuntap的ext没法加载<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup>，console日志报错没有签名，10.10的不允许使用未签名kexts<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup>。</strong>解决方式如下：</p>
-<ol>
-<li>
-<p>disable kext signing checks for everything, by doing <code>sudo nvram boot-args="kext-dev-mode=1"</code>and rebooting.</p>
-</li>
-<li>
-<p>signed tun/tap.ext in the bundle of tunnelblick, just ...</p></li></ol>
+                            <p>电脑打开用的就是终端和浏览器，终端又是tmux掌控，所以不管tmux下cmd各程序或与桌面程序互通有无的时候，把tmux伺候好就OK啦。</p>
+<h3>复制模式</h3>
+<p>业务部门，又有新特性要开发啦。咦，这个功能点实现似曾相识，找找代码片段啊，打印机模式开启。JJYY一句，肯定有人说vim能粘贴复制要你干嘛，拜托同学们看看，clipboard特性打开没有。没有的同学用tmux先顶着，空了再去倒腾自定义编译。还有屏中某个小窗口程序的输出很有用，需编辑或记录，鼠标一拖，整屏都下来了，愁人。</p>
+<p>tmux下凡走过必留痕，copy模式下一览无疑。下边的配置，几个命令都被我作了映射，可以改成自己熟悉的键位。不论一屏分几个窗口，都不会串行啦。one more thing, 我经常用copy-mode当历史模式使用，翻屏棒棒哒。</p>
+<div class="highlight"><pre><span class="cp"># copy mode</span>
+<span class="n">setw</span> <span class="o">-</span><span class="n">g</span> <span class="n">mode</span><span class="o">-</span><span class="n">keys</span> <span class="n">vi</span>              <span class="err">#</span> <span class="n">keymap</span> <span class="n">in</span> <span class="n">copy</span> <span class="n">mode</span>
+<span class="n">bind</span> <span class="n">Escape</span> <span class="n">copy</span><span class="o">-</span><span class="n">mode</span>             <span class="err">#</span> <span class="n">enter ...</span></pre></div>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="./osx-ipv6.html">more</a>
+                        <a class="jump" href="./CP_of_tmux.html">more</a>
                     </article>
                 </li>
 
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="./osx-launchd.html" rel="bookmark" title="Permalink to OSX Launchd">OSX Launchd</a></h3>
-                            <aside class="entry-title-date">2014-07-21</aside>
+                            <h3 class="entry-title"><a href="./serial_driver.html" rel="bookmark" title="Permalink to FTDI串口驱动">FTDI串口驱动</a></h3>
+                            <aside class="entry-title-date">2014-08-28</aside>
                         </header>
 
                         <div class="entry-content">
-                            <p>习惯了Linux下init，rc或者systemd的方式，来到Mac下想搞个启动项还是要费费脑子重新学习下除了鼠标点击的账户-&gt;登录项以及dock上的登陆时打开，毕竟总多的系统级别的程序是在launchd的统治下。</p>
-<h3>文件</h3>
-<p>cmd总是跟文件脱不了干系的，plist开始登场，下边是他存在的世界，摘自launchctl男人页：</p>
-<div class="highlight"><pre>    <span class="o">~/</span><span class="n">Library</span><span class="o">/</span><span class="n">LaunchAgents</span>         <span class="n">Per</span><span class="o">-</span><span class="n">user</span> <span class="n">agents</span> <span class="n">provided</span> <span class="n">by</span> <span class="n">the</span> <span class="n">user</span><span class="p">.</span>
-    <span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">LaunchAgents</span>          <span class="n">Per</span><span class="o">-</span><span class="n">user</span> <span class="n">agents</span> <span class="n">provided</span> <span class="n">by</span> <span class="n">the</span> <span class="n">administrator</span><span class="p">.</span>
-    <span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">LaunchDaemons</span>         <span class="n">System</span> <span class="n">wide</span> <span class="n">daemons</span> <span class="n">provided</span> <span class="n">by</span> <span class="n">the</span> <span class="n">administrator</span><span class="p">.</span>
-    <span class="o">/</span><span class="n">System</span><span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">LaunchAgents</span>   <span class="n">OS</span> <span class="n">X</span> <span class="n">Per</span><span class="o">-</span><span class="n">user</span> <span class="n">agents</span><span class="p">.</span>
-    <span class="o">/</span><span class="n">System</span><span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">LaunchDaemons</span>  <span class="n">OS</span> <span class="n">X ...</span></pre></div>
+                            <p>用MAC的同学应该搞应用和设计的居多，什么嵌入式啊，串口啊，定时器的很多同学应该都不感冒的。偶尔自己也玩玩一些硬件，所以串口这个东西还是少不了的。说起驱动，Linux对硬件的支持自不必多说，OS X就得自己动手了。</p>
+<h3>FTDI2232</h3>
+<p>普通的USB转232的芯片不支持热拔插，原来的办公室已经躺尸了很多了，手中的2232其实是上大学的参加ZLG的竞赛发的一块开发版，旁边带的JTAG的调试，我顺手就用来当串口了，很是好使。最近想玩玩好久没碰的毕业论文的小车车了，想当年的巡线和遥控，哈哈，还是很佩服我自己的。</p>
+<p>话不多说先上官网下驱动和doc，真的是不看官方的<a href="http://www.ftdichip.com/Support/Documents/AppNotes/AN_134_FTDI_Drivers_Installation_Guide_for_MAC_OSX.pdf">Install Guide</a>，你还真弄不对。</p>
+<div class="highlight"><pre><span class="n">The</span> <span class="n">VCP</span> <span class="n">driver</span> <span class="n">is</span> <span class="n">provided</span> <span class="n">as</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">kernel</span> <span class="n">in</span> <span class="n">OSX</span> <span class="mf">10.9</span><span class="p">,</span> <span class="n">therefore</span> <span class="n">no</span> <span class="n">driver</span> <span class="n">installation</span> <span class="n">is</span> <span class="n">required</span> <span class="n">to</span> <span class="n">create</span> <span class="n">a</span> <span class="n">virtual ...</span></pre></div>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="./osx-launchd.html">more</a>
+                        <a class="jump" href="./serial_driver.html">more</a>
                     </article>
                 </li>
                 </ol><!-- /ol-posts-list -->
 <div class="paginationer">
     <p class="paginator">
-        Page 1 / 5
+        Page 1 / 6
             <a href="./index2.html">&raquo;</a>
     </p>
 </div>
