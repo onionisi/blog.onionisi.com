@@ -11,7 +11,7 @@ GNU/Linux fan，Vimer，Pythoner。
 
 自08年关注和使用 Linux，最喜 Arch Linux 和 Gentoo Linux。
 
-个人以简约为美，less is more，热爱CLI以及一票自由软件：vim • zsh • tmux • git • cmus • graphicsmagic • mplayer • rtorrent • python • ranger。
+个人以简约为美，less is more，热爱CLI以及一票自由软件：vim • zsh • tmux • git • cmus • graphicsmagic • mplayer • rtorrent • ranger • mutt • irssi • newsbeuter。
 
 Contact me:
 
