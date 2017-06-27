@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>TALO - Chong</title><link>http://www.onionisi.com/</link><description></description><lastBuildDate>Thu, 19 Mar 2015 00:00:00 +0800</lastBuildDate><item><title>vim二三事</title><link>http://www.onionisi.com/vim_plugin_I_used.html</link><description>&lt;p&gt;话说天下编辑器分为两派，不知不觉从了vim老久了，老夫老妻就感觉没激情了，不想捯饬各种配置，这不趁着neo-vim的新鲜劲儿，重新梳理了一遍配置。&lt;/p&gt;
+<rss version="2.0"><channel><title>TALO - Chong</title><link>http://blog.onionisi.com/</link><description></description><lastBuildDate>Thu, 19 Mar 2015 00:00:00 +0800</lastBuildDate><item><title>vim二三事</title><link>http://blog.onionisi.com/vim_plugin_I_used.html</link><description>&lt;p&gt;话说天下编辑器分为两派，不知不觉从了vim老久了，老夫老妻就感觉没激情了，不想捯饬各种配置，这不趁着neo-vim的新鲜劲儿，重新梳理了一遍配置。&lt;/p&gt;
 &lt;h3&gt;nvim&lt;/h3&gt;
 &lt;p&gt;这个vim的岁数也不小了，几十年来，江湖众人想搞个小鲜肉大家尝尝，neo-vim便是其中之一。这货骨骼精奇，尽得前辈真传，同时还自创不少武术套路，确实是值得会会。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;alias vi=&amp;#39;nvim&amp;#39;
@@ -10,17 +10,17 @@ cp ~/.vimrc ~/.nvimrc
 &lt;p&gt;配置完全兼容，这丝滑。命令响应采用S/C模式，so后台会有一个单独pymodule neovim监听。得益于新的软件架构，插件执行效率更高更快。新特性还有vt，可直接集成终端，各位可自行前往github围观。&lt;/p&gt;
 &lt;h3&gt;vundle&lt;/h3&gt;
 &lt;p&gt;自由软件的世界不能没有包管理，你看看各大发行板，你看看node，你看看ruby/python，你看看go，现在新的编程语言没有这个好意思发布么，再看看rust。那么vim这个屌丝呢，也有很多包管理哦，vundle和github结合较好，比较好用的说。&lt;/p&gt;
-&lt;p&gt;呃，vundle的interface早就更改了，Bundle变Plugin了，妈蛋，老子还一直纳闷怎么插件都不更新了 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Thu, 19 Mar 2015 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:www.onionisi.com,2015-03-19:/vim_plugin_I_used.html</guid><category>vim</category><category>plugin</category></item><item><title>tmux的粘贴复制</title><link>http://www.onionisi.com/CP_of_tmux.html</link><description>&lt;p&gt;电脑打开用的就是终端和浏览器，终端又是tmux掌控，所以不管tmux下cmd各程序或与桌面程序互通有无的时候，把tmux伺候好就OK啦。&lt;/p&gt;
+&lt;p&gt;呃，vundle的interface早就更改了，Bundle变Plugin了，妈蛋，老子还一直纳闷怎么插件都不更新了 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Thu, 19 Mar 2015 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2015-03-19:/vim_plugin_I_used.html</guid><category>vim</category><category>plugin</category></item><item><title>tmux的粘贴复制</title><link>http://blog.onionisi.com/CP_of_tmux.html</link><description>&lt;p&gt;电脑打开用的就是终端和浏览器，终端又是tmux掌控，所以不管tmux下cmd各程序或与桌面程序互通有无的时候，把tmux伺候好就OK啦。&lt;/p&gt;
 &lt;h3&gt;复制模式&lt;/h3&gt;
 &lt;p&gt;业务部门，又有新特性要开发啦。咦，这个功能点实现似曾相识，找找代码片段啊，打印机模式开启。JJYY一句，肯定有人说vim能粘贴复制要你干嘛，拜托同学们看看，clipboard特性打开没有。没有的同学用tmux先顶着，空了再去倒腾自定义编译。还有屏中某个小窗口程序的输出很有用，需编辑或记录，鼠标一拖，整屏都下来了，愁人。&lt;/p&gt;
 &lt;p&gt;tmux下凡走过必留痕，copy模式下一览无疑。下边的配置，几个命令都被我作了映射，可以改成自己熟悉的键位。不论一屏分几个窗口，都不会串行啦。one more thing, 我经常用copy-mode当历史模式使用，翻屏棒棒哒。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# copy mode
 setw -g mode-keys vi              # keymap in copy mode
-bind Escape copy-mode             # enter copy mode …&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Wed, 15 Oct 2014 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:www.onionisi.com,2014-10-15:/CP_of_tmux.html</guid><category>tmux</category><category>conf</category></item><item><title>FTDI串口驱动</title><link>http://www.onionisi.com/serial_driver.html</link><description>&lt;p&gt;用MAC的同学应该搞应用和设计的居多，什么嵌入式啊，串口啊，定时器的很多同学应该都不感冒的。偶尔自己也玩玩一些硬件，所以串口这个东西还是少不了的。说起驱动，Linux对硬件的支持自不必多说，OS X就得自己动手了。&lt;/p&gt;
+bind Escape copy-mode             # enter copy mode …&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Wed, 15 Oct 2014 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2014-10-15:/CP_of_tmux.html</guid><category>tmux</category><category>conf</category></item><item><title>FTDI串口驱动</title><link>http://blog.onionisi.com/serial_driver.html</link><description>&lt;p&gt;用MAC的同学应该搞应用和设计的居多，什么嵌入式啊，串口啊，定时器的很多同学应该都不感冒的。偶尔自己也玩玩一些硬件，所以串口这个东西还是少不了的。说起驱动，Linux对硬件的支持自不必多说，OS X就得自己动手了。&lt;/p&gt;
 &lt;h3&gt;FTDI2232&lt;/h3&gt;
 &lt;p&gt;普通的USB转232的芯片不支持热拔插，原来的办公室已经躺尸了很多了，手中的2232其实是上大学的参加ZLG的竞赛发的一块开发版，旁边带的JTAG的调试，我顺手就用来当串口了，很是好使。最近想玩玩好久没碰的毕业论文的小车车了，想当年的巡线和遥控，哈哈，还是很佩服我自己的。&lt;/p&gt;
 &lt;p&gt;话不多说先上官网下驱动和doc，真的是不看官方的&lt;a href="http://www.ftdichip.com/Support/Documents/AppNotes/AN_134_FTDI_Drivers_Installation_Guide_for_MAC_OSX.pdf"&gt;Install Guide&lt;/a&gt;，你还真弄不对。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;The VCP driver is provided as part of the kernel in OSX 10.9, therefore no driver installation is required to create a virtual …&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Thu, 28 Aug 2014 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:www.onionisi.com,2014-08-28:/serial_driver.html</guid><category>OSX</category><category>driver</category></item><item><title>工作的一天</title><link>http://www.onionisi.com/common_day.html</link><description>&lt;h3&gt;学习依然是头等大事&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;The VCP driver is provided as part of the kernel in OSX 10.9, therefore no driver installation is required to create a virtual …&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Thu, 28 Aug 2014 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2014-08-28:/serial_driver.html</guid><category>OSX</category><category>driver</category></item><item><title>工作的一天</title><link>http://blog.onionisi.com/common_day.html</link><description>&lt;h3&gt;学习依然是头等大事&lt;/h3&gt;
 &lt;p&gt;早上就initrd和initramfs进行了一下深入的学习，主要参考文档就是黄敬群老师的博客。打个比方，可能不确切，但是话糙理不糙，init阶段的文件系统就像你高考前的备考，没有这个阶段注定要失败滴。话说黄老师真的是牛X，特别是对于一些系统底层的细节。&lt;/p&gt;
 &lt;p&gt;中午波哥吃完午饭就回家准备收麦子了，真的是幸福的码农，请了半个月农忙假。&lt;/p&gt;
 &lt;p&gt;下午遇到个奇怪的事情，整理文档发现原来写的小程序demo.py，想试试运行效率，却始终始终执行不了。妈蛋是权限问题么，查看了都没有问题。后边发现是磁盘挂载时忘了&lt;code&gt;exec&lt;/code&gt;了，我的个乖乖，改之遂好。&lt;/p&gt;
@@ -29,7 +29,7 @@ bind Escape copy-mode             # enter copy mode …&lt;/pre&gt;&lt;/div&gt;<
 &lt;h3&gt;新室友到来&lt;/h3&gt;
 &lt;p&gt;晚上李佑成准备要搬过来，和他聊了会，家常琐碎。亮点就是他可能有5V2.5A的电源，虽然我需要的是3A，不过明天还是可以试试的硬盘能带起来不能。我手头的cubieboard因为没有合适的电源，那块2.5寸的硬盘已经快积灰了。早就装上了archlinux_arm，还是不错，平时在办公室因为网络的限制，也只能弄来玩玩驱动，配配网络。如若硬盘能带起来，就搞个NAS玩啰。&lt;/p&gt;
 &lt;h3&gt;洗洗睡&lt;/h3&gt;
-&lt;p&gt;看会十亿消费者就准备睡了 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Wed, 05 Jun 2013 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:www.onionisi.com,2013-06-05:/common_day.html</guid><category>daily</category><category>work</category></item><item><title>13年年中记事</title><link>http://www.onionisi.com/notes_of_2013.html</link><description>&lt;h3&gt;时光飞逝，忆过往&lt;/h3&gt;
+&lt;p&gt;看会十亿消费者就准备睡了 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Wed, 05 Jun 2013 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2013-06-05:/common_day.html</guid><category>daily</category><category>work</category></item><item><title>13年年中记事</title><link>http://blog.onionisi.com/notes_of_2013.html</link><description>&lt;h3&gt;时光飞逝，忆过往&lt;/h3&gt;
 &lt;p&gt;看着dropbox里同步过来的文章&lt;br&gt;
 都是去年这个时候的&lt;br&gt;
 很久都没有详细记录一下自己&lt;br&gt;
@@ -72,7 +72,7 @@ CPA考试在即&lt;br&gt;
 多少缓和了一点我们失落的情绪&lt;br&gt;
 舒服的春日里油菜花和莘夷花&lt;br&gt;
 迎来送往了各位来访的亲友&lt;br&gt;
-二签准备十足 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Tue, 04 Jun 2013 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:www.onionisi.com,2013-06-04:/notes_of_2013.html</guid><category>daily</category><category>travel</category></item><item><title>stat and close()</title><link>http://www.onionisi.com/stat-and-close.html</link><description>&lt;h1&gt;file stat and file close&lt;/h1&gt;
+二签准备十足 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Tue, 04 Jun 2013 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2013-06-04:/notes_of_2013.html</guid><category>daily</category><category>travel</category></item><item><title>stat and close()</title><link>http://blog.onionisi.com/stat-and-close.html</link><description>&lt;h1&gt;file stat and file close&lt;/h1&gt;
 &lt;h2&gt;file stat&lt;/h2&gt;
 &lt;p&gt;中午吃饭的时候突然聊起了权限，笑777是bus，有点混淆stat的结构了，下午回来看了stat.h&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;// 出自bits/stat.h
@@ -80,7 +80,7 @@ CPA考试在即&lt;br&gt;
 #define __S_ISGID   02000   /* Set group ID on execution.  */
 #define __S_ISVTX   01000   /* Save swapped text after use (sticky).  */   
 #define __S_IREAD   0400    /* Read by owner.  */ 
-#define __S_IWRITE  0200    /* Write …&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Wed, 20 Jun 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:www.onionisi.com,2012-06-20:/stat-and-close.html</guid><category>linux C</category><category>filesystem</category></item><item><title>the proxy of Ubuntu</title><link>http://www.onionisi.com/proxy-of-ubuntu.html</link><description>&lt;h1&gt;ubuntu的代理&lt;/h1&gt;
+#define __S_IWRITE  0200    /* Write …&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Wed, 20 Jun 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2012-06-20:/stat-and-close.html</guid><category>linux C</category><category>filesystem</category></item><item><title>the proxy of Ubuntu</title><link>http://blog.onionisi.com/proxy-of-ubuntu.html</link><description>&lt;h1&gt;ubuntu的代理&lt;/h1&gt;
 &lt;p&gt;办公室的网络总是那么不给力，每个所部各分了一个IP能够上外网，我们只能用代理
 来凑合上网了。&lt;/p&gt;
 &lt;h2&gt;全局代理&lt;/h2&gt;
@@ -98,7 +98,7 @@ CPA考试在即&lt;br&gt;
 &lt;h2&gt;吐槽&lt;/h2&gt;
 &lt;p&gt;升了12.04的系统没多大感觉，本来本人又不用unity，口味越发清淡，想往WM转了，
 之前整了个#！，也没时间玩，最近项目空闲点了，把超级本的arch也好好配配。&lt;/p&gt;
-&lt;p&gt;PS:主要是来冒个泡，很久没更新了，另入了kindle3，webos的东东，玩着还有意思 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Thu, 17 May 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:www.onionisi.com,2012-05-17:/proxy-of-ubuntu.html</guid><category>system</category><category>skill</category><category>linux</category><category>distro</category></item><item><title>"旧文翻新之LFS和我第一次"</title><link>http://www.onionisi.com/LFS_build_process.html</link><description>&lt;p&gt;此文乃去年上班闲暇之余，作为深入学习linux之用，发表于内部服务器，今转过来以示纪念。当中各种陋见只怕贻笑大方了，若不慎入眼还望海涵。&lt;/p&gt;
+&lt;p&gt;PS:主要是来冒个泡，很久没更新了，另入了kindle3，webos的东东，玩着还有意思 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Thu, 17 May 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2012-05-17:/proxy-of-ubuntu.html</guid><category>system</category><category>skill</category><category>linux</category><category>distro</category></item><item><title>"旧文翻新之LFS和我第一次"</title><link>http://blog.onionisi.com/LFS_build_process.html</link><description>&lt;p&gt;此文乃去年上班闲暇之余，作为深入学习linux之用，发表于内部服务器，今转过来以示纪念。当中各种陋见只怕贻笑大方了，若不慎入眼还望海涵。&lt;/p&gt;
 &lt;h2&gt;任务综述&lt;/h2&gt;
 &lt;p&gt;断断续续折腾近两周了今天我的LFS已经启动起来了啊，呵呵。。。&lt;/p&gt;
 &lt;p&gt;HOST=Ubuntu 2.6.35
@@ -108,7 +108,7 @@ TARGET=LFS 6.7&lt;/p&gt;
 &lt;p&gt;还有CLFS和ALFS，C 就是 Cross交叉编译的，A 就是Auto，用脚本自动的实现的&lt;/p&gt;
 &lt;p&gt;为了好好学习，我还是老老实实 step by step来吧 &lt;/p&gt;
 &lt;p&gt;手册其实写得相当详尽，但难免有自己手动的时候有事物，另外手册对原码包的操作都只提了一下，有些地方还需要注意&lt;/p&gt;
-&lt;p&gt;比较麻烦的是就是编译工具链的时候，其中GCC …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Wed, 18 Apr 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:www.onionisi.com,2012-04-18:/LFS_build_process.html</guid><category>system</category><category>linux</category><category>compile</category></item><item><title>oh-my-zsh的芯</title><link>http://www.onionisi.com/oh-my-zsh.html</link><description>&lt;p&gt;用zsh有一段时间了，前段时间在github上找见了这个神奇的项目，试用起来果然还是
+&lt;p&gt;比较麻烦的是就是编译工具链的时候，其中GCC …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Wed, 18 Apr 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2012-04-18:/LFS_build_process.html</guid><category>system</category><category>linux</category><category>compile</category></item><item><title>oh-my-zsh的芯</title><link>http://blog.onionisi.com/oh-my-zsh.html</link><description>&lt;p&gt;用zsh有一段时间了，前段时间在github上找见了这个神奇的项目，试用起来果然还是
 很有爱。但是之前的配置已经有我比较熟悉的快捷键，所以还是要改造一番，美其名曰
 本地化。&lt;/p&gt;
 &lt;h2&gt;主配置.zshrc&lt;/h2&gt;
@@ -135,7 +135,7 @@ TARGET=LFS 6.7&lt;/p&gt;
 &lt;p&gt;这个脚本才开始真正进入主题。&lt;/p&gt;
 &lt;h3&gt;upgrade&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# Check for updates on initial load...
-if [ &amp;quot;$DISABLE_AUTO_UPDATE …&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Tue, 17 Apr 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:www.onionisi.com,2012-04-17:/oh-my-zsh.html</guid><category>shell</category><category>src</category><category>zsh</category></item><item><title>/run的由来</title><link>http://www.onionisi.com/linux-run-dir.html</link><description>&lt;p&gt;熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。&lt;/p&gt;
+if [ &amp;quot;$DISABLE_AUTO_UPDATE …&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Tue, 17 Apr 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2012-04-17:/oh-my-zsh.html</guid><category>shell</category><category>src</category><category>zsh</category></item><item><title>/run的由来</title><link>http://blog.onionisi.com/linux-run-dir.html</link><description>&lt;p&gt;熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。&lt;/p&gt;
 &lt;h2&gt;/run目录的诞生&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;各主要发行版阵营的重要人物讨论了/dev目录被滥用的情况，希望在该问题还没有扩大化前找到解决方案。他们提出了各种方案，但所有方案都归结到一点，/var/run目录不应在/var目录下，它可以提升到根目录下，这是唯一简洁明了的方案。&lt;/p&gt;
@@ -144,7 +144,7 @@ if [ &amp;quot;$DISABLE_AUTO_UPDATE …&lt;/pre&gt;&lt;/div&gt;</description><dc
 &lt;p&gt;以下文字翻译自Lennart Poetteringu邮件，一名Fedora的开发者，详细解释了原因。&lt;/p&gt;
 &lt;p&gt;我在F15中上传了systemd的新版本，它在根目录下创建了/run这个目录。迟早你都会对此感到困惑，所以下面就讲讲它是肿么来的，为虾米要这么做。&lt;/p&gt;
 &lt;p&gt;其实这只是一个相当小的变动，但是大伙儿可能会认为这是一个很大的政策变动，所以我觉得还是相当地有必要解释一下：&lt;/p&gt;
-&lt;p&gt;在早期启动的程序里，相当一段时间里他们用/dev目录上很多隐藏文件存储运行时数据。第一个文件就是/dev/.udev，随着时间的推移，又逐步增加了/dev/.mdadm，/dev/.systemd，/dev/.mount，dracut，initscripts以及更多的工具。（其他发行版还有更多 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Tue, 27 Mar 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:www.onionisi.com,2012-03-27:/linux-run-dir.html</guid><category>fs</category><category>linux</category><category>distro</category><category>trans</category></item><item><title>Recently</title><link>http://www.onionisi.com/recently.html</link><description>&lt;h2&gt;spring come&lt;/h2&gt;
+&lt;p&gt;在早期启动的程序里，相当一段时间里他们用/dev目录上很多隐藏文件存储运行时数据。第一个文件就是/dev/.udev，随着时间的推移，又逐步增加了/dev/.mdadm，/dev/.systemd，/dev/.mount，dracut，initscripts以及更多的工具。（其他发行版还有更多 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Tue, 27 Mar 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2012-03-27:/linux-run-dir.html</guid><category>fs</category><category>linux</category><category>distro</category><category>trans</category></item><item><title>Recently</title><link>http://blog.onionisi.com/recently.html</link><description>&lt;h2&gt;spring come&lt;/h2&gt;
 &lt;p&gt;这是我在绵阳的第一个春天，今天又降温了，下班回宿舍的路上还是有一些些冷，食堂
 依然是那么车水马龙。本来照例今天应该是要会江油的，可是亲爱的在上课，天气又不
 好，周一周二晚上也没做什么事情，趁着今晚把最近的资料整整。&lt;/p&gt;
@@ -158,11 +158,11 @@ if [ &amp;quot;$DISABLE_AUTO_UPDATE …&lt;/pre&gt;&lt;/div&gt;</description><dc
 游了，加上之前我们单位也在召唤组织骑游and上上上周几个公务员同志策划的出游因
 下雨而泡汤。对不起，我的stack够深，跟不上的同志慢慢回溯啊。&lt;/p&gt;
 &lt;p&gt;上上周我们很兴奋的骑行去了武都，一个跟龙门town很相似的地方------------灰大！
-回来被告知有另外一条羊肠小道，遂决定上周末再此出行。怎料 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Wed, 21 Mar 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:www.onionisi.com,2012-03-21:/recently.html</guid><category>daily</category><category>weekend</category></item><item><title>Born this way</title><link>http://www.onionisi.com/born-this-way.html</link><description>&lt;p&gt;说了好久弄个人博客的事情了，但总是这样那样，说白了也就是自己懒，好歹现在勉强能看了。&lt;/p&gt;
+回来被告知有另外一条羊肠小道，遂决定上周末再此出行。怎料 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Wed, 21 Mar 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2012-03-21:/recently.html</guid><category>daily</category><category>weekend</category></item><item><title>Born this way</title><link>http://blog.onionisi.com/born-this-way.html</link><description>&lt;p&gt;说了好久弄个人博客的事情了，但总是这样那样，说白了也就是自己懒，好歹现在勉强能看了。&lt;/p&gt;
 &lt;h2&gt;WP&lt;/h2&gt;
 &lt;p&gt;其实早之前就想自己弄块地，记得去年还是神马时候，还专门找了视频认真观摩，后边也不了了之，前段手头没多少活就在公司的机子上自己弄了个WP，玩了两天，后边因为重装系统，也没活多长时间。&lt;/p&gt;
 &lt;p&gt;这玩意儿确实要麻烦点，平台，数据库，要想好看还得还一大堆插件，关键你写东西还要登入后台，而且还要在那个输入的小框用各种格式来控制格式，用惯了纯文本的编辑器来倒腾这些真的很让人受不了啊亲。&lt;/p&gt;
 &lt;h2&gt;jekyll&lt;/h2&gt;
 &lt;p&gt;遇见这个神器还要谢谢&lt;a href="http://www.yangzhiping.com/"&gt;阳志平老师的博客&lt;/a&gt;的推荐，其实一开始我感兴趣的是&lt;a href="http://octopress.org/"&gt;Octopress&lt;/a&gt;，因为他看着跟WP差不多，但是随着深入理解我发现了幕后的英雄&lt;a href="https://github.com/mojombo/jekyll"&gt;jekyll&lt;/a&gt;。
 本着从简从的原则，我开始摆弄这玩意儿。因为办公室的狗屁网络环境，之前在弄ruby的工具gem时候费了我不少周章。具体动手玩的指南请看&lt;a href="https://github.com/mojombo/jekyll/wiki"&gt;WiKi&lt;/a&gt; 。就像玩Arch的同志一样，不看wiki你注定要死得很惨或者毫无头绪。
-伟大的开源造就了很多让你想不到的神物，这是我使用github之后唯一的感慨，无疑jekyll就是其中之一，当然还有现在我正在使用中的Oh-My-Zsh等等。虽然作为半个苦逼的写C的码农，对于前端的各式五花八门的技术不懂，但觉着这么简洁给力的博客系统不用实在是太对不起我码农的称号了，在加上git和md的加持，真的是方便到没话说。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Wed, 07 Mar 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:www.onionisi.com,2012-03-07:/born-this-way.html</guid><category>daily</category><category>jekyll</category><category>web</category></item></channel></rss>
+伟大的开源造就了很多让你想不到的神物，这是我使用github之后唯一的感慨，无疑jekyll就是其中之一，当然还有现在我正在使用中的Oh-My-Zsh等等。虽然作为半个苦逼的写C的码农，对于前端的各式五花八门的技术不懂，但觉着这么简洁给力的博客系统不用实在是太对不起我码农的称号了，在加上git和md的加持，真的是方便到没话说。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Wed, 07 Mar 2012 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2012-03-07:/born-this-way.html</guid><category>daily</category><category>jekyll</category><category>web</category></item></channel></rss>

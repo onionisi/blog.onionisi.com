@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>TALO - Blog</title><link href="http://www.onionisi.com/" rel="alternate"></link><link href="http://www.onionisi.com/feeds/blog.atom.xml" rel="self"></link><id>http://www.onionisi.com/</id><updated>2015-07-30T19:30:00+08:00</updated><entry><title>Arch on MBP</title><link href="http://www.onionisi.com/archlinux-on-macbookpro.html" rel="alternate"></link><published>2015-07-24T00:00:00+08:00</published><updated>2015-07-30T19:30:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:www.onionisi.com,2015-07-24:/archlinux-on-macbookpro.html</id><summary type="html">&lt;p&gt;Due to my over optimization, my macbook got crashed due to the Chromium with too
+<feed xmlns="http://www.w3.org/2005/Atom"><title>TALO - Blog</title><link href="http://blog.onionisi.com/" rel="alternate"></link><link href="http://blog.onionisi.com/feeds/blog.atom.xml" rel="self"></link><id>http://blog.onionisi.com/</id><updated>2015-07-30T19:30:00+08:00</updated><entry><title>Arch on MBP</title><link href="http://blog.onionisi.com/archlinux-on-macbookpro.html" rel="alternate"></link><published>2015-07-24T00:00:00+08:00</published><updated>2015-07-30T19:30:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:blog.onionisi.com,2015-07-24:/archlinux-on-macbookpro.html</id><summary type="html">&lt;p&gt;Due to my over optimization, my macbook got crashed due to the Chromium with too
 many tabs. I was so confidence to disable the journal function of hfs+, obviously 
 it was a big mistake. I could't recovery my OSX, so after bearing a long time 
 with hfs+, I choose to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Due to my over optimization, my macbook got crashed due to the Chromium with too
@@ -34,7 +34,7 @@ just a single fan in MBP 13' late 2013. It's for the flash, damn flash. &lt;/p&g
 &lt;li&gt;openbox, obconf(not use now)&lt;/li&gt;
 &lt;li&gt;cinnamon&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Hope you guys all enjoy linux!&lt;/p&gt;</content><category term="archlinux"></category><category term="config"></category></entry><entry><title>vim二三事</title><link href="http://www.onionisi.com/vim_plugin_I_used.html" rel="alternate"></link><published>2015-03-19T00:00:00+08:00</published><updated>2015-03-19T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2015-03-19:/vim_plugin_I_used.html</id><summary type="html">&lt;p&gt;话说天下编辑器分为两派，不知不觉从了vim老久了，老夫老妻就感觉没激情了，不想捯饬各种配置，这不趁着neo-vim的新鲜劲儿，重新梳理了一遍配置。&lt;/p&gt;
+&lt;p&gt;Hope you guys all enjoy linux!&lt;/p&gt;</content><category term="archlinux"></category><category term="config"></category></entry><entry><title>vim二三事</title><link href="http://blog.onionisi.com/vim_plugin_I_used.html" rel="alternate"></link><published>2015-03-19T00:00:00+08:00</published><updated>2015-03-19T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2015-03-19:/vim_plugin_I_used.html</id><summary type="html">&lt;p&gt;话说天下编辑器分为两派，不知不觉从了vim老久了，老夫老妻就感觉没激情了，不想捯饬各种配置，这不趁着neo-vim的新鲜劲儿，重新梳理了一遍配置。&lt;/p&gt;
 &lt;h3&gt;nvim&lt;/h3&gt;
 &lt;p&gt;这个vim的岁数也不小了，几十年来，江湖众人想搞个小鲜肉大家尝尝，neo-vim便是其中之一。这货骨骼精奇，尽得前辈真传，同时还自创不少武术套路，确实是值得会会。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;alias vi=&amp;#39;nvim&amp;#39;
@@ -129,7 +129,7 @@ endif
 &lt;p&gt;不同类型文档不同缩进&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;au FileType javascript,sass setlocal ts=2 sw=2 sts=2 et
 au FileType python setlocal ts=4 sw=4 sts=4 et
-&lt;/pre&gt;&lt;/div&gt;</content><category term="vim"></category><category term="plugin"></category></entry><entry><title>tmux的粘贴复制</title><link href="http://www.onionisi.com/CP_of_tmux.html" rel="alternate"></link><published>2014-10-15T00:00:00+08:00</published><updated>2014-10-15T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2014-10-15:/CP_of_tmux.html</id><summary type="html">&lt;p&gt;电脑打开用的就是终端和浏览器，终端又是tmux掌控，所以不管tmux下cmd各程序或与桌面程序互通有无的时候，把tmux伺候好就OK啦。&lt;/p&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="vim"></category><category term="plugin"></category></entry><entry><title>tmux的粘贴复制</title><link href="http://blog.onionisi.com/CP_of_tmux.html" rel="alternate"></link><published>2014-10-15T00:00:00+08:00</published><updated>2014-10-15T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2014-10-15:/CP_of_tmux.html</id><summary type="html">&lt;p&gt;电脑打开用的就是终端和浏览器，终端又是tmux掌控，所以不管tmux下cmd各程序或与桌面程序互通有无的时候，把tmux伺候好就OK啦。&lt;/p&gt;
 &lt;h3&gt;复制模式&lt;/h3&gt;
 &lt;p&gt;业务部门，又有新特性要开发啦。咦，这个功能点实现似曾相识，找找代码片段啊，打印机模式开启。JJYY一句，肯定有人说vim能粘贴复制要你干嘛，拜托同学们看看，clipboard特性打开没有。没有的同学用tmux先顶着，空了再去倒腾自定义编译。还有屏中某个小窗口程序的输出很有用，需编辑或记录，鼠标一拖，整屏都下来了，愁人。&lt;/p&gt;
 &lt;p&gt;tmux下凡走过必留痕，copy模式下一览无疑。下边的配置，几个命令都被我作了映射，可以改成自己熟悉的键位。不论一屏分几个窗口，都不会串行啦。one more thing, 我经常用copy-mode当历史模式使用，翻屏棒棒哒。&lt;/p&gt;
@@ -159,7 +159,7 @@ if-shell &amp;#39;test &amp;quot;$(uname -s)&amp;quot; = &amp;quot;Linux&amp;quo
 &lt;h3&gt;不只是分屏&lt;/h3&gt;
 &lt;p&gt;你们呐，naive，以为tmux就代替screen什么的分分屏那么简单？&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;status-left/right&lt;/code&gt;可以玩玩咯，配合自己的脚本或者命令，让你想看到跃至眼底。&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;command-prompt&lt;/code&gt;更可以玩玩，交叉互动，观看男人页各种手册文档之良品。&lt;/p&gt;</content><category term="tmux"></category><category term="conf"></category></entry><entry><title>FTDI串口驱动</title><link href="http://www.onionisi.com/serial_driver.html" rel="alternate"></link><published>2014-08-28T00:00:00+08:00</published><updated>2014-08-28T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2014-08-28:/serial_driver.html</id><summary type="html">&lt;p&gt;用MAC的同学应该搞应用和设计的居多，什么嵌入式啊，串口啊，定时器的很多同学应该都不感冒的。偶尔自己也玩玩一些硬件，所以串口这个东西还是少不了的。说起驱动，Linux对硬件的支持自不必多说，OS X就得自己动手了。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;command-prompt&lt;/code&gt;更可以玩玩，交叉互动，观看男人页各种手册文档之良品。&lt;/p&gt;</content><category term="tmux"></category><category term="conf"></category></entry><entry><title>FTDI串口驱动</title><link href="http://blog.onionisi.com/serial_driver.html" rel="alternate"></link><published>2014-08-28T00:00:00+08:00</published><updated>2014-08-28T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2014-08-28:/serial_driver.html</id><summary type="html">&lt;p&gt;用MAC的同学应该搞应用和设计的居多，什么嵌入式啊，串口啊，定时器的很多同学应该都不感冒的。偶尔自己也玩玩一些硬件，所以串口这个东西还是少不了的。说起驱动，Linux对硬件的支持自不必多说，OS X就得自己动手了。&lt;/p&gt;
 &lt;h3&gt;FTDI2232&lt;/h3&gt;
 &lt;p&gt;普通的USB转232的芯片不支持热拔插，原来的办公室已经躺尸了很多了，手中的2232其实是上大学的参加ZLG的竞赛发的一块开发版，旁边带的JTAG的调试，我顺手就用来当串口了，很是好使。最近想玩玩好久没碰的毕业论文的小车车了，想当年的巡线和遥控，哈哈，还是很佩服我自己的。&lt;/p&gt;
 &lt;p&gt;话不多说先上官网下驱动和doc，真的是不看官方的&lt;a href="http://www.ftdichip.com/Support/Documents/AppNotes/AN_134_FTDI_Drivers_Installation_Guide_for_MAC_OSX.pdf"&gt;Install Guide&lt;/a&gt;，你还真弄不对。&lt;/p&gt;
@@ -185,7 +185,7 @@ if-shell &amp;#39;test &amp;quot;$(uname -s)&amp;quot; = &amp;quot;Linux&amp;quo
 
 &lt;p&gt;重新添加来一条2232D的描述，注意VID与PID即可。&lt;/p&gt;
 &lt;h3&gt;串口软件&lt;/h3&gt;
-&lt;p&gt;这个主要看大家口味了，putty，screen大家用的比较多，反正我是minicom的忠实用户了。主要就是波特率的设置了，乱码了什么的除了线接错了，就是波特率不对了，have fun，buddy！&lt;/p&gt;</content><category term="OSX"></category><category term="driver"></category></entry><entry><title>OSX ipv6</title><link href="http://www.onionisi.com/osx-ipv6.html" rel="alternate"></link><published>2014-08-14T00:00:00+08:00</published><updated>2014-08-14T00:00:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:www.onionisi.com,2014-08-14:/osx-ipv6.html</id><summary type="html">&lt;p&gt;今天心血来潮想弄把IPv6，因为这PAC让部分网站抽风。不用说只能通过tunnel实现，我大西南地区向来就是敢为人后的代表。之前在Archlinux上配过aiccu和gogoc都挺好，两个都要自行去申请账号哦。其中gogoc需要时间同步，误差太大就连不上啦，之前折腾了半天，注意同步网络时间。&lt;/p&gt;
+&lt;p&gt;这个主要看大家口味了，putty，screen大家用的比较多，反正我是minicom的忠实用户了。主要就是波特率的设置了，乱码了什么的除了线接错了，就是波特率不对了，have fun，buddy！&lt;/p&gt;</content><category term="OSX"></category><category term="driver"></category></entry><entry><title>OSX ipv6</title><link href="http://blog.onionisi.com/osx-ipv6.html" rel="alternate"></link><published>2014-08-14T00:00:00+08:00</published><updated>2014-08-14T00:00:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:blog.onionisi.com,2014-08-14:/osx-ipv6.html</id><summary type="html">&lt;p&gt;今天心血来潮想弄把IPv6，因为这PAC让部分网站抽风。不用说只能通过tunnel实现，我大西南地区向来就是敢为人后的代表。之前在Archlinux上配过aiccu和gogoc都挺好，两个都要自行去申请账号哦。其中gogoc需要时间同步，误差太大就连不上啦，之前折腾了半天，注意同步网络时间。&lt;/p&gt;
 &lt;p&gt;brew里没找见gogoc，直接就上aiccu了，得知需要tuntap依赖，其实就是内核扩展，这里就有个坑（主要是用Yosemite的同学）了，各位注意：&lt;strong&gt;tuntap的ext没法加载&lt;sup id="fnref-1"&gt;&lt;a class="footnote-ref" href="#fn-1"&gt;1&lt;/a&gt;&lt;/sup&gt;，console日志报错没有签名，10.10的不允许使用未签名kexts&lt;sup id="fnref-2"&gt;&lt;a class="footnote-ref" href="#fn-2"&gt;2&lt;/a&gt;&lt;/sup&gt;。&lt;/strong&gt;解决方式如下：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -214,7 +214,7 @@ if-shell &amp;#39;test &amp;quot;$(uname -s)&amp;quot; = &amp;quot;Linux&amp;quo
 &lt;p&gt;&lt;a href="https://github.com/Homebrew/homebrew/issues/31164"&gt;Unsigned kexts cannot be used on 10.10&lt;/a&gt;&amp;#160;&lt;a class="footnote-backref" href="#fnref-2" title="Jump back to footnote 2 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</content><category term="OSX"></category><category term="network"></category><category term="ipv6"></category></entry><entry><title>OSX Launchd</title><link href="http://www.onionisi.com/osx-launchd.html" rel="alternate"></link><published>2014-07-21T00:00:00+08:00</published><updated>2014-07-21T00:00:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:www.onionisi.com,2014-07-21:/osx-launchd.html</id><summary type="html">&lt;p&gt;习惯了Linux下init，rc或者systemd的方式，来到Mac下想搞个启动项还是要费费脑子重新学习下除了鼠标点击的账户-&amp;gt;登录项以及dock上的登陆时打开，毕竟总多的系统级别的程序是在launchd的统治下。&lt;/p&gt;
+&lt;/div&gt;</content><category term="OSX"></category><category term="network"></category><category term="ipv6"></category></entry><entry><title>OSX Launchd</title><link href="http://blog.onionisi.com/osx-launchd.html" rel="alternate"></link><published>2014-07-21T00:00:00+08:00</published><updated>2014-07-21T00:00:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:blog.onionisi.com,2014-07-21:/osx-launchd.html</id><summary type="html">&lt;p&gt;习惯了Linux下init，rc或者systemd的方式，来到Mac下想搞个启动项还是要费费脑子重新学习下除了鼠标点击的账户-&amp;gt;登录项以及dock上的登陆时打开，毕竟总多的系统级别的程序是在launchd的统治下。&lt;/p&gt;
 &lt;h3&gt;文件&lt;/h3&gt;
 &lt;p&gt;cmd总是跟文件脱不了干系的，plist开始登场，下边是他存在的世界，摘自launchctl男人页：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    ~/Library/LaunchAgents         Per-user agents provided by the user.
@@ -297,7 +297,7 @@ if-shell &amp;#39;test &amp;quot;$(uname -s)&amp;quot; = &amp;quot;Linux&amp;quo
 &lt;p&gt;&lt;a href="http://paul.annesley.cc/2012/09/mac-os-x-launchd-is-cool/"&gt;launchd is cool&lt;/a&gt;&amp;#160;&lt;a class="footnote-backref" href="#fnref-2" title="Jump back to footnote 2 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</content><category term="OSX"></category><category term="init"></category></entry><entry><title>Mac vim taglist failed</title><link href="http://www.onionisi.com/taglist_failed.html" rel="alternate"></link><published>2014-05-13T00:00:00+08:00</published><updated>2014-05-13T00:00:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:www.onionisi.com,2014-05-13:/taglist_failed.html</id><summary type="html">&lt;p&gt;vim的常规插件taglist报错了，妈蛋，没有你我怎么看C code&lt;/p&gt;
+&lt;/div&gt;</content><category term="OSX"></category><category term="init"></category></entry><entry><title>Mac vim taglist failed</title><link href="http://blog.onionisi.com/taglist_failed.html" rel="alternate"></link><published>2014-05-13T00:00:00+08:00</published><updated>2014-05-13T00:00:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:blog.onionisi.com,2014-05-13:/taglist_failed.html</id><summary type="html">&lt;p&gt;vim的常规插件taglist报错了，妈蛋，没有你我怎么看C code&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Taglist&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Failed&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;generate&lt;/span&gt; &lt;span class="n"&gt;tags&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="sr"&gt;/Users/chong/code/redis-3.0-annotated/src/&lt;/span&gt;&lt;span class="n"&gt;ae&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;c&lt;/span&gt;
 &lt;span class="sr"&gt;/Library/Developer/CommandLineTools/usr/bin/&lt;/span&gt;&lt;span class="n"&gt;ctags&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;illegal&lt;/span&gt; &lt;span class="n"&gt;option&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt; &lt;span class="o"&gt;-^&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;&lt;span class="n"&gt;usage&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ctags&lt;/span&gt; &lt;span class="o"&gt;[-&lt;/span&gt;&lt;span class="n"&gt;BFadtuwvx&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;[-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="n"&gt;tagsfile&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt; &lt;span class="o"&gt;...^&lt;/span&gt;&lt;span class="err"&gt;@&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -334,7 +334,7 @@ endif
 
 
 &lt;p&gt;has是指vim特性，可通过feature-list查看，手贱的同学可能去看了，我堂堂大vim怎么会没有多系统检测，其中明明有mac的嘛，可就是不行啊，还有macvim啊，也不行，虾米原因？
-&lt;strong&gt;系统自带的vim只有unix特性，mac/macunix则没有&lt;/strong&gt;，只有MacVim可用这两种特性（槽点：cmd这么不受待见啊）。参考&lt;a href="http://stackoverflow.com/questions/6146633/vimscript-how-do-i-get-the-os-that-is-running-vim?rq=1"&gt;get os in vim&lt;/a&gt;&lt;/p&gt;</content><category term="OSX"></category><category term="vim"></category><category term="plugin"></category></entry><entry><title>After New Install</title><link href="http://www.onionisi.com/after-new-install.html" rel="alternate"></link><published>2014-05-10T00:00:00+08:00</published><updated>2014-08-15T19:30:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:www.onionisi.com,2014-05-10:/after-new-install.html</id><summary type="html">&lt;p&gt;升级到10.10的Yosemite第一个感觉是好多app要遭殃了，首先是alfred(虽然重点是workflow，但我很少用)，然后是各种输入法和一票终端。&lt;/p&gt;
+&lt;strong&gt;系统自带的vim只有unix特性，mac/macunix则没有&lt;/strong&gt;，只有MacVim可用这两种特性（槽点：cmd这么不受待见啊）。参考&lt;a href="http://stackoverflow.com/questions/6146633/vimscript-how-do-i-get-the-os-that-is-running-vim?rq=1"&gt;get os in vim&lt;/a&gt;&lt;/p&gt;</content><category term="OSX"></category><category term="vim"></category><category term="plugin"></category></entry><entry><title>After New Install</title><link href="http://blog.onionisi.com/after-new-install.html" rel="alternate"></link><published>2014-05-10T00:00:00+08:00</published><updated>2014-08-15T19:30:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:blog.onionisi.com,2014-05-10:/after-new-install.html</id><summary type="html">&lt;p&gt;升级到10.10的Yosemite第一个感觉是好多app要遭殃了，首先是alfred(虽然重点是workflow，但我很少用)，然后是各种输入法和一票终端。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;给Terminal选个好看的配色，这货也可以切割面板了，不过我还是喜欢iterm2的全局键呼出。&lt;/p&gt;
@@ -469,7 +469,7 @@ untrust！！！&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;defaults write com.apple.desktopservices DSDontWriteNetworkStores true
-&lt;/pre&gt;&lt;/div&gt;</content><category term="OSX"></category><category term="config"></category></entry><entry><title>TimeMachine on Archlinux</title><link href="http://www.onionisi.com/timemachine-on-archlinux.html" rel="alternate"></link><published>2014-05-08T00:00:00+08:00</published><updated>2014-05-08T00:00:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:www.onionisi.com,2014-05-08:/timemachine-on-archlinux.html</id><summary type="html">&lt;h2&gt;前因&lt;/h2&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="OSX"></category><category term="config"></category></entry><entry><title>TimeMachine on Archlinux</title><link href="http://blog.onionisi.com/timemachine-on-archlinux.html" rel="alternate"></link><published>2014-05-08T00:00:00+08:00</published><updated>2014-05-08T00:00:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:blog.onionisi.com,2014-05-08:/timemachine-on-archlinux.html</id><summary type="html">&lt;h2&gt;前因&lt;/h2&gt;
 &lt;p&gt;之前拿到新电脑很是兴奋，捯饬很比较猛，主要还是想目的就是延长SSD使用寿命，于是乎找了各种措施来减少SSD的写入。万恶的是没有任何备份，当我满心欢喜的禁用了磁盘的日志功能时，心想怎么可能意外断电捏。哪里知道就在第二天浏览淘宝时，打开网页太多导致浏览器卡死了系统，任何操作都不灵了。妈蛋滴，果断强制关机，reboot，老有一个进度条过不来，打客服电话，最后把我弄到检查磁盘的时候，发现磁盘损坏根本修复不了。这时才焕然大悟想起自己关闭了日志，天要亡我，奈何啊，可怜我的资料啊。&lt;/p&gt;
 &lt;p&gt;格式化磁盘的时候那叫个恋恋不舍啊，只能忍痛了，在线安装好Marvicks后，看着才出的Yosemite心痒痒，干脆一横心直接升了，这一来二回把我之前节约的写入全糟践了。心里便想着还是要搞个备份才行，Mac不是Linux，什么东西你都能Control，还是小心谨慎为好。&lt;/p&gt;
 &lt;h2&gt;后果&lt;/h2&gt;
@@ -508,7 +508,7 @@ untrust！！！&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;再也不用担心NFS挂载的麻烦啦。&lt;/p&gt;</content><category term="OSX"></category><category term="linux"></category><category term="timemachine"></category></entry><entry><title>工作的一天</title><link href="http://www.onionisi.com/common_day.html" rel="alternate"></link><published>2013-06-05T00:00:00+08:00</published><updated>2013-06-05T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2013-06-05:/common_day.html</id><summary type="html">&lt;h3&gt;学习依然是头等大事&lt;/h3&gt;
+&lt;p&gt;再也不用担心NFS挂载的麻烦啦。&lt;/p&gt;</content><category term="OSX"></category><category term="linux"></category><category term="timemachine"></category></entry><entry><title>工作的一天</title><link href="http://blog.onionisi.com/common_day.html" rel="alternate"></link><published>2013-06-05T00:00:00+08:00</published><updated>2013-06-05T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2013-06-05:/common_day.html</id><summary type="html">&lt;h3&gt;学习依然是头等大事&lt;/h3&gt;
 &lt;p&gt;早上就initrd和initramfs进行了一下深入的学习，主要参考文档就是黄敬群老师的博客。打个比方，可能不确切，但是话糙理不糙，init阶段的文件系统就像你高考前的备考，没有这个阶段注定要失败滴。话说黄老师真的是牛X，特别是对于一些系统底层的细节。&lt;/p&gt;
 &lt;p&gt;中午波哥吃完午饭就回家准备收麦子了，真的是幸福的码农，请了半个月农忙假。&lt;/p&gt;
 &lt;p&gt;下午遇到个奇怪的事情，整理文档发现原来写的小程序demo.py，想试试运行效率，却始终始终执行不了。妈蛋是权限问题么，查看了都没有问题。后边发现是磁盘挂载时忘了&lt;code&gt;exec&lt;/code&gt;了，我的个乖乖，改之遂好。&lt;/p&gt;
@@ -526,7 +526,7 @@ untrust！！！&lt;/p&gt;
 &lt;h3&gt;新室友到来&lt;/h3&gt;
 &lt;p&gt;晚上李佑成准备要搬过来，和他聊了会，家常琐碎。亮点就是他可能有5V2.5A的电源，虽然我需要的是3A，不过明天还是可以试试的硬盘能带起来不能。我手头的cubieboard因为没有合适的电源，那块2.5寸的硬盘已经快积灰了。早就装上了archlinux_arm，还是不错，平时在办公室因为网络的限制，也只能弄来玩玩驱动，配配网络。如若硬盘能带起来，就搞个NAS玩啰。&lt;/p&gt;
 &lt;h3&gt;洗洗睡&lt;/h3&gt;
-&lt;p&gt;看会十亿消费者就准备睡了，明天见。&lt;/p&gt;</content><category term="daily"></category><category term="work"></category></entry><entry><title>13年年中记事</title><link href="http://www.onionisi.com/notes_of_2013.html" rel="alternate"></link><published>2013-06-04T00:00:00+08:00</published><updated>2013-06-04T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2013-06-04:/notes_of_2013.html</id><summary type="html">&lt;h3&gt;时光飞逝，忆过往&lt;/h3&gt;
+&lt;p&gt;看会十亿消费者就准备睡了，明天见。&lt;/p&gt;</content><category term="daily"></category><category term="work"></category></entry><entry><title>13年年中记事</title><link href="http://blog.onionisi.com/notes_of_2013.html" rel="alternate"></link><published>2013-06-04T00:00:00+08:00</published><updated>2013-06-04T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2013-06-04:/notes_of_2013.html</id><summary type="html">&lt;h3&gt;时光飞逝，忆过往&lt;/h3&gt;
 &lt;p&gt;看着dropbox里同步过来的文章&lt;br&gt;
 都是去年这个时候的&lt;br&gt;
 很久都没有详细记录一下自己&lt;br&gt;
@@ -642,7 +642,7 @@ California No.1 Road&lt;br&gt;
 回来工作有所变动&lt;br&gt;
 目前正在适应新环境&lt;br&gt;
 同时做好相应的准备&lt;br&gt;
-时不我待，fighting！&lt;/p&gt;</content><category term="daily"></category><category term="travel"></category></entry><entry><title>stat and close()</title><link href="http://www.onionisi.com/stat-and-close.html" rel="alternate"></link><published>2012-06-20T00:00:00+08:00</published><updated>2012-06-20T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-06-20:/stat-and-close.html</id><summary type="html">&lt;h1&gt;file stat and file close&lt;/h1&gt;
+时不我待，fighting！&lt;/p&gt;</content><category term="daily"></category><category term="travel"></category></entry><entry><title>stat and close()</title><link href="http://blog.onionisi.com/stat-and-close.html" rel="alternate"></link><published>2012-06-20T00:00:00+08:00</published><updated>2012-06-20T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2012-06-20:/stat-and-close.html</id><summary type="html">&lt;h1&gt;file stat and file close&lt;/h1&gt;
 &lt;h2&gt;file stat&lt;/h2&gt;
 &lt;p&gt;中午吃饭的时候突然聊起了权限，笑777是bus，有点混淆stat的结构了，下午回来看了stat.h&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;// 出自bits/stat.h
@@ -698,7 +698,7 @@ California No.1 Road&lt;br&gt;
 system to flush the buffers when the stream is closed.  If you need to be sure that the data is physically stored use fsync(2).  (It will depend  on
 the disk hardware at this point.)&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;所以要感谢那位执着的哥们。&lt;/p&gt;</content><category term="linux C"></category><category term="filesystem"></category></entry><entry><title>the proxy of Ubuntu</title><link href="http://www.onionisi.com/proxy-of-ubuntu.html" rel="alternate"></link><published>2012-05-17T00:00:00+08:00</published><updated>2012-05-17T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-05-17:/proxy-of-ubuntu.html</id><summary type="html">&lt;h1&gt;ubuntu的代理&lt;/h1&gt;
+&lt;p&gt;所以要感谢那位执着的哥们。&lt;/p&gt;</content><category term="linux C"></category><category term="filesystem"></category></entry><entry><title>the proxy of Ubuntu</title><link href="http://blog.onionisi.com/proxy-of-ubuntu.html" rel="alternate"></link><published>2012-05-17T00:00:00+08:00</published><updated>2012-05-17T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2012-05-17:/proxy-of-ubuntu.html</id><summary type="html">&lt;h1&gt;ubuntu的代理&lt;/h1&gt;
 &lt;p&gt;办公室的网络总是那么不给力，每个所部各分了一个IP能够上外网，我们只能用代理
 来凑合上网了。&lt;/p&gt;
 &lt;h2&gt;全局代理&lt;/h2&gt;
@@ -735,7 +735,7 @@ the disk hardware at this point.)&lt;/p&gt;
 &lt;p&gt;升了12.04的系统没多大感觉，本来本人又不用unity，口味越发清淡，想往WM转了，
 之前整了个#！，也没时间玩，最近项目空闲点了，把超级本的arch也好好配配。&lt;/p&gt;
 &lt;p&gt;PS:主要是来冒个泡，很久没更新了，另入了kindle3，webos的东东，玩着还有意思，
-哪天实在是闲着没事，在分享个心得。&lt;/p&gt;</content><category term="system"></category><category term="skill"></category><category term="linux"></category><category term="distro"></category></entry><entry><title>"旧文翻新之LFS和我第一次"</title><link href="http://www.onionisi.com/LFS_build_process.html" rel="alternate"></link><published>2012-04-18T00:00:00+08:00</published><updated>2012-04-18T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-04-18:/LFS_build_process.html</id><summary type="html">&lt;p&gt;此文乃去年上班闲暇之余，作为深入学习linux之用，发表于内部服务器，今转过来以示纪念。当中各种陋见只怕贻笑大方了，若不慎入眼还望海涵。&lt;/p&gt;
+哪天实在是闲着没事，在分享个心得。&lt;/p&gt;</content><category term="system"></category><category term="skill"></category><category term="linux"></category><category term="distro"></category></entry><entry><title>"旧文翻新之LFS和我第一次"</title><link href="http://blog.onionisi.com/LFS_build_process.html" rel="alternate"></link><published>2012-04-18T00:00:00+08:00</published><updated>2012-04-18T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2012-04-18:/LFS_build_process.html</id><summary type="html">&lt;p&gt;此文乃去年上班闲暇之余，作为深入学习linux之用，发表于内部服务器，今转过来以示纪念。当中各种陋见只怕贻笑大方了，若不慎入眼还望海涵。&lt;/p&gt;
 &lt;h2&gt;任务综述&lt;/h2&gt;
 &lt;p&gt;断断续续折腾近两周了今天我的LFS已经启动起来了啊，呵呵。。。&lt;/p&gt;
 &lt;p&gt;HOST=Ubuntu 2.6.35
@@ -1034,7 +1034,7 @@ Theo
 &lt;p&gt;CPU 以及 FS 做了改动，去了IPv6，俗话说事不过三嘛，还好启动起来了，只是网卡不知道为什么启动失败了，下来还要在探究一下&lt;/p&gt;
 &lt;p&gt;然后就要开始 BLFS 的征途了&lt;/p&gt;
 &lt;h2&gt;结语&lt;/h2&gt;
-&lt;p&gt;BLFS后边由于上项目了，也拖了很久结果连openssl都还没有编译现在7.1都出来了，呵呵...有机会再玩一把，现在挺喜欢这种轻便快捷定制型儿的了&lt;/p&gt;</content><category term="system"></category><category term="linux"></category><category term="compile"></category></entry><entry><title>oh-my-zsh的芯</title><link href="http://www.onionisi.com/oh-my-zsh.html" rel="alternate"></link><published>2012-04-17T00:00:00+08:00</published><updated>2012-04-17T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-04-17:/oh-my-zsh.html</id><summary type="html">&lt;p&gt;用zsh有一段时间了，前段时间在github上找见了这个神奇的项目，试用起来果然还是
+&lt;p&gt;BLFS后边由于上项目了，也拖了很久结果连openssl都还没有编译现在7.1都出来了，呵呵...有机会再玩一把，现在挺喜欢这种轻便快捷定制型儿的了&lt;/p&gt;</content><category term="system"></category><category term="linux"></category><category term="compile"></category></entry><entry><title>oh-my-zsh的芯</title><link href="http://blog.onionisi.com/oh-my-zsh.html" rel="alternate"></link><published>2012-04-17T00:00:00+08:00</published><updated>2012-04-17T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2012-04-17:/oh-my-zsh.html</id><summary type="html">&lt;p&gt;用zsh有一段时间了，前段时间在github上找见了这个神奇的项目，试用起来果然还是
 很有爱。但是之前的配置已经有我比较熟悉的快捷键，所以还是要改造一番，美其名曰
 本地化。&lt;/p&gt;
 &lt;h2&gt;主配置.zshrc&lt;/h2&gt;
@@ -1187,7 +1187,7 @@ fi
 
 &lt;p&gt;欧欧欧...我觉得我都在粘代码了，还是大神linus说得对RTFSC，同志们还是直接去看
 吧，直接明了。&lt;/p&gt;
-&lt;p&gt;下一步就是我要把我先前的顺手货拆开再组装上去，未完待续哦...&lt;/p&gt;</content><category term="shell"></category><category term="src"></category><category term="zsh"></category></entry><entry><title>/run的由来</title><link href="http://www.onionisi.com/linux-run-dir.html" rel="alternate"></link><published>2012-03-27T00:00:00+08:00</published><updated>2012-03-27T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-03-27:/linux-run-dir.html</id><summary type="html">&lt;p&gt;熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。&lt;/p&gt;
+&lt;p&gt;下一步就是我要把我先前的顺手货拆开再组装上去，未完待续哦...&lt;/p&gt;</content><category term="shell"></category><category term="src"></category><category term="zsh"></category></entry><entry><title>/run的由来</title><link href="http://blog.onionisi.com/linux-run-dir.html" rel="alternate"></link><published>2012-03-27T00:00:00+08:00</published><updated>2012-03-27T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2012-03-27:/linux-run-dir.html</id><summary type="html">&lt;p&gt;熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。&lt;/p&gt;
 &lt;h2&gt;/run目录的诞生&lt;/h2&gt;
 &lt;blockquote&gt;
 &lt;p&gt;各主要发行版阵营的重要人物讨论了/dev目录被滥用的情况，希望在该问题还没有扩大化前找到解决方案。他们提出了各种方案，但所有方案都归结到一点，/var/run目录不应在/var目录下，它可以提升到根目录下，这是唯一简洁明了的方案。&lt;/p&gt;
@@ -1228,7 +1228,7 @@ fi
 &lt;p&gt;我们实现这个方案实际需要的代码改动很小（基本上就是用新的tmpfs挂载/var/run以及/var/lock取代原来的绑定挂载），这也是我们会选择在F15周期这么后期做这件事。&lt;/p&gt;
 &lt;h2&gt;个人感想&lt;/h2&gt;
 &lt;p&gt;话说Fedora真的是很有创新的版本，新的F17还会有D语言的开发环境，另目前一直在Ubuntu上，一直没有机会感受systemd的机会啊，前段时间倒是工作需要装了一个F14，坑爹的连源都撤了，近期有打算弄弄FreeBSD，换换环境。&lt;/p&gt;
-&lt;p&gt;这篇文章战线还挺长，0406才截稿啊，blog再不写就可惜我倒腾了，呵呵......&lt;/p&gt;</content><category term="fs"></category><category term="linux"></category><category term="distro"></category><category term="trans"></category></entry><entry><title>Recently</title><link href="http://www.onionisi.com/recently.html" rel="alternate"></link><published>2012-03-21T00:00:00+08:00</published><updated>2012-03-21T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-03-21:/recently.html</id><summary type="html">&lt;h2&gt;spring come&lt;/h2&gt;
+&lt;p&gt;这篇文章战线还挺长，0406才截稿啊，blog再不写就可惜我倒腾了，呵呵......&lt;/p&gt;</content><category term="fs"></category><category term="linux"></category><category term="distro"></category><category term="trans"></category></entry><entry><title>Recently</title><link href="http://blog.onionisi.com/recently.html" rel="alternate"></link><published>2012-03-21T00:00:00+08:00</published><updated>2012-03-21T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2012-03-21:/recently.html</id><summary type="html">&lt;h2&gt;spring come&lt;/h2&gt;
 &lt;p&gt;这是我在绵阳的第一个春天，今天又降温了，下班回宿舍的路上还是有一些些冷，食堂
 依然是那么车水马龙。本来照例今天应该是要会江油的，可是亲爱的在上课，天气又不
 好，周一周二晚上也没做什么事情，趁着今晚把最近的资料整整。&lt;/p&gt;
@@ -1276,7 +1276,7 @@ fi
 。&lt;/p&gt;
 &lt;p&gt;欢乐的时光总是那么短暂，彬哥留我周日再走，确实不行，周日请了松林和海岩来家做
 客，于是相约下次再聚。我目送他们离去，心里有说不出的感觉，高兴又难受，下回去
-杭州得好好宰他一刀。&lt;/p&gt;</content><category term="daily"></category><category term="weekend"></category></entry><entry><title>Born this way</title><link href="http://www.onionisi.com/born-this-way.html" rel="alternate"></link><published>2012-03-07T00:00:00+08:00</published><updated>2012-03-07T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:www.onionisi.com,2012-03-07:/born-this-way.html</id><summary type="html">&lt;p&gt;说了好久弄个人博客的事情了，但总是这样那样，说白了也就是自己懒，好歹现在勉强能看了。&lt;/p&gt;
+杭州得好好宰他一刀。&lt;/p&gt;</content><category term="daily"></category><category term="weekend"></category></entry><entry><title>Born this way</title><link href="http://blog.onionisi.com/born-this-way.html" rel="alternate"></link><published>2012-03-07T00:00:00+08:00</published><updated>2012-03-07T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2012-03-07:/born-this-way.html</id><summary type="html">&lt;p&gt;说了好久弄个人博客的事情了，但总是这样那样，说白了也就是自己懒，好歹现在勉强能看了。&lt;/p&gt;
 &lt;h2&gt;WP&lt;/h2&gt;
 &lt;p&gt;其实早之前就想自己弄块地，记得去年还是神马时候，还专门找了视频认真观摩，后边也不了了之，前段手头没多少活就在公司的机子上自己弄了个WP，玩了两天，后边因为重装系统，也没活多长时间。&lt;/p&gt;
 &lt;p&gt;这玩意儿确实要麻烦点，平台，数据库，要想好看还得还一大堆插件，关键你写东西还要登入后台，而且还要在那个输入的小框用各种格式来控制格式，用惯了纯文本的编辑器来倒腾这些真的很让人受不了啊亲。&lt;/p&gt;
