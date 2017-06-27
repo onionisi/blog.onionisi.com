@@ -11,10 +11,11 @@
 
     <title>TALO - driver</title>
 
-        <link rel="stylesheet" href="../theme/css/style.min.css?981d7269">
+        <link rel="stylesheet" href="http://www.onionisi.com/theme/css/style.min.css?176eb4f7">
 
-    <link rel="shortcut icon" href="../theme/img/favicon.ico" />
-    <link rel="icon" sizes="16x16 32x32" href="../theme/img/favicon.ico">
+
+    <link rel="shortcut icon" href="http://www.onionisi.com/theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="http://www.onionisi.com/theme/img/favicon.ico">
 
 
 
@@ -24,38 +25,37 @@
     <header id="sitehead">
         <div class="sitehead">
             <span id="sitehead">
-                <a href="..">TALO</a>
+                <a href="http://www.onionisi.com">TALO</a>
             </span>
         </div>
             <div id="tagline">
                 <strong>fprintf(post, "%s\n", daily_life)</strong>
             </div>
         <nav class="navbar">
-                <a href="../category/blog.html">Blog</a>&nbsp;
-                    <a href="../pages/about.html">About</a>&nbsp;
+                <a href="http://www.onionisi.com/category/blog.html">Blog</a>&nbsp;
         </nav>
     </header><!-- /header-siteheader -->
 
                 <aside id="featured">
                     <article>
-                        <h1 class="entry-title"><a href="../serial_driver.html">FTDI串口驱动</a></h1>
+                        <h1 class="entry-title"><a href="http://www.onionisi.com/serial_driver.html">FTDI串口驱动</a></h1>
                         <p>用MAC的同学应该搞应用和设计的居多，什么嵌入式啊，串口啊，定时器的很多同学应该都不感冒的。偶尔自己也玩玩一些硬件，所以串口这个东西还是少不了的。说起驱动，Linux对硬件的支持自不必多说，OS X就得自己动手了。</p>
 <h3>FTDI2232</h3>
 <p>普通的USB转232的芯片不支持热拔插，原来的办公室已经躺尸了很多了，手中的2232其实是上大学的参加ZLG的竞赛发的一块开发版，旁边带的JTAG的调试，我顺手就用来当串口了，很是好使。最近想玩玩好久没碰的毕业论文的小车车了，想当年的巡线和遥控，哈哈，还是很佩服我自己的。</p>
 <p>话不多说先上官网下驱动和doc，真的是不看官方的<a href="http://www.ftdichip.com/Support/Documents/AppNotes/AN_134_FTDI_Drivers_Installation_Guide_for_MAC_OSX.pdf">Install Guide</a>，你还真弄不对。</p>
-<div class="highlight"><pre><span class="n">The</span> <span class="n">VCP</span> <span class="n">driver</span> <span class="n">is</span> <span class="n">provided</span> <span class="n">as</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">kernel</span> <span class="n">in</span> <span class="n">OSX</span> <span class="mf">10.9</span><span class="p">,</span> <span class="n">therefore</span> <span class="n">no</span> <span class="n">driver</span> <span class="n">installation</span> <span class="n">is</span> <span class="n">required</span> <span class="n">to</span> <span class="n">create</span> <span class="n">a</span> <span class="n">virtual</span> <span class="n">COM</span> <span class="n">port</span> <span class="n">in</span> <span class="n">Mavericks</span><span class="p">.</span> 
+<div class="highlight"><pre><span></span>The VCP driver is provided as part of the kernel in OSX 10.9, therefore no driver installation is required to create a virtual COM port in Mavericks. 
 </pre></div>
 
 
 <p>因为是Yosemite，自己又重新去<code>/System/Library/Extensions/IOUSBFamily.kext/Contents/Plugins</code>确认了一下<code>AppleUSBFTDI.kext</code>的存在。插上USB接口，查看<code>/dev/tty.usbserial-xxxxxxxx</code>是否出现，但是结果是令人失望的。</p>
 <p>Troubleshooting里还是解答了我的疑惑</p>
-<div class="highlight"><pre><span class="n">If</span> <span class="n">the</span> <span class="n">device</span> <span class="n">does</span> <span class="n">not</span> <span class="n">work</span> <span class="n">after</span> <span class="n">installing</span> <span class="n">the</span> <span class="n">driver</span><span class="p">,</span> <span class="n">it</span> <span class="n">is</span> <span class="n">likely</span> <span class="n">to</span> <span class="n">be</span> <span class="n">because</span> <span class="n">the</span> <span class="n">PID</span> <span class="n">is</span> <span class="n">not</span> <span class="n">supported</span> <span class="n">by</span> <span class="n">the</span> <span class="n">driver</span><span class="p">.</span> 
+<div class="highlight"><pre><span></span>If the device does not work after installing the driver, it is likely to be because the PID is not supported by the driver. 
 </pre></div>
 
 
 <p>因为没有lsusb，只能去系统信息里去确认了一下VID为0x0403，PID为0xbcd8，与原厂0x6001不同，需要调整。</p>
 <h3><a href="http://www.ftdichip.com/Support/Documents/TechnicalNotes/TN_105%20Adding%20Support%20for%20New%20FTDI%20Devices%20to%20Mac%20Driver.pdf">Solution</a>:</h3>
-<div class="highlight"><pre><span class="n">The</span> <span class="n">Info</span><span class="p">.</span><span class="n">plist</span> <span class="n">file</span> <span class="n">contains</span> <span class="n">entries</span> <span class="k">for</span> <span class="n">various</span> <span class="n">FTDI</span> <span class="n">devices</span> <span class="n">in</span> <span class="n">the</span> <span class="n">IOKitPersonalities</span> <span class="n">dictionary</span><span class="p">.</span> <span class="n">A</span> <span class="n">new</span> <span class="n">entry</span> <span class="k">for</span> <span class="n">an</span> <span class="n">OEM</span> <span class="n">device</span> <span class="n">can</span> <span class="n">be</span> <span class="n">created</span> <span class="n">by</span> <span class="n">copying</span> <span class="n">the</span> <span class="n">personality</span> <span class="n">of</span> <span class="n">the</span> <span class="n">equivalent</span> <span class="n">FTDI</span> <span class="n">device</span><span class="p">.</span> <span class="n">In</span> <span class="n">the</span> <span class="n">simplest</span> <span class="k">case</span><span class="p">,</span> <span class="n">only</span> <span class="n">the</span> <span class="n">new</span> <span class="n">device</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">name</span> <span class="n">and</span> <span class="n">idProduct</span> <span class="n">key</span> <span class="n">have</span> <span class="n">to</span> <span class="n">be</span> <span class="n">provided</span><span class="p">.</span> <span class="n">FTDI</span> <span class="n">recommends</span> <span class="n">that</span> <span class="n">new</span> <span class="n">OEM</span> <span class="n">device</span> <span class="n">personalities</span> <span class="n">are</span> <span class="n">added</span> <span class="n">to</span> <span class="n">the</span> <span class="n">plist</span> <span class="n">file</span><span class="p">,</span> <span class="n">and</span> <span class="n">existing</span> <span class="n">FTDI</span> <span class="n">personalities</span> <span class="n">are</span> <span class="n">retained</span><span class="p">.</span> 
+<div class="highlight"><pre><span></span>The Info.plist file contains entries for various FTDI devices in the IOKitPersonalities dictionary. A new entry for an OEM device can be created by copying the personality of the equivalent FTDI device. In the simplest case, only the new device&#39;s name and idProduct key have to be provided. FTDI recommends that new OEM device personalities are added to the plist file, and existing FTDI personalities are retained. 
 </pre></div>
 
 
@@ -63,8 +63,8 @@
 <h3>串口软件</h3>
 <p>这个主要看大家口味了，putty，screen大家用的比较多，反正我是minicom的忠实用户了。主要就是波特率的设置了，乱码了什么的除了线接错了，就是波特率不对了，have fun，buddy！</p>
 <footer class="post-info">
-    <abbr class="published" title="2014-08-28T00:00:00">
-        Posted on 四 28 八月 2014 by Chong Yang |     tags: <a href="../tag/osx.html">OSX</a> <a href="../tag/driver.html">driver</a>     </abbr>
+    <abbr class="published" title="2014-08-28T00:00:00+08:00">
+        Posted on Thu 28 August 2014 by Chong Yang |     tags: <a href="http://www.onionisi.com/tag/osx.html">OSX</a> <a href="http://www.onionisi.com/tag/driver.html">driver</a>     </abbr>
 </footer><!-- /footer-post-info -->
                     </article>
 <div class="paginationer">
@@ -80,7 +80,7 @@
 
     <footer id="footer">
         <address id="about" class="vcard">
-            &copy; 2014 <a class="url fn" href="..">TALO</a>
+            <a class="url fn" href="http://www.onionisi.com">TALO</a>
         </address><!-- /address-about -->
     </footer><!-- /footer-footer -->
 
@@ -88,11 +88,12 @@
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//stats.g.doubleclick.net/dc.js','ga');
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-54841037-1', '..');
+        ga('create', 'UA-54841037-1', 'auto');
         ga('send', 'pageview');
     </script>
 
 </body>
+
 </html>

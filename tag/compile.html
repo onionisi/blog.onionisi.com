@@ -11,10 +11,11 @@
 
     <title>TALO - compile</title>
 
-        <link rel="stylesheet" href="../theme/css/style.min.css?981d7269">
+        <link rel="stylesheet" href="http://www.onionisi.com/theme/css/style.min.css?176eb4f7">
 
-    <link rel="shortcut icon" href="../theme/img/favicon.ico" />
-    <link rel="icon" sizes="16x16 32x32" href="../theme/img/favicon.ico">
+
+    <link rel="shortcut icon" href="http://www.onionisi.com/theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="http://www.onionisi.com/theme/img/favicon.ico">
 
 
 
@@ -24,21 +25,20 @@
     <header id="sitehead">
         <div class="sitehead">
             <span id="sitehead">
-                <a href="..">TALO</a>
+                <a href="http://www.onionisi.com">TALO</a>
             </span>
         </div>
             <div id="tagline">
                 <strong>fprintf(post, "%s\n", daily_life)</strong>
             </div>
         <nav class="navbar">
-                <a href="../category/blog.html">Blog</a>&nbsp;
-                    <a href="../pages/about.html">About</a>&nbsp;
+                <a href="http://www.onionisi.com/category/blog.html">Blog</a>&nbsp;
         </nav>
     </header><!-- /header-siteheader -->
 
                 <aside id="featured">
                     <article>
-                        <h1 class="entry-title"><a href="../LFS_build_process.html">"旧文翻新之LFS和我第一次"</a></h1>
+                        <h1 class="entry-title"><a href="http://www.onionisi.com/LFS_build_process.html">"旧文翻新之LFS和我第一次"</a></h1>
                         <p>此文乃去年上班闲暇之余，作为深入学习linux之用，发表于内部服务器，今转过来以示纪念。当中各种陋见只怕贻笑大方了，若不慎入眼还望海涵。</p>
 <h2>任务综述</h2>
 <p>断断续续折腾近两周了今天我的LFS已经启动起来了啊，呵呵。。。</p>
@@ -61,16 +61,16 @@ TARGET=LFS 6.7</p>
 不然你就悲剧了，邮件组就有这样的兄弟，看得我扼腕叹息啊</p>
 <p>最后就是关于包的 test ,我认为除了Gcc和Glibc外，其他的没多大必要，而且相当耗时</p>
 <h3>九九八十一难</h3>
-<hr />
+<hr>
 <p>LFS  Gcc Pass1 08.19/2011</p>
-<div class="highlight"><pre><span class="cp">../gcc-4.5.1/configure --target=$LFS_TGT --prefix=/tools --disable-nls --disable-shared --disable-multilib --disable-decimal-float --disable-threads --disable-libmudflap --disable-libssp --disable-libgomp --enable-languages=c --with-gmp-include=$LFS/sources/gmp --with-gmp-lib=$LFS/sources/gmp/.libs --without-ppl --without-cloog --with-gmp=$LFS/sources/gmp --with-mpfr=$LFS/sources/mpfr --with-mpc=$LFS/sources/mpc --with-mpfr-include=$LFS/sources/mpfr --with-mpfr-lib=$LFS/sources/mpfr/.libs --with-mpc-include=$LFS/sources/mpc --with-mpc-lib=$LFS/sources/mpc/.libs</span>
+<div class="highlight"><pre><span></span><span class="cp">../gcc-4.5.1/configure --target=$LFS_TGT --prefix=/tools --disable-nls --disable-shared --disable-multilib --disable-decimal-float --disable-threads --disable-libmudflap --disable-libssp --disable-libgomp --enable-languages=c --with-gmp-include=$LFS/sources/gmp --with-gmp-lib=$LFS/sources/gmp/.libs --without-ppl --without-cloog --with-gmp=$LFS/sources/gmp --with-mpfr=$LFS/sources/mpfr --with-mpc=$LFS/sources/mpc --with-mpfr-include=$LFS/sources/mpfr --with-mpfr-lib=$LFS/sources/mpfr/.libs --with-mpc-include=$LFS/sources/mpc --with-mpc-lib=$LFS/sources/mpc/.libs</span>
 </pre></div>
 
 
 <p>要注意的是gmp mpc mpfr这三个math库的包解压之后要放入Gcc的包内，不然会比较悲剧，我之前就在这儿犯了错，然后直接将gmp mpc mpfr安装在HOST上，通过--with-gmp=/usr/local --with-mpfr=/usr/local --with-mpc=/usr/local调用他们的.so，幸好是第一遍，都用主机的环境</p>
-<hr />
+<hr>
 <p>LFS  Glibc  08.22/2011</p>
-<div class="highlight"><pre><span class="cp">../glibc-2.12.1/configure --prefix=/tools --host=$LFS_TGT --build=$(../glibc-2.12.1/scripts/config.guess) --disable-profile --enable-add-ons --enable-kernel=2.6.22.5 --with-headers=/tools/include libc_cv_forced_unwind=yes libc_cv_c_cleanup=yes</span>
+<div class="highlight"><pre><span></span><span class="cp">../glibc-2.12.1/configure --prefix=/tools --host=$LFS_TGT --build=$(../glibc-2.12.1/scripts/config.guess) --disable-profile --enable-add-ons --enable-kernel=2.6.22.5 --with-headers=/tools/include libc_cv_forced_unwind=yes libc_cv_c_cleanup=yes</span>
 </pre></div>
 
 
@@ -109,37 +109,37 @@ PS: always make clean</p>
 <p>原手册：echo "CFLAGS  += -march=i686 -mtune=native" &gt;&gt; configparms
 创建文件：echo "CFLAGS  += -march=i686 -mtune=native -U_FORTIFY_SOURCE" &gt;&gt; configparms</p>
 <p>这句据说容易出错，特摘录再次，以便copy             另手册对sed疼爱有加，故童鞋门要多多熟悉</p>
-<div class="highlight"><pre><span class="err">$</span><span class="n">LFS_TGT</span><span class="o">-</span><span class="n">gcc</span> <span class="o">-</span><span class="n">dumpspecs</span> <span class="o">|</span> <span class="n">sed</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="n">s</span><span class="err">@</span><span class="o">/</span><span class="n">lib</span><span class="err">\</span><span class="p">(</span><span class="mi">64</span><span class="err">\</span><span class="p">)</span><span class="err">\</span><span class="o">?/</span><span class="n">ld</span><span class="err">@</span><span class="o">/</span><span class="n">tools</span><span class="o">&amp;</span><span class="err">@</span><span class="n">g</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">e</span> <span class="s">&quot;/^\*cpp:$/{n;s,$, -isystem /tools/include,}&quot;</span> <span class="o">&gt;</span> <span class="err">$</span><span class="n">SPECS</span>
+<div class="highlight"><pre><span></span><span class="o">$</span><span class="nt">LFS_TGT-gcc</span> <span class="nt">-dumpspecs</span> <span class="o">|</span> <span class="nt">sed</span> <span class="nt">-e</span> <span class="s1">&#39;s@/lib\(64\)\?/ld@/tools&amp;@g&#39;</span> <span class="nt">-e</span> <span class="s2">&quot;/^\*cpp:$/{n;s,$, -isystem /tools/include,}&quot;</span> <span class="o">&gt;</span> <span class="o">$</span><span class="nt">SPECS</span>
 </pre></div>
 
 
-<hr />
+<hr>
 <p>LFS  Gcc - pass2  08.23/2011</p>
-<div class="highlight"><pre><span class="n">CC</span><span class="o">=</span><span class="s">&quot;$LFS_TGT-gcc -B/tools/lib/&quot;</span> <span class="n">AR</span><span class="o">=</span><span class="err">$</span><span class="n">LFS_TGT</span><span class="o">-</span><span class="n">ar</span> <span class="n">RANLIB</span><span class="o">=</span><span class="err">$</span><span class="n">LFS_TGT</span><span class="o">-</span><span class="n">ranlib</span> <span class="p">..</span><span class="o">/</span><span class="n">gcc</span><span class="o">-</span><span class="mf">4.5.1</span><span class="o">/</span><span class="n">configure</span> <span class="o">--</span><span class="n">prefix</span><span class="o">=/</span><span class="n">tools</span> <span class="o">--</span><span class="n">with</span><span class="o">-</span><span class="n">local</span><span class="o">-</span><span class="n">prefix</span><span class="o">=/</span><span class="n">tools</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">clocale</span><span class="o">=</span><span class="n">gnu</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">shared</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">threads</span><span class="o">=</span><span class="n">posix</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">__cxa_atexit</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">languages</span><span class="o">=</span><span class="n">c</span><span class="p">,</span><span class="n">c</span><span class="o">++</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">libstdcxx</span><span class="o">-</span><span class="n">pch</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">multilib</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">bootstrap</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">libgomp</span> <span class="o">--</span><span class="n">with</span><span class="o">-</span><span class="n">gmp</span><span class="o">-</span><span class="n">include</span><span class="o">=</span><span class="err">$</span><span class="p">(</span><span class="n">pwd</span><span class="p">)</span><span class="o">/</span><span class="n">gmp</span> <span class="o">--</span><span class="n">with</span><span class="o">-</span><span class="n">gmp</span><span class="o">-</span><span class="n">lib</span><span class="o">=</span><span class="err">$</span><span class="p">(</span><span class="n">pwd</span><span class="p">)</span><span class="o">/</span><span class="n">gmp</span><span class="o">/</span><span class="p">.</span><span class="n">libs</span> <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">ppl</span> <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">cloog</span>
+<div class="highlight"><pre><span></span>CC=&quot;$LFS_TGT-gcc -B/tools/lib/&quot; AR=$LFS_TGT-ar RANLIB=$LFS_TGT-ranlib ../gcc-4.5.1/configure --prefix=/tools --with-local-prefix=/tools --enable-clocale=gnu --enable-shared --enable-threads=posix --enable-__cxa_atexit --enable-languages=c,c++ --disable-libstdcxx-pch --disable-multilib --disable-bootstrap --disable-libgomp --with-gmp-include=$(pwd)/gmp --with-gmp-lib=$(pwd)/gmp/.libs --without-ppl --without-cloog
 </pre></div>
 
 
 <p><strong>正</strong></p>
-<div class="highlight"><pre><span class="n">CC</span><span class="o">=</span><span class="s">&quot;$LFS_TGT-gcc -B/tools/lib/&quot;</span> <span class="n">AR</span><span class="o">=</span><span class="err">$</span><span class="n">LFS_TGT</span><span class="o">-</span><span class="n">ar</span> <span class="n">RANLIB</span><span class="o">=</span><span class="err">$</span><span class="n">LFS_TGT</span><span class="o">-</span><span class="n">ranlib</span> <span class="p">..</span><span class="o">/</span><span class="n">gcc</span><span class="o">-</span><span class="mf">4.5.1</span><span class="o">/</span><span class="n">configure</span> <span class="o">--</span><span class="n">prefix</span><span class="o">=/</span><span class="n">tools</span> <span class="o">--</span><span class="n">with</span><span class="o">-</span><span class="n">local</span><span class="o">-</span><span class="n">prefix</span><span class="o">=/</span><span class="n">tools</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">clocale</span><span class="o">=</span><span class="n">gnu</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">shared</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">threads</span><span class="o">=</span><span class="n">posix</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">__cxa_atexit</span> <span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">languages</span><span class="o">=</span><span class="n">c</span><span class="p">,</span><span class="n">c</span><span class="o">++</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">libstdcxx</span><span class="o">-</span><span class="n">pch</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">multilib</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">bootstrap</span> <span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">libgomp</span> <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">ppl</span> <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">cloog</span> <span class="o">--</span><span class="n">with</span><span class="o">-</span><span class="n">gmp</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span> <span class="o">--</span><span class="n">with</span><span class="o">-</span><span class="n">mpfr</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span> <span class="o">--</span><span class="n">with</span><span class="o">-</span><span class="n">mpc</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span>
+<div class="highlight"><pre><span></span>CC=&quot;$LFS_TGT-gcc -B/tools/lib/&quot; AR=$LFS_TGT-ar RANLIB=$LFS_TGT-ranlib ../gcc-4.5.1/configure --prefix=/tools --with-local-prefix=/tools --enable-clocale=gnu --enable-shared --enable-threads=posix --enable-__cxa_atexit --enable-languages=c,c++ --disable-libstdcxx-pch --disable-multilib --disable-bootstrap --disable-libgomp --without-ppl --without-cloog --with-gmp=/usr/local --with-mpfr=/usr/local --with-mpc=/usr/local
 </pre></div>
 
 
 <p><strong>误</strong></p>
 <p>鄙人延用第一次的命令，果然错你没商量，谨记记得包的位置，因为此时已经是Pass 2,用的是之前编译出来的零时工具链</p>
 <p>这句也是不好输入，留作印刷</p>
-<div class="highlight"><pre><span class="n">sed</span> <span class="err">&#39;</span><span class="n">s</span><span class="o">/^</span><span class="n">T_CFLAGS</span> <span class="o">=</span><span class="err">$</span><span class="o">/&amp;</span> <span class="o">-</span><span class="n">fomit</span><span class="o">-</span><span class="n">frame</span><span class="o">-</span><span class="n">pointer</span><span class="o">/</span><span class="err">&#39;</span> <span class="n">gcc</span><span class="o">/</span><span class="n">Makefile</span><span class="p">.</span><span class="n">in</span><span class="p">.</span><span class="n">tmp</span> <span class="o">&gt;</span> <span class="n">gcc</span><span class="o">/</span><span class="n">Makefile</span><span class="p">.</span><span class="n">in</span>
+<div class="highlight"><pre><span></span>sed &#39;s/^T_CFLAGS =$/&amp; -fomit-frame-pointer/&#39; gcc/Makefile.in.tmp &gt; gcc/Makefile.in
 </pre></div>
 
 
-<hr />
+<hr>
 <p>LFS  chroot  08.25/2011</p>
-<div class="highlight"><pre><span class="n">mount</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda13</span> <span class="err">$</span><span class="n">LFS</span> <span class="o">&amp;&amp;</span> <span class="n">mount</span> <span class="o">-</span><span class="n">v</span> <span class="o">--</span><span class="n">bind</span>     <span class="o">/</span><span class="n">dev</span>    <span class="err">$</span><span class="n">LFS</span><span class="o">/</span><span class="n">dev</span> <span class="o">&amp;&amp;</span> <span class="n">mount</span> <span class="o">-</span><span class="n">vt</span> <span class="n">devpts</span>    <span class="n">devpts</span>  <span class="err">$</span><span class="n">LFS</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">pts</span> <span class="o">&amp;&amp;</span> <span class="n">mount</span> <span class="o">-</span><span class="n">vt</span> <span class="n">tmpfs</span>     <span class="n">shm</span>     <span class="err">$</span><span class="n">LFS</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">shm</span> <span class="o">&amp;&amp;</span> <span class="n">mount</span> <span class="o">-</span><span class="n">vt</span> <span class="n">proc</span>      <span class="n">proc</span>    <span class="err">$</span><span class="n">LFS</span><span class="o">/</span><span class="n">proc</span> <span class="o">&amp;&amp;</span> <span class="n">mount</span> <span class="o">-</span><span class="n">vt</span> <span class="n">sysfs</span>     <span class="n">sysfs</span>   <span class="err">$</span><span class="n">LFS</span><span class="o">/</span><span class="n">sys</span>
+<div class="highlight"><pre><span></span>mount /dev/sda13 $LFS &amp;&amp; mount -v --bind     /dev    $LFS/dev &amp;&amp; mount -vt devpts    devpts  $LFS/dev/pts &amp;&amp; mount -vt tmpfs     shm     $LFS/dev/shm &amp;&amp; mount -vt proc      proc    $LFS/proc &amp;&amp; mount -vt sysfs     sysfs   $LFS/sys
 </pre></div>
 
 
 <p>这里很关键，这是每次重启之后居家旅行必备之指令，我把他们合几为一了
 再次提醒，一定要挂载你的磁盘啊，之后就 chroot ，看好这里的 PATH 变啦</p>
-<div class="highlight"><pre><span class="n">chroot</span> <span class="s">&quot;$LFS&quot;</span> <span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">env</span> <span class="o">-</span><span class="n">i</span> <span class="n">HOME</span><span class="o">=/</span><span class="n">root</span> <span class="n">TERM</span><span class="o">=</span><span class="s">&quot;$TERM&quot;</span> <span class="n">PS1</span><span class="o">=</span><span class="err">&#39;\</span><span class="n">u</span><span class="o">:</span><span class="err">\</span><span class="n">w</span><span class="err">\$</span> <span class="err">&#39;</span> <span class="n">PATH</span><span class="o">=/</span><span class="n">bin</span><span class="o">:/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">:/</span><span class="n">sbin</span><span class="o">:/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">:/</span><span class="n">tools</span><span class="o">/</span><span class="n">bin</span> <span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span> <span class="o">--</span><span class="n">login</span> <span class="o">+</span><span class="n">h</span>
+<div class="highlight"><pre><span></span>chroot &quot;$LFS&quot; /tools/bin/env -i HOME=/root TERM=&quot;$TERM&quot; PS1=&#39;\u:\w\$ &#39; PATH=/bin:/usr/bin:/sbin:/usr/sbin:/tools/bin /tools/bin/bash --login +h
 </pre></div>
 
 
@@ -147,7 +147,7 @@ PS: always make clean</p>
 <h3>工具链初长成</h3>
 <p>之后再编译进去几个包，我们的完整工具链就好啦，我把我的已经打好包了，有需要的同学可以问我要，就不用经受上边一系列痛苦了</p>
 <p>下边我们就可以开始构建系统啦，一定要小心小心再小心啊，下边就是我两个手误的表现</p>
-<hr />
+<hr>
 <p>LFS  Glibc  08.25/2011</p>
 <p>编译完 C 库之后有个检验，cc 直接刮掉，吓死我了，这都不过，岂不前功尽弃
 翻 log ，细错如下</p>
@@ -182,144 +182,144 @@ collect2: ld returned 1 exit status</p>
 不断放狗，见同错，无人解啊，心灰意冷准备重新编译
 遂前往 /usr/bin 查看文件以备删除，无意撞见 .so 混迹于此
 大怒，细查之，发现出现如此低级失误，lib bin竟傻傻分不清楚</p>
-<div class="highlight"><pre><span class="n">ln</span> <span class="o">-</span><span class="n">sv</span> <span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="p">{</span><span class="n">bash</span><span class="p">,</span><span class="n">cat</span><span class="p">,</span><span class="n">echo</span><span class="p">,</span><span class="n">pwd</span><span class="p">,</span><span class="n">stty</span><span class="p">}</span> <span class="o">/</span><span class="n">bin</span>
-<span class="n">ln</span> <span class="o">-</span><span class="n">sv</span> <span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">perl</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span>
-<span class="err">@@@</span> <span class="err">自己路径出错</span> <span class="o">^</span><span class="n">_</span><span class="o">^</span>
-<span class="n">ln</span> <span class="o">-</span><span class="n">sv</span> <span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libgcc_s</span><span class="p">.</span><span class="n">so</span><span class="p">{,</span><span class="mf">.1</span><span class="p">}</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span>
-<span class="n">ln</span> <span class="o">-</span><span class="n">sv</span> <span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libstdc</span><span class="o">++</span><span class="p">.</span><span class="n">so</span><span class="p">{,</span><span class="mf">.6</span><span class="p">}</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span>
-<span class="err">@@@</span>
-<span class="n">ln</span> <span class="o">-</span><span class="n">sv</span> <span class="n">bash</span> <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">sh</span>
+<div class="highlight"><pre><span></span>ln -sv /tools/bin/{bash,cat,echo,pwd,stty} /bin
+ln -sv /tools/bin/perl /usr/bin
+@@@ 自己路径出错 ^_^
+ln -sv /tools/lib/libgcc_s.so{,.1} /usr/lib
+ln -sv /tools/lib/libstdc++.so{,.6} /usr/lib
+@@@
+ln -sv bash /bin/sh
 </pre></div>
 
 
-<hr />
+<hr>
 <p>LFS  Perl  08.25/2011</p>
 <p>perl 应该也是某个神马咚咚敲错了，连 make 都问题连连，我愤而直接Ctrl + c，再 Shift + Ctrl + v</p>
-<div class="highlight"><pre><span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">e</span> <span class="s">&quot;s|BUILD_ZLIB\s*= True|BUILD_ZLIB = False|&quot;</span> <span class="o">-</span><span class="n">e</span> <span class="s">&quot;s|INCLUDE\s*= ./zlib-src|INCLUDE = /usr/include|&quot;</span> <span class="o">-</span><span class="n">e</span> <span class="s">&quot;s|LIB\s*= ./zlib-src|LIB = /usr/lib|&quot;</span> <span class="n">cpan</span><span class="o">/</span><span class="n">Compress</span><span class="o">-</span><span class="n">Raw</span><span class="o">-</span><span class="n">Zlib</span><span class="o">/</span><span class="n">config</span><span class="p">.</span><span class="n">in</span>
+<div class="highlight"><pre><span></span>sed -i -e &quot;s|BUILD_ZLIB\s*= True|BUILD_ZLIB = False|&quot; -e &quot;s|INCLUDE\s*= ./zlib-src|INCLUDE = /usr/include|&quot; -e &quot;s|LIB\s*= ./zlib-src|LIB = /usr/lib|&quot; cpan/Compress-Raw-Zlib/config.in
 
 
-<span class="n">sh</span> <span class="n">Configure</span> <span class="o">-</span><span class="n">des</span> <span class="o">-</span><span class="n">Dprefix</span><span class="o">=/</span><span class="n">usr</span> <span class="o">-</span><span class="n">Dvendorprefix</span><span class="o">=/</span><span class="n">usr</span> <span class="o">-</span><span class="n">Dman1dir</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">man1</span> <span class="o">-</span><span class="n">Dman3dir</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="n">man3</span> <span class="o">-</span><span class="n">Dpager</span><span class="o">=</span><span class="s">&quot;/usr/bin/less -isR&quot;</span> <span class="o">-</span><span class="n">Duseshrplib</span>
+sh Configure -des -Dprefix=/usr -Dvendorprefix=/usr -Dman1dir=/usr/share/man/man1 -Dman3dir=/usr/share/man/man3 -Dpager=&quot;/usr/bin/less -isR&quot; -Duseshrplib
 
 
-<span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="n">s</span><span class="err">@#</span><span class="n">ENCRYPT_METHOD</span> <span class="n">DES</span><span class="err">@</span><span class="n">ENCRYPT_METHOD</span> <span class="n">MD5</span><span class="err">@&#39;</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="n">s</span><span class="err">@</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">spool</span><span class="o">/</span><span class="n">mail</span><span class="err">@</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">mail</span><span class="err">@&#39;</span> <span class="n">etc</span><span class="o">/</span><span class="n">login</span><span class="p">.</span><span class="n">defs</span>
+sed -i -e &#39;s@#ENCRYPT_METHOD DES@ENCRYPT_METHOD MD5@&#39; -e &#39;s@/var/spool/mail@/var/mail@&#39; etc/login.defs
 
-<span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="err">&#39;</span><span class="n">s</span><span class="err">@</span><span class="n">Sending</span> <span class="n">processes</span><span class="err">@</span><span class="o">&amp;</span> <span class="n">configured</span> <span class="n">via</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">inittab</span><span class="err">@</span><span class="n">g</span><span class="err">&#39;</span> <span class="n">src</span><span class="o">/</span><span class="n">init</span><span class="p">.</span><span class="n">c</span>
+sed -i &#39;s@Sending processes@&amp; configured via /etc/inittab@g&#39; src/init.c
 
-<span class="n">sed</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="n">s</span><span class="o">/</span><span class="n">utmpdump</span> <span class="n">wall</span><span class="o">/</span><span class="n">utmpdump</span><span class="o">/</span><span class="err">&#39;</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="n">s</span><span class="o">/</span><span class="n">mountpoint</span><span class="mf">.1</span> <span class="n">wall</span><span class="mf">.1</span><span class="o">/</span><span class="n">mountpoint</span><span class="mf">.1</span><span class="o">/</span><span class="err">&#39;</span> <span class="n">src</span><span class="o">/</span><span class="n">Makefile</span>
+sed -i -e &#39;s/utmpdump wall/utmpdump/&#39; -e &#39;s/mountpoint.1 wall.1/mountpoint.1/&#39; src/Makefile
 </pre></div>
 
 
 <h3>成人礼</h3>
 <p>系统软件编译完后就又要变身了，进而好编辑相应的配置文件，前边提到的 chroot 再度登场，以后就是他唱主角了</p>
-<div class="highlight"><pre><span class="n">chroot</span> <span class="s">&quot;$LFS&quot;</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">env</span> <span class="o">-</span><span class="n">i</span> <span class="n">HOME</span><span class="o">=/</span><span class="n">root</span> <span class="n">TERM</span><span class="o">=</span><span class="s">&quot;$TERM&quot;</span> <span class="n">PS1</span><span class="o">=</span><span class="err">&#39;\</span><span class="n">u</span><span class="o">:</span><span class="err">\</span><span class="n">w</span><span class="err">\$</span> <span class="err">&#39;</span> <span class="n">PATH</span><span class="o">=/</span><span class="n">bin</span><span class="o">:/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">:/</span><span class="n">sbin</span><span class="o">:/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span> <span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span> <span class="o">--</span><span class="n">login</span>
+<div class="highlight"><pre><span></span>chroot &quot;$LFS&quot; /usr/bin/env -i HOME=/root TERM=&quot;$TERM&quot; PS1=&#39;\u:\w\$ &#39; PATH=/bin:/usr/bin:/sbin:/usr/sbin /bin/bash --login
 </pre></div>
 
 
-<hr />
+<hr>
 <p>LFS  locale  08.25/2011</p>
-<div class="highlight"><pre><span class="n">mkdir</span> <span class="o">-</span><span class="n">pv</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">locale</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">cs_CZ</span> <span class="o">-</span><span class="n">f</span> <span class="n">UTF</span><span class="o">-</span><span class="mi">8</span> <span class="n">cs_CZ</span><span class="p">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">de_DE</span> <span class="o">-</span><span class="n">f</span> <span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span> <span class="n">de_DE</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">de_DE</span><span class="err">@</span><span class="n">euro</span> <span class="o">-</span><span class="n">f</span> <span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">15</span> <span class="n">de_DE</span><span class="err">@</span><span class="n">euro</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">de_DE</span> <span class="o">-</span><span class="n">f</span> <span class="n">UTF</span><span class="o">-</span><span class="mi">8</span> <span class="n">de_DE</span><span class="p">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">en_HK</span> <span class="o">-</span><span class="n">f</span> <span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span> <span class="n">en_HK</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">en_PH</span> <span class="o">-</span><span class="n">f</span> <span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span> <span class="n">en_PH</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">en_US</span> <span class="o">-</span><span class="n">f</span> <span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span> <span class="n">en_US</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">en_US</span> <span class="o">-</span><span class="n">f</span> <span class="n">UTF</span><span class="o">-</span><span class="mi">8</span> <span class="n">en_US</span><span class="p">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">es_MX</span> <span class="o">-</span><span class="n">f</span> <span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span> <span class="n">es_MX</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">fa_IR</span> <span class="o">-</span><span class="n">f</span> <span class="n">UTF</span><span class="o">-</span><span class="mi">8</span> <span class="n">fa_IR</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">fr_FR</span> <span class="o">-</span><span class="n">f</span> <span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span> <span class="n">fr_FR</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">fr_FR</span><span class="err">@</span><span class="n">euro</span> <span class="o">-</span><span class="n">f</span> <span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">15</span> <span class="n">fr_FR</span><span class="err">@</span><span class="n">euro</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">fr_FR</span> <span class="o">-</span><span class="n">f</span> <span class="n">UTF</span><span class="o">-</span><span class="mi">8</span> <span class="n">fr_FR</span><span class="p">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">it_IT</span> <span class="o">-</span><span class="n">f</span> <span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span> <span class="n">it_IT</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">ja_JP</span> <span class="o">-</span><span class="n">f</span> <span class="n">EUC</span><span class="o">-</span><span class="n">JP</span> <span class="n">ja_JP</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">tr_TR</span> <span class="o">-</span><span class="n">f</span> <span class="n">UTF</span><span class="o">-</span><span class="mi">8</span> <span class="n">tr_TR</span><span class="p">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
-<span class="n">localedef</span> <span class="o">-</span><span class="n">i</span> <span class="n">zh_CN</span> <span class="o">-</span><span class="n">f</span> <span class="n">GB18030</span> <span class="n">zh_CN</span><span class="p">.</span><span class="n">GB18030</span>
+<div class="highlight"><pre><span></span>mkdir -pv /usr/lib/locale
+localedef -i cs_CZ -f UTF-8 cs_CZ.UTF-8
+localedef -i de_DE -f ISO-8859-1 de_DE
+localedef -i de_DE@euro -f ISO-8859-15 de_DE@euro
+localedef -i de_DE -f UTF-8 de_DE.UTF-8
+localedef -i en_HK -f ISO-8859-1 en_HK
+localedef -i en_PH -f ISO-8859-1 en_PH
+localedef -i en_US -f ISO-8859-1 en_US
+localedef -i en_US -f UTF-8 en_US.UTF-8
+localedef -i es_MX -f ISO-8859-1 es_MX
+localedef -i fa_IR -f UTF-8 fa_IR
+localedef -i fr_FR -f ISO-8859-1 fr_FR
+localedef -i fr_FR@euro -f ISO-8859-15 fr_FR@euro
+localedef -i fr_FR -f UTF-8 fr_FR.UTF-8
+localedef -i it_IT -f ISO-8859-1 it_IT
+localedef -i ja_JP -f EUC-JP ja_JP
+localedef -i tr_TR -f UTF-8 tr_TR.UTF-8
+localedef -i zh_CN -f GB18030 zh_CN.GB18030
 
-<span class="n">cp</span> <span class="o">-</span><span class="n">v</span> <span class="o">--</span><span class="n">remove</span><span class="o">-</span><span class="n">destination</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">zoneinfo</span><span class="o">/</span><span class="n">Asia</span><span class="o">/</span><span class="n">Chongqing</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">localtime</span>
+cp -v --remove-destination /usr/share/zoneinfo/Asia/Chongqing /etc/localtime
 </pre></div>
 
 
 <p>时区我们肯定选重庆的啦</p>
-<hr />
+<hr>
 <p>LFS  grub  09.01/2011</p>
 <p>grub 现在的配置文件是 grub.cfg ,不再是 menu.lst 了，我没有安装 grub, 只是用grub-mkconfig -o /boot/grub/grub.cfg生成了配置文件</p>
 <p>然后将其中引导系统那一段 copy 到 HOST 的/boot/grub/grub.cfg中了。</p>
 <p>注意下边的那段话，是一位仁兄在LFS的邮件列表里说的，这位就是那位悲摧的筒子，没有挂载相应分区，做完之后启动不了才发现，太坑爹了......................</p>
-<div class="highlight"><pre><span class="n">You</span> <span class="n">should</span> <span class="n">not</span> <span class="n">be</span> <span class="n">rebooting</span> <span class="n">from</span> <span class="n">chroot</span><span class="p">.</span>
+<div class="highlight"><pre><span></span>You should not be rebooting from chroot.
 
-<span class="n">If</span> <span class="n">you</span> <span class="n">followed</span> <span class="n">the</span> <span class="n">book</span> <span class="n">precisely</span><span class="p">,</span> <span class="n">the</span> <span class="n">kernel</span> <span class="n">should</span> <span class="n">be</span> <span class="n">on</span> 
-<span class="p">(</span><span class="n">hda0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="n">boot</span><span class="p">,</span> <span class="n">but</span> <span class="n">GRUB</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="n">able</span> <span class="n">to</span> <span class="n">find</span> <span class="n">menu</span><span class="p">.</span><span class="n">cfg</span><span class="p">.</span>  <span class="n">That</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">why</span> <span class="n">I</span> 
-<span class="n">recommend</span> <span class="n">installing</span> <span class="o">/</span><span class="n">boot</span> <span class="n">on</span> <span class="n">a</span> <span class="n">partition</span> <span class="n">of</span> <span class="n">about</span> <span class="mi">100</span><span class="n">M</span> <span class="n">by</span> <span class="n">itself</span><span class="p">.</span>  <span class="n">All</span> 
-<span class="n">distros</span> <span class="n">can</span> <span class="n">then</span> <span class="n">access</span> <span class="n">that</span><span class="p">.</span>
+If you followed the book precisely, the kernel should be on 
+(hda0,3)/boot, but GRUB needs to be able to find menu.cfg.  That&#39;s why I 
+recommend installing /boot on a partition of about 100M by itself.  All 
+distros can then access that.
 
-<span class="n">You</span> <span class="n">should</span> <span class="n">be</span> <span class="n">using</span> <span class="n">the</span> <span class="n">procedures</span> <span class="n">in</span> <span class="n">the</span> <span class="n">book</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">Section</span> <span class="mf">8.4.3</span> <span class="n">to</span> <span class="n">test</span><span class="o">:</span>
+You should be using the procedures in the book&#39;s Section 8.4.3 to test:
 
-<span class="n">First</span> <span class="n">exit</span> <span class="n">chroot</span> <span class="n">and</span> <span class="n">sudo</span> <span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">reboot</span><span class="p">.</span>  <span class="n">Then</span> <span class="n">go</span> <span class="n">to</span> <span class="n">the</span> <span class="n">GRUB2</span> <span class="n">command</span> 
-<span class="n">line</span> <span class="n">and</span> <span class="n">run</span><span class="o">:</span>
+First exit chroot and sudo /sbin/reboot.  Then go to the GRUB2 command 
+line and run:
 
-<span class="n">grub</span><span class="o">&gt;</span> <span class="n">ls</span> <span class="p">(</span><span class="n">hd0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="n">boot</span>
+grub&gt; ls (hd0,3)/boot
 
-<span class="n">This</span> <span class="n">should</span> <span class="n">list</span> <span class="n">your</span> <span class="n">kernels</span><span class="p">.</span>
+This should list your kernels.
 
-<span class="n">Then</span> <span class="n">you</span> <span class="n">should</span> <span class="n">just</span> <span class="k">do</span><span class="o">:</span>
+Then you should just do:
 
-<span class="n">linux</span> <span class="p">(</span><span class="n">hd0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">kernel</span><span class="o">-</span><span class="n">name</span> <span class="n">root</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">hda3</span>
-<span class="n">boot</span>
+linux (hd0,3)/boot/my-kernel-name root=/dev/hda3
+boot
 
-<span class="n">I</span> <span class="n">note</span> <span class="n">that</span> <span class="n">the</span> <span class="n">instructions</span> <span class="n">in</span> <span class="n">the</span> <span class="n">book</span> <span class="n">can</span> <span class="n">be</span> <span class="n">misread</span><span class="p">.</span>  <span class="mf">8.4.3</span> <span class="n">says</span><span class="o">:</span>
-<span class="s">&quot;you will need to exit the chroot environment and re-enter it to finish </span>
-<span class="n">the</span> <span class="n">few</span> <span class="n">remaining</span> <span class="n">portions</span> <span class="n">of</span> <span class="n">the</span> <span class="n">book</span><span class="p">.</span><span class="s">&quot;   What that means is that you </span>
-<span class="n">ned</span> <span class="n">to</span> <span class="k">return</span> <span class="n">to</span> <span class="n">your</span> <span class="n">host</span> <span class="n">system</span> <span class="k">for</span> <span class="n">the</span> <span class="n">instructions</span> <span class="n">in</span> <span class="mf">8.4.3</span> <span class="n">and</span> 
-<span class="k">return</span> <span class="n">back</span> <span class="n">to</span> <span class="n">chroot</span> <span class="k">for</span> <span class="n">section</span> <span class="mf">8.4.4</span> <span class="n">until</span> <span class="n">section</span> <span class="mf">9.3</span><span class="p">.</span>
+I note that the instructions in the book can be misread.  8.4.3 says:
+&quot;you will need to exit the chroot environment and re-enter it to finish 
+the few remaining portions of the book.&quot;   What that means is that you 
+ned to return to your host system for the instructions in 8.4.3 and 
+return back to chroot for section 8.4.4 until section 9.3.
 
-   <span class="o">--</span> <span class="n">Bruce</span>
+   -- Bruce
 
-<span class="mi">1</span><span class="p">)</span> <span class="n">Yes</span><span class="p">,</span> <span class="n">you</span> <span class="n">are</span> <span class="n">right</span><span class="p">,</span>
-<span class="n">ls</span> <span class="p">(</span><span class="n">hd0</span><span class="p">,</span><span class="n">msdos3</span><span class="p">)</span><span class="o">/</span>
-<span class="n">and</span>
-<span class="n">ls</span> <span class="p">(</span><span class="n">hd0</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span>
-<span class="n">give</span> <span class="n">the</span> <span class="n">same</span> <span class="n">output</span><span class="p">,</span> <span class="n">that</span> <span class="n">is</span>
-<span class="n">lost</span><span class="o">+</span><span class="n">found</span> <span class="n">sources</span> <span class="n">sys</span>
+1) Yes, you are right,
+ls (hd0,msdos3)/
+and
+ls (hd0,3)/
+give the same output, that is
+lost+found sources sys
 
-<span class="mi">2</span><span class="p">)</span> <span class="n">The</span> <span class="n">mount</span> <span class="n">command</span> <span class="n">gives</span> <span class="n">the</span> <span class="n">following</span><span class="o">:</span>
+2) The mount command gives the following:
 
-<span class="s">&quot;</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda1</span> <span class="n">on</span> <span class="o">/</span> <span class="n">type</span> <span class="n">ext4</span> <span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">errors</span><span class="o">=</span><span class="n">remount</span><span class="o">-</span><span class="n">ro</span><span class="p">,</span><span class="n">commit</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">proc</span> <span class="n">on</span> <span class="o">/</span><span class="n">proc</span> <span class="n">type</span> <span class="n">proc</span> <span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">noexec</span><span class="p">,</span><span class="n">nosuid</span><span class="p">,</span><span class="n">nodev</span><span class="p">)</span>
-<span class="n">none</span> <span class="n">on</span> <span class="o">/</span><span class="n">sys</span> <span class="n">type</span> <span class="n">sysfs</span> <span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">noexec</span><span class="p">,</span><span class="n">nosuid</span><span class="p">,</span><span class="n">nodev</span><span class="p">)</span>
-<span class="n">fusectl</span> <span class="n">on</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">fs</span><span class="o">/</span><span class="n">fuse</span><span class="o">/</span><span class="n">connections</span> <span class="n">type</span> <span class="n">fusectl</span> <span class="p">(</span><span class="n">rw</span><span class="p">)</span>
-<span class="n">none</span> <span class="n">on</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">debug</span> <span class="n">type</span> <span class="n">debugfs</span> <span class="p">(</span><span class="n">rw</span><span class="p">)</span>
-<span class="n">none</span> <span class="n">on</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">kernel</span><span class="o">/</span><span class="n">security</span> <span class="n">type</span> <span class="n">securityfs</span> <span class="p">(</span><span class="n">rw</span><span class="p">)</span>
-<span class="n">none</span> <span class="n">on</span> <span class="o">/</span><span class="n">dev</span> <span class="n">type</span> <span class="n">devtmpfs</span> <span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="mo">0755</span><span class="p">)</span>
-<span class="n">none</span> <span class="n">on</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">pts</span> <span class="n">type</span> <span class="n">devpts</span> <span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">noexec</span><span class="p">,</span><span class="n">nosuid</span><span class="p">,</span><span class="n">gid</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="mo">0620</span><span class="p">)</span>
-<span class="n">none</span> <span class="n">on</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">shm</span> <span class="n">type</span> <span class="n">tmpfs</span> <span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">nosuid</span><span class="p">,</span><span class="n">nodev</span><span class="p">)</span>
-<span class="n">none</span> <span class="n">on</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span> <span class="n">type</span> <span class="n">tmpfs</span> <span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">nosuid</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="mo">0755</span><span class="p">)</span>
-<span class="n">none</span> <span class="n">on</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lock</span> <span class="n">type</span> <span class="n">tmpfs</span> <span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="n">noexec</span><span class="p">,</span><span class="n">nosuid</span><span class="p">,</span><span class="n">nodev</span><span class="p">)</span>
-<span class="s">&quot;</span>
+&quot;
+/dev/sda1 on / type ext4 (rw,errors=remount-ro,commit=0)
+proc on /proc type proc (rw,noexec,nosuid,nodev)
+none on /sys type sysfs (rw,noexec,nosuid,nodev)
+fusectl on /sys/fs/fuse/connections type fusectl (rw)
+none on /sys/kernel/debug type debugfs (rw)
+none on /sys/kernel/security type securityfs (rw)
+none on /dev type devtmpfs (rw,mode=0755)
+none on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=0620)
+none on /dev/shm type tmpfs (rw,nosuid,nodev)
+none on /var/run type tmpfs (rw,nosuid,mode=0755)
+none on /var/lock type tmpfs (rw,noexec,nosuid,nodev)
+&quot;
 
-<span class="n">I</span> <span class="n">am</span> <span class="n">sure</span> <span class="n">that</span> <span class="n">I</span> <span class="n">mounted</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span> <span class="n">on</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">lfs</span> <span class="n">by</span> <span class="n">running</span> <span class="n">the</span> <span class="n">command</span>
-<span class="n">sudo</span> <span class="n">mount</span> <span class="o">-</span><span class="n">v</span> <span class="o">-</span><span class="n">t</span> <span class="n">ext3</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span> <span class="err">$</span><span class="n">LFS</span>
-<span class="n">The</span> <span class="n">problem</span> <span class="n">though</span> <span class="n">is</span> <span class="n">that</span> <span class="n">I</span> <span class="n">rebooted</span> <span class="n">the</span> <span class="n">system</span> <span class="n">several</span> <span class="n">times</span> <span class="n">without</span>
-<span class="n">remounting</span> <span class="n">it</span> <span class="n">manually</span> <span class="n">or</span> <span class="n">automatically</span> <span class="n">through</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">fstab</span><span class="p">.</span>
-<span class="n">If</span> <span class="n">that</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">one</span> <span class="n">of</span> <span class="n">the</span> <span class="n">mistakes</span> <span class="n">I</span> <span class="n">made</span><span class="p">,</span> <span class="n">then</span> <span class="n">I</span> <span class="n">will</span> <span class="n">have</span> <span class="n">to</span> <span class="k">do</span> <span class="n">go</span> <span class="n">through</span> <span class="n">all</span>
-<span class="n">the</span> <span class="n">chapters</span> <span class="n">of</span> <span class="n">the</span> <span class="n">book</span> <span class="n">from</span> <span class="n">the</span> <span class="n">beginning</span><span class="p">,</span> <span class="n">right</span><span class="p">...</span><span class="o">?</span>
+I am sure that I mounted /dev/sda3 on /mnt/lfs by running the command
+sudo mount -v -t ext3 /dev/sda3 $LFS
+The problem though is that I rebooted the system several times without
+remounting it manually or automatically through /etc/fstab.
+If that&#39;s one of the mistakes I made, then I will have to do go through all
+the chapters of the book from the beginning, right...?
 
-<span class="mi">3</span><span class="p">)</span> <span class="n">Yes</span><span class="p">,</span> <span class="n">you</span> <span class="n">are</span> <span class="n">right</span><span class="p">,</span> <span class="n">I</span> <span class="n">got</span> <span class="n">a</span> <span class="n">bit</span> <span class="n">confused</span> <span class="n">in</span> <span class="n">section</span> <span class="mf">8.4.3</span><span class="p">,</span> <span class="n">where</span> <span class="n">I</span> <span class="n">found</span>
-<span class="n">the</span> <span class="n">sentence</span> <span class="s">&quot;To accomplish this, you will need to exit the chroot</span>
-<span class="n">environment</span> <span class="n">and</span> <span class="n">re</span><span class="o">-</span><span class="n">enter</span> <span class="n">it</span> <span class="n">to</span> <span class="n">finish</span> <span class="n">the</span> <span class="n">few</span> <span class="n">remaining</span> <span class="n">portions</span> <span class="n">of</span> <span class="n">the</span>
-<span class="n">book</span><span class="s">&quot; to be a bit obscure. However, I went back to it and in fact I think</span>
-<span class="n">that</span> <span class="n">a</span> <span class="n">careful</span> <span class="n">reader</span> <span class="n">will</span> <span class="n">probably</span> <span class="n">understand</span> <span class="n">what</span> <span class="n">is</span> <span class="n">meant</span> <span class="n">there</span><span class="p">.</span>
+3) Yes, you are right, I got a bit confused in section 8.4.3, where I found
+the sentence &quot;To accomplish this, you will need to exit the chroot
+environment and re-enter it to finish the few remaining portions of the
+book&quot; to be a bit obscure. However, I went back to it and in fact I think
+that a careful reader will probably understand what is meant there.
 
-<span class="n">I</span> <span class="n">am</span> <span class="n">very</span> <span class="n">much</span> <span class="n">afraid</span> <span class="n">I</span> <span class="n">will</span> <span class="n">have</span> <span class="n">to</span> <span class="k">do</span> <span class="n">everything</span> <span class="n">from</span> <span class="n">the</span> <span class="n">beginning</span> <span class="n">due</span> <span class="n">to</span>
-<span class="n">the</span> <span class="n">fact</span> <span class="n">that</span> <span class="n">the</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span> <span class="n">was</span> <span class="n">not</span> <span class="n">mounted</span> <span class="n">throughout</span> <span class="n">the</span> <span class="n">installation</span><span class="p">.</span> <span class="n">In</span>
-<span class="n">this</span> <span class="k">case</span><span class="p">,</span> <span class="n">I</span> <span class="n">will</span> <span class="n">take</span> <span class="n">into</span> <span class="n">account</span> <span class="n">your</span> <span class="n">remark</span> <span class="n">and</span> <span class="n">will</span> <span class="n">install</span> <span class="o">/</span><span class="n">boot</span> <span class="n">in</span> <span class="n">a</span>
-<span class="n">separate</span> <span class="n">partition</span> <span class="n">to</span> <span class="n">make</span> <span class="n">it</span> <span class="n">accessible</span> <span class="n">by</span> <span class="n">all</span> <span class="n">operating</span> <span class="n">systems</span><span class="p">,</span> <span class="n">that</span> <span class="n">is</span>
-<span class="n">Kubuntu</span> <span class="n">and</span> <span class="n">LFS</span><span class="p">.</span> <span class="n">I</span> <span class="n">can</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">believe</span> <span class="n">I</span> <span class="n">have</span> <span class="n">to</span> <span class="k">do</span> <span class="n">everything</span> <span class="n">from</span> <span class="n">scratch</span>
-<span class="n">again</span><span class="p">...</span> <span class="n">thanks</span> <span class="n">very</span> <span class="n">much</span> <span class="k">for</span> <span class="n">your</span> <span class="n">help</span> <span class="n">though</span><span class="p">,</span> <span class="n">your</span> <span class="n">remarks</span> <span class="n">helpded</span> <span class="n">me</span>
-<span class="n">understand</span> <span class="n">a</span> <span class="n">few</span> <span class="n">mistakes</span> <span class="n">of</span> <span class="n">mine</span><span class="p">.</span>
+I am very much afraid I will have to do everything from the beginning due to
+the fact that the /dev/sda3 was not mounted throughout the installation. In
+this case, I will take into account your remark and will install /boot in a
+separate partition to make it accessible by all operating systems, that is
+Kubuntu and LFS. I can&#39;t believe I have to do everything from scratch
+again... thanks very much for your help though, your remarks helpded me
+understand a few mistakes of mine.
 
-<span class="n">Theo</span>
+Theo
 </pre></div>
 
 
@@ -330,8 +330,8 @@ collect2: ld returned 1 exit status</p>
 <h2>结语</h2>
 <p>BLFS后边由于上项目了，也拖了很久结果连openssl都还没有编译现在7.1都出来了，呵呵...有机会再玩一把，现在挺喜欢这种轻便快捷定制型儿的了</p>
 <footer class="post-info">
-    <abbr class="published" title="2012-04-18T00:00:00">
-        Posted on 三 18 四月 2012 by Chong Yang |     tags: <a href="../tag/system.html">system</a> <a href="../tag/linux.html">linux</a> <a href="../tag/compile.html">compile</a>     </abbr>
+    <abbr class="published" title="2012-04-18T00:00:00+08:00">
+        Posted on Wed 18 April 2012 by Chong Yang |     tags: <a href="http://www.onionisi.com/tag/system.html">system</a> <a href="http://www.onionisi.com/tag/linux.html">linux</a> <a href="http://www.onionisi.com/tag/compile.html">compile</a>     </abbr>
 </footer><!-- /footer-post-info -->
                     </article>
 <div class="paginationer">
@@ -347,7 +347,7 @@ collect2: ld returned 1 exit status</p>
 
     <footer id="footer">
         <address id="about" class="vcard">
-            &copy; 2014 <a class="url fn" href="..">TALO</a>
+            <a class="url fn" href="http://www.onionisi.com">TALO</a>
         </address><!-- /address-about -->
     </footer><!-- /footer-footer -->
 
@@ -355,11 +355,12 @@ collect2: ld returned 1 exit status</p>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//stats.g.doubleclick.net/dc.js','ga');
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-54841037-1', '..');
+        ga('create', 'UA-54841037-1', 'auto');
         ga('send', 'pageview');
     </script>
 
 </body>
+
 </html>

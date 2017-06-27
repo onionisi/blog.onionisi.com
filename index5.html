@@ -11,10 +11,11 @@
 
     <title>TALO</title>
 
-        <link rel="stylesheet" href="./theme/css/style.min.css?981d7269">
+        <link rel="stylesheet" href="http://www.onionisi.com/theme/css/style.min.css?176eb4f7">
 
-    <link rel="shortcut icon" href="./theme/img/favicon.ico" />
-    <link rel="icon" sizes="16x16 32x32" href="./theme/img/favicon.ico">
+
+    <link rel="shortcut icon" href="http://www.onionisi.com/theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="http://www.onionisi.com/theme/img/favicon.ico">
 
 
 
@@ -24,15 +25,14 @@
     <header id="sitehead">
         <div class="sitehead">
             <span id="sitehead">
-                <a href=".">TALO</a>
+                <a href="http://www.onionisi.com">TALO</a>
             </span>
         </div>
             <div id="tagline">
                 <strong>fprintf(post, "%s\n", daily_life)</strong>
             </div>
         <nav class="navbar">
-                <a href="./category/blog.html">Blog</a>&nbsp;
-                    <a href="./pages/about.html">About</a>&nbsp;
+                <a href="http://www.onionisi.com/category/blog.html">Blog</a>&nbsp;
         </nav>
     </header><!-- /header-siteheader -->
 
@@ -41,7 +41,39 @@
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="./LFS_build_process.html" rel="bookmark" title="Permalink to "旧文翻新之LFS和我第一次"">"旧文翻新之LFS和我第一次"</a></h3>
+                            <h3 class="entry-title"><a href="http://www.onionisi.com/proxy-of-ubuntu.html" rel="bookmark" title="Permalink to the proxy of Ubuntu">the proxy of Ubuntu</a></h3>
+                            <aside class="entry-title-date">2012-05-17</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <h1>ubuntu的代理</h1>
+<p>办公室的网络总是那么不给力，每个所部各分了一个IP能够上外网，我们只能用代理
+来凑合上网了。</p>
+<h2>全局代理</h2>
+<p>ubuntu的全局代理保存在/etc/enviroment，如果是使用gnome桌面的同志可以直接
+通过图形界面进行操作，最近办公室的同事都流行轻量且不过太简单的xfce，没有
+这个直接的功能，还是操作文件来的快捷。</p>
+<h2>apt代理</h2>
+<p>之前我还以为他直接用的环境变量的全局值，结果事实证明我错了，额还是没有apt
+（聪明）聪明啊，他的代理在他的配置文件里，打开就能看见，路径就不用说了吧</p>
+<h2>其他代理</h2>
+<p>wget这个老当亦壮的东东也能在配置文件中设置代理，各位看官自行打开做相应更改
+便行。</p>
+<p>其实这些软件设不设代理都不重要，只要你配好了proxychains，再来个行头的自行
+插入proxychains，呵呵...自行放狗搜搜</p>
+<h2>吐槽</h2>
+<p>升了12.04的系统没多大感觉，本来本人又不用unity，口味越发清淡，想往WM转了，
+之前整了个#！，也没时间玩，最近项目空闲点了，把超级本的arch也好好配配。</p>
+<p>PS:主要是来冒个泡，很久没更新了，另入了kindle3，webos的东东，玩着还有意思 …</p>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="http://www.onionisi.com/proxy-of-ubuntu.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="http://www.onionisi.com/LFS_build_process.html" rel="bookmark" title="Permalink to "旧文翻新之LFS和我第一次"">"旧文翻新之LFS和我第一次"</a></h3>
                             <aside class="entry-title-date">2012-04-18</aside>
                         </header>
 
@@ -56,16 +88,16 @@ TARGET=LFS 6.7</p>
 <p>还有CLFS和ALFS，C 就是 Cross交叉编译的，A 就是Auto，用脚本自动的实现的</p>
 <p>为了好好学习，我还是老老实实 step by step来吧 </p>
 <p>手册其实写得相当详尽，但难免有自己手动的时候有事物，另外手册对原码包的操作都只提了一下，有些地方还需要注意</p>
-<p>比较麻烦的是就是编译工具链的时候，其中GCC ...</p>
+<p>比较麻烦的是就是编译工具链的时候，其中GCC …</p>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="./LFS_build_process.html">more</a>
+                        <a class="jump" href="http://www.onionisi.com/LFS_build_process.html">more</a>
                     </article>
                 </li>
 
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="./oh-my-zsh.html" rel="bookmark" title="Permalink to oh-my-zsh的芯">oh-my-zsh的芯</a></h3>
+                            <h3 class="entry-title"><a href="http://www.onionisi.com/oh-my-zsh.html" rel="bookmark" title="Permalink to oh-my-zsh的芯">oh-my-zsh的芯</a></h3>
                             <aside class="entry-title-date">2012-04-17</aside>
                         </header>
 
@@ -79,57 +111,35 @@ TARGET=LFS 6.7</p>
 这也就是vim、firefox这些软件强大的原因---有广大的同志还开发插件！所以说群众
 的力量是无穷的。</p>
 <p>下边就是主体程序的目录结构：</p>
-<div class="highlight"><pre><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">onionisi</span><span class="o">/</span><span class="p">.</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">cache</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">custom</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">lib</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">log</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">plugins</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">templates</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">themes</span><span class="o">/</span>
-<span class="o">|+</span><span class="n">tools</span><span class="o">/</span>
-<span class="o">|-</span><span class="n">oh</span><span class="o">-</span><span class="n">my</span><span class="o">-</span><span class="n">zsh</span><span class="p">.</span><span class="n">sh</span>
-<span class="err">`</span><span class="o">-</span><span class="n">README</span><span class="p">.</span><span class="n">textile</span>
+<div class="highlight"><pre><span></span>/home/onionisi/.oh-my-zsh/
+|+cache/
+|+custom/
+|+lib/
+|+log/
+|+plugins/
+|+templates/
+|+themes/
+|+tools/
+|-oh-my-zsh.sh
+`-README.textile
 </pre></div>
 
 
 <h2>oh-my-zsh.sh</h2>
 <p>这个脚本才开始真正进入主题。</p>
 <h3>upgrade</h3>
-<div class="highlight"><pre><span class="cp"># Check for updates on ...</span></pre></div>
+<div class="highlight"><pre><span></span># Check for updates on initial load...
+if [ &quot;$DISABLE_AUTO_UPDATE …</pre></div>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="./oh-my-zsh.html">more</a>
-                    </article>
-                </li>
-
-                <li>
-                    <article class="entry">
-                        <header>
-                            <h3 class="entry-title"><a href="./linux-run-dir.html" rel="bookmark" title="Permalink to /run的由来">/run的由来</a></h3>
-                            <aside class="entry-title-date">2012-03-27</aside>
-                        </header>
-
-                        <div class="entry-content">
-                            <p>熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。</p>
-<h2>/run目录的诞生</h2>
-<blockquote>
-<p>各主要发行版阵营的重要人物讨论了/dev目录被滥用的情况，希望在该问题还没有扩大化前找到解决方案。他们提出了各种方案，但所有方案都归结到一点，/var/run目录不应在/var目录下，它可以提升到根目录下，这是唯一简洁明了的方案。</p>
-</blockquote>
-<h2>事件原委</h2>
-<p>以下文字翻译自Lennart Poetteringu邮件，一名Fedora的开发者，详细解释了原因。</p>
-<p>我在F15中上传了systemd的新版本，它在根目录下创建了/run这个目录。迟早你都会对此感到困惑，所以下面就讲讲它是肿么来的，为虾米要这么做。</p>
-<p>其实这只是一个相当小的变动，但是大伙儿可能会认为这是一个很大的政策变动，所以我觉得还是相当地有必要解释一下：</p>
-<p>在早期启动的程序里，相当一段时间里他们用/dev目录上很多隐藏文件存储运行时数据。第一个文件就是/dev/.udev，随着时间的推移，又逐步增加了/dev/.mdadm，/dev/.systemd，/dev/.mount，dracut，initscripts以及更多的工具。（其他发行版还有更多 ...</p>
-                        </div><!-- /dev-entry-content -->
-                        <a class="jump" href="./linux-run-dir.html">more</a>
+                        <a class="jump" href="http://www.onionisi.com/oh-my-zsh.html">more</a>
                     </article>
                 </li>
                 </ol><!-- /ol-posts-list -->
 <div class="paginationer">
     <p class="paginator">
-            <a href="./index4.html">&laquo;</a>
+            <a href="http://www.onionisi.com/index4.html">&laquo;</a>
         Page 5 / 6
-            <a href="./index6.html">&raquo;</a>
+            <a href="http://www.onionisi.com/index6.html">&raquo;</a>
     </p>
 </div>
                 </section><!-- /section-content -->
@@ -138,7 +148,7 @@ TARGET=LFS 6.7</p>
 
     <footer id="footer">
         <address id="about" class="vcard">
-            &copy; 2014 <a class="url fn" href=".">TALO</a>
+            <a class="url fn" href="http://www.onionisi.com">TALO</a>
         </address><!-- /address-about -->
     </footer><!-- /footer-footer -->
 
@@ -146,11 +156,12 @@ TARGET=LFS 6.7</p>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//stats.g.doubleclick.net/dc.js','ga');
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-54841037-1', '.');
+        ga('create', 'UA-54841037-1', 'auto');
         ga('send', 'pageview');
     </script>
 
 </body>
+
 </html>

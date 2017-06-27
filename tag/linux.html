@@ -11,10 +11,11 @@
 
     <title>TALO - linux</title>
 
-        <link rel="stylesheet" href="../theme/css/style.min.css?981d7269">
+        <link rel="stylesheet" href="http://www.onionisi.com/theme/css/style.min.css?176eb4f7">
 
-    <link rel="shortcut icon" href="../theme/img/favicon.ico" />
-    <link rel="icon" sizes="16x16 32x32" href="../theme/img/favicon.ico">
+
+    <link rel="shortcut icon" href="http://www.onionisi.com/theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="http://www.onionisi.com/theme/img/favicon.ico">
 
 
 
@@ -24,28 +25,27 @@
     <header id="sitehead">
         <div class="sitehead">
             <span id="sitehead">
-                <a href="..">TALO</a>
+                <a href="http://www.onionisi.com">TALO</a>
             </span>
         </div>
             <div id="tagline">
                 <strong>fprintf(post, "%s\n", daily_life)</strong>
             </div>
         <nav class="navbar">
-                <a href="../category/blog.html">Blog</a>&nbsp;
-                    <a href="../pages/about.html">About</a>&nbsp;
+                <a href="http://www.onionisi.com/category/blog.html">Blog</a>&nbsp;
         </nav>
     </header><!-- /header-siteheader -->
 
                 <aside id="featured">
                     <article>
-                        <h1 class="entry-title"><a href="../timemachine-on-archlinux.html">TimeMachine on Archlinux</a></h1>
+                        <h1 class="entry-title"><a href="http://www.onionisi.com/timemachine-on-archlinux.html">TimeMachine on Archlinux</a></h1>
                         <h2>前因</h2>
 <p>之前拿到新电脑很是兴奋，捯饬很比较猛，主要还是想目的就是延长SSD使用寿命，于是乎找了各种措施来减少SSD的写入。万恶的是没有任何备份，当我满心欢喜的禁用了磁盘的日志功能时，心想怎么可能意外断电捏。哪里知道就在第二天浏览淘宝时，打开网页太多导致浏览器卡死了系统，任何操作都不灵了。妈蛋滴，果断强制关机，reboot，老有一个进度条过不来，打客服电话，最后把我弄到检查磁盘的时候，发现磁盘损坏根本修复不了。这时才焕然大悟想起自己关闭了日志，天要亡我，奈何啊，可怜我的资料啊。</p>
 <p>格式化磁盘的时候那叫个恋恋不舍啊，只能忍痛了，在线安装好Marvicks后，看着才出的Yosemite心痒痒，干脆一横心直接升了，这一来二回把我之前节约的写入全糟践了。心里便想着还是要搞个备份才行，Mac不是Linux，什么东西你都能Control，还是小心谨慎为好。</p>
 <h2>后果</h2>
 <p>恋恋不忘，必有回响，总算打起精神准备，把重装新系统以来各种资料备份一下，再丢了就只能掩面而泣了。linux世界的geek们不会让我们失望滴，netatalk就是来抢time capsule生意滴。</p>
 <p>配置文件位置 /etc/afp.conf</p>
-<div class="highlight"><pre><span class="k">[Global]</span>
+<div class="highlight"><pre><span></span><span class="k">[Global]</span>
 <span class="na">mimic model</span> <span class="o">=</span> <span class="s">TimeCapsule6,106</span>
 <span class="na">log level</span> <span class="o">=</span> <span class="s">default:warn</span>
 <span class="na">log file</span> <span class="o">=</span> <span class="s">/var/log/afpd.log</span>
@@ -61,20 +61,20 @@
 <h2>one more thing</h2>
 <p>以前我挂载其他电脑文件夹习惯性使用sshfs，Mac需要FUSE OSX依赖安装麻烦，但是netatalk还可以使用共享。
 配置文件中加入如下</p>
-<div class="highlight"><pre><span class="k">[Media]</span>
+<div class="highlight"><pre><span></span><span class="k">[Media]</span>
 <span class="na">path</span> <span class="o">=</span> <span class="s">/path/of/media/</span>
 </pre></div>
 
 
 <p>其他linux也可以把afpfs当NFS挂载</p>
-<div class="highlight"><pre><span class="n">mount_afp</span> <span class="err">&#39;</span><span class="n">afp</span><span class="o">:</span><span class="c1">//username:password@ipaddr/Media&#39; /mount/path/</span>
+<div class="highlight"><pre><span></span>mount_afp &#39;afp://username:password@ipaddr/Media&#39; /mount/path/
 </pre></div>
 
 
 <p>再也不用担心NFS挂载的麻烦啦。</p>
 <footer class="post-info">
-    <abbr class="published" title="2014-05-08T00:00:00">
-        Posted on 四 08 五月 2014 by Chong Yang |     tags: <a href="../tag/osx.html">OSX</a> <a href="../tag/linux.html">linux</a> <a href="../tag/timemachine.html">timemachine</a>     </abbr>
+    <abbr class="published" title="2014-05-08T00:00:00+08:00">
+        Posted on Thu 08 May 2014 by Chong Yang |     tags: <a href="http://www.onionisi.com/tag/osx.html">OSX</a> <a href="http://www.onionisi.com/tag/linux.html">linux</a> <a href="http://www.onionisi.com/tag/timemachine.html">timemachine</a>     </abbr>
 </footer><!-- /footer-post-info -->
                     </article>
                 </aside><!-- /aside-featured -->
@@ -85,7 +85,7 @@
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="../proxy-of-ubuntu.html" rel="bookmark" title="Permalink to the proxy of Ubuntu">the proxy of Ubuntu</a></h3>
+                            <h3 class="entry-title"><a href="http://www.onionisi.com/proxy-of-ubuntu.html" rel="bookmark" title="Permalink to the proxy of Ubuntu">the proxy of Ubuntu</a></h3>
                             <aside class="entry-title-date">2012-05-17</aside>
                         </header>
 
@@ -108,16 +108,16 @@
 <h2>吐槽</h2>
 <p>升了12.04的系统没多大感觉，本来本人又不用unity，口味越发清淡，想往WM转了，
 之前整了个#！，也没时间玩，最近项目空闲点了，把超级本的arch也好好配配。</p>
-<p>PS:主要是来冒个泡，很久没更新了，另入了kindle3，webos的东东，玩着还有意思 ...</p>
+<p>PS:主要是来冒个泡，很久没更新了，另入了kindle3，webos的东东，玩着还有意思 …</p>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="../proxy-of-ubuntu.html">more</a>
+                        <a class="jump" href="http://www.onionisi.com/proxy-of-ubuntu.html">more</a>
                     </article>
                 </li>
 
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="../LFS_build_process.html" rel="bookmark" title="Permalink to "旧文翻新之LFS和我第一次"">"旧文翻新之LFS和我第一次"</a></h3>
+                            <h3 class="entry-title"><a href="http://www.onionisi.com/LFS_build_process.html" rel="bookmark" title="Permalink to "旧文翻新之LFS和我第一次"">"旧文翻新之LFS和我第一次"</a></h3>
                             <aside class="entry-title-date">2012-04-18</aside>
                         </header>
 
@@ -132,16 +132,16 @@ TARGET=LFS 6.7</p>
 <p>还有CLFS和ALFS，C 就是 Cross交叉编译的，A 就是Auto，用脚本自动的实现的</p>
 <p>为了好好学习，我还是老老实实 step by step来吧 </p>
 <p>手册其实写得相当详尽，但难免有自己手动的时候有事物，另外手册对原码包的操作都只提了一下，有些地方还需要注意</p>
-<p>比较麻烦的是就是编译工具链的时候，其中GCC ...</p>
+<p>比较麻烦的是就是编译工具链的时候，其中GCC …</p>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="../LFS_build_process.html">more</a>
+                        <a class="jump" href="http://www.onionisi.com/LFS_build_process.html">more</a>
                     </article>
                 </li>
                 </ol><!-- /ol-posts-list -->
 <div class="paginationer">
     <p class="paginator">
         Page 1 / 2
-            <a href="../tag/linux2.html">&raquo;</a>
+            <a href="http://www.onionisi.com/tag/linux2.html">&raquo;</a>
     </p>
 </div>
                 </section><!-- /section-content -->
@@ -150,7 +150,7 @@ TARGET=LFS 6.7</p>
 
     <footer id="footer">
         <address id="about" class="vcard">
-            &copy; 2014 <a class="url fn" href="..">TALO</a>
+            <a class="url fn" href="http://www.onionisi.com">TALO</a>
         </address><!-- /address-about -->
     </footer><!-- /footer-footer -->
 
@@ -158,11 +158,12 @@ TARGET=LFS 6.7</p>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//stats.g.doubleclick.net/dc.js','ga');
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-54841037-1', '..');
+        ga('create', 'UA-54841037-1', 'auto');
         ga('send', 'pageview');
     </script>
 
 </body>
+
 </html>

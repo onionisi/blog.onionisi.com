@@ -8,16 +8,17 @@
 
     <meta name="category" content="Blog">
 
-    <meta name="date" content="2014-07-21 00:00:00">
+    <meta name="date" content="2014-07-21 00:00:00+08:00">
 
     <meta name="author" content="Chong Yang">
 
     <title>TALO | OSX Launchd</title>
 
-        <link rel="stylesheet" href="./theme/css/style.min.css?981d7269">
+        <link rel="stylesheet" href="http://www.onionisi.com/theme/css/style.min.css?176eb4f7">
 
-    <link rel="shortcut icon" href="./theme/img/favicon.ico" />
-    <link rel="icon" sizes="16x16 32x32" href="./theme/img/favicon.ico">
+
+    <link rel="shortcut icon" href="http://www.onionisi.com/theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="http://www.onionisi.com/theme/img/favicon.ico">
 
 
 
@@ -27,15 +28,14 @@
     <header id="sitehead">
         <div class="sitehead">
             <span id="sitehead">
-                <a href=".">TALO</a>
+                <a href="http://www.onionisi.com">TALO</a>
             </span>
         </div>
             <div id="tagline">
                 <strong>fprintf(post, "%s\n", daily_life)</strong>
             </div>
         <nav class="navbar">
-                <a href="./category/blog.html">Blog</a>&nbsp;
-                    <a href="./pages/about.html">About</a>&nbsp;
+                <a href="http://www.onionisi.com/category/blog.html">Blog</a>&nbsp;
         </nav>
     </header><!-- /header-siteheader -->
 <section id="content">
@@ -51,44 +51,44 @@
             <p>习惯了Linux下init，rc或者systemd的方式，来到Mac下想搞个启动项还是要费费脑子重新学习下除了鼠标点击的账户-&gt;登录项以及dock上的登陆时打开，毕竟总多的系统级别的程序是在launchd的统治下。</p>
 <h3>文件</h3>
 <p>cmd总是跟文件脱不了干系的，plist开始登场，下边是他存在的世界，摘自launchctl男人页：</p>
-<div class="highlight"><pre>    <span class="o">~/</span><span class="n">Library</span><span class="o">/</span><span class="n">LaunchAgents</span>         <span class="n">Per</span><span class="o">-</span><span class="n">user</span> <span class="n">agents</span> <span class="n">provided</span> <span class="n">by</span> <span class="n">the</span> <span class="n">user</span><span class="p">.</span>
-    <span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">LaunchAgents</span>          <span class="n">Per</span><span class="o">-</span><span class="n">user</span> <span class="n">agents</span> <span class="n">provided</span> <span class="n">by</span> <span class="n">the</span> <span class="n">administrator</span><span class="p">.</span>
-    <span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">LaunchDaemons</span>         <span class="n">System</span> <span class="n">wide</span> <span class="n">daemons</span> <span class="n">provided</span> <span class="n">by</span> <span class="n">the</span> <span class="n">administrator</span><span class="p">.</span>
-    <span class="o">/</span><span class="n">System</span><span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">LaunchAgents</span>   <span class="n">OS</span> <span class="n">X</span> <span class="n">Per</span><span class="o">-</span><span class="n">user</span> <span class="n">agents</span><span class="p">.</span>
-    <span class="o">/</span><span class="n">System</span><span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">LaunchDaemons</span>  <span class="n">OS</span> <span class="n">X</span> <span class="n">System</span> <span class="n">wide</span> <span class="n">daemons</span><span class="p">.</span>
+<div class="highlight"><pre><span></span>    ~/Library/LaunchAgents         Per-user agents provided by the user.
+    /Library/LaunchAgents          Per-user agents provided by the administrator.
+    /Library/LaunchDaemons         System wide daemons provided by the administrator.
+    /System/Library/LaunchAgents   OS X Per-user agents.
+    /System/Library/LaunchDaemons  OS X System wide daemons.
 </pre></div>
 
 
-<div class="highlight"><pre><span class="n">In</span> <span class="n">the</span> <span class="n">launchd</span> <span class="n">lexicon</span><span class="p">,</span> <span class="n">a</span> <span class="err">“</span><span class="n">daemon</span><span class="err">”</span> <span class="n">is</span><span class="p">,</span> <span class="n">by</span> <span class="n">definition</span><span class="p">,</span> <span class="n">a</span> <span class="n">system</span><span class="o">-</span><span class="n">wide</span> <span class="n">service</span> <span class="n">of</span> <span class="n">which</span> <span class="n">there</span> <span class="n">is</span> <span class="n">one</span> <span class="n">instance</span> <span class="k">for</span> <span class="n">all</span> <span class="n">clients</span><span class="p">.</span> <span class="n">An</span> <span class="err">“</span><span class="n">agent</span><span class="err">”</span> <span class="n">is</span> <span class="n">a</span> <span class="n">service</span> <span class="n">that</span> <span class="n">runs</span> <span class="n">on</span> <span class="n">a</span> <span class="n">per</span><span class="o">-</span><span class="n">user</span> <span class="n">basis</span><span class="p">.</span> <span class="n">Daemons</span> <span class="n">should</span> <span class="n">not</span> <span class="n">attempt</span> <span class="n">to</span> <span class="n">display</span> <span class="n">UI</span> <span class="n">or</span> <span class="n">interact</span> <span class="n">directly</span> <span class="n">with</span> <span class="n">a</span> <span class="n">user</span><span class="err">’</span><span class="n">s</span> <span class="n">login</span> <span class="n">session</span><span class="p">.</span> <span class="n">Any</span> <span class="n">and</span> <span class="n">all</span> <span class="n">work</span> <span class="n">that</span> <span class="n">involves</span> <span class="n">interacting</span> <span class="n">with</span> <span class="n">a</span> <span class="n">user</span> <span class="n">should</span> <span class="n">be</span> <span class="n">done</span> <span class="n">through</span> <span class="n">agents</span><span class="p">.</span>
+<div class="highlight"><pre><span></span>In the launchd lexicon, a “daemon” is, by definition, a system-wide service of which there is one instance for all clients. An “agent” is a service that runs on a per-user basis. Daemons should not attempt to display UI or interact directly with a user’s login session. Any and all work that involves interacting with a user should be done through agents.
 </pre></div>
 
 
 <p>其中LaunchAgents与LaunchDaemons的区别就是启动顺序是在用户登录前还是后的差别。</p>
 <p>另外plist的格式各位亲也请查阅launchd.plist相关男人页，话说我最讨厌的就是xml，html这类的标记语言了，为什么还要用来配置系统Mac兄？！</p>
-<h5>Required and recommended property list keys<sup id="fnref:1"><a class="footnote-ref" href="#fn:1" rel="footnote">1</a></sup></h5>
+<h5>Required and recommended property list keys<sup id="fnref-1"><a class="footnote-ref" href="#fn-1">1</a></sup></h5>
 <table>
 <thead>
 <tr>
 <th align="left">Key</th>
-<th>Description</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left">Label</td>
-<td>Contains a unique string that identifies your daemon to launchd. (required)</td>
+<td align="left">Contains a unique string that identifies your daemon to launchd. (required)</td>
 </tr>
 <tr>
 <td align="left">ProgramArguments</td>
-<td>Contains the arguments used to launch your daemon. (required)</td>
+<td align="left">Contains the arguments used to launch your daemon. (required)</td>
 </tr>
 <tr>
 <td align="left">inetdCompatibility</td>
-<td>Indicates that your daemon requires a separate instance per incoming connection. This causes launchd to behave like inetd, passing each daemon a single socket that is already connected to the incoming client. (required if your daemon was designed to be launched by inetd; otherwise, must not be included)</td>
+<td align="left">Indicates that your daemon requires a separate instance per incoming connection. This causes launchd to behave like inetd, passing each daemon a single socket that is already connected to the incoming client. (required if your daemon was designed to be launched by inetd; otherwise, must not be included)</td>
 </tr>
 <tr>
 <td align="left">KeepAlive</td>
-<td>This key specifies whether your daemon launches on-demand or must always be running. It is recommended that you design your daemon to be launched on-demand.</td>
+<td align="left">This key specifies whether your daemon launches on-demand or must always be running. It is recommended that you design your daemon to be launched on-demand.</td>
 </tr>
 </tbody>
 </table>
@@ -99,11 +99,11 @@
 <li>mv plist文件使其不出现在上述5个目录。</li>
 </ol>
 <p>想要禁用某程序自启动，先找到该文件路径，照上述方式即可搞定。</p>
-<div class="highlight"><pre><span class="n">grep</span> <span class="o">-</span><span class="n">rl</span> <span class="n">name_of_program</span> <span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">Launch</span><span class="o">*</span> <span class="o">/</span><span class="n">System</span><span class="o">/</span><span class="n">Library</span><span class="o">/</span><span class="n">Launch</span><span class="o">*</span> <span class="o">|</span> <span class="n">xargs</span> <span class="n">wc</span> <span class="o">-</span><span class="n">l</span> <span class="o">|</span> <span class="n">sort</span> <span class="o">-</span><span class="n">n</span> <span class="o">|</span> <span class="n">head</span> <span class="o">-</span><span class="n">n1</span> <span class="o">|</span> <span class="n">awk</span> <span class="err">&#39;</span><span class="p">{</span><span class="n">print</span> <span class="err">$</span><span class="mi">2</span><span class="p">}</span><span class="err">&#39;</span>
+<div class="highlight"><pre><span></span>grep -rl name_of_program /Library/Launch* /System/Library/Launch* | xargs wc -l | sort -n | head -n1 | awk &#39;{print $2}&#39;
 </pre></div>
 
 
-<h3>多技能get<sup id="fnref:2"><a class="footnote-ref" href="#fn:2" rel="footnote">2</a></sup></h3>
+<h3>多技能get<sup id="fnref-2"><a class="footnote-ref" href="#fn-2">2</a></sup></h3>
 <ul>
 <li>
 <p>cron，关键属性<code>StartInterval</code>，每多少秒执行一次，
@@ -115,19 +115,19 @@
 </ul>
 <p>PS: 图形前端<a href="http://sites.fastspring.com/peterborgapps/product/lingonx">Lingon X</a>可用但要10刀，App Store版本因为提权原因功能不完整。</p>
 <div class="footnote">
-<hr />
+<hr>
 <ol>
-<li id="fn:1">
-<p><a href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html">苹果开发者中心文档</a>&#160;<a class="footnote-backref" href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<li id="fn-1">
+<p><a href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html">苹果开发者中心文档</a>&#160;<a class="footnote-backref" href="#fnref-1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
-<li id="fn:2">
-<p><a href="http://paul.annesley.cc/2012/09/mac-os-x-launchd-is-cool/">launchd is cool</a>&#160;<a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<li id="fn-2">
+<p><a href="http://paul.annesley.cc/2012/09/mac-os-x-launchd-is-cool/">launchd is cool</a>&#160;<a class="footnote-backref" href="#fnref-2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
 <footer class="post-info">
-    <abbr class="published" title="2014-07-21T00:00:00">
-        Posted on 一 21 七月 2014 by Chong Yang |     tags: <a href="./tag/osx.html">OSX</a> <a href="./tag/init.html">init</a>     </abbr>
+    <abbr class="published" title="2014-07-21T00:00:00+08:00">
+        Posted on Mon 21 July 2014 by Chong Yang |     tags: <a href="http://www.onionisi.com/tag/osx.html">OSX</a> <a href="http://www.onionisi.com/tag/init.html">init</a>     </abbr>
 </footer><!-- /footer-post-info -->
         </div><!-- /.entry-content -->
 <script src="https://apis.google.com/js/plusone.js"></script>
@@ -147,7 +147,7 @@
 
     <footer id="footer">
         <address id="about" class="vcard">
-            &copy; 2014 <a class="url fn" href=".">TALO</a>
+            <a class="url fn" href="http://www.onionisi.com">TALO</a>
         </address><!-- /address-about -->
     </footer><!-- /footer-footer -->
 
@@ -155,11 +155,12 @@
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//stats.g.doubleclick.net/dc.js','ga');
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-54841037-1', '.');
+        ga('create', 'UA-54841037-1', 'auto');
         ga('send', 'pageview');
     </script>
 
 </body>
+
 </html>

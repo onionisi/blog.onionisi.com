@@ -12,10 +12,11 @@
     <title>    TALO - Blog
 </title>
 
-        <link rel="stylesheet" href="../theme/css/style.min.css?981d7269">
+        <link rel="stylesheet" href="http://www.onionisi.com/theme/css/style.min.css?176eb4f7">
 
-    <link rel="shortcut icon" href="../theme/img/favicon.ico" />
-    <link rel="icon" sizes="16x16 32x32" href="../theme/img/favicon.ico">
+
+    <link rel="shortcut icon" href="http://www.onionisi.com/theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="http://www.onionisi.com/theme/img/favicon.ico">
 
 
 
@@ -25,109 +26,56 @@
     <header id="sitehead">
         <div class="sitehead">
             <span id="sitehead">
-                <a href="..">TALO</a>
+                <a href="http://www.onionisi.com">TALO</a>
             </span>
         </div>
             <div id="tagline">
                 <strong>fprintf(post, "%s\n", daily_life)</strong>
             </div>
         <nav class="navbar">
-                <a href="../category/blog.html">Blog</a>&nbsp;
-                    <a href="../pages/about.html">About</a>&nbsp;
+                <a href="http://www.onionisi.com/category/blog.html">Blog</a>&nbsp;
         </nav>
     </header><!-- /header-siteheader -->
 
                 <aside id="featured">
                     <article>
-                        <h1 class="entry-title"><a href="../vim_plugin_I_used.html">vim二三事</a></h1>
-                        <p>话说天下编辑器分为两派，不知不觉从了vim老久了，老夫老妻就感觉没激情了，不想捯饬各种配置，这不趁着neo-vim的新鲜劲儿，重新梳理了一遍配置。</p>
-<h3>nvim</h3>
-<p>这个vim的岁数也不小了，几十年来，江湖众人想搞个小鲜肉大家尝尝，neo-vim便是其中之一。这货骨骼精奇，尽得前辈真传，同时还自创不少武术套路，确实是值得会会。</p>
-<div class="highlight"><pre><span class="n">alias</span> <span class="n">vi</span><span class="o">=</span><span class="err">&#39;</span><span class="n">nvim</span><span class="err">&#39;</span>
-<span class="n">cp</span> <span class="o">~/</span><span class="p">.</span><span class="n">vimrc</span> <span class="o">~/</span><span class="p">.</span><span class="n">nvimrc</span>
-</pre></div>
-
-
-<p>配置完全兼容，这丝滑。命令响应采用S/C模式，so后台会有一个单独pymodule neovim监听。得益于新的软件架构，插件执行效率更高更快。新特性还有vt，可直接集成终端，各位可自行前往github围观。</p>
-<h3>vundle</h3>
-<p>自由软件的世界不能没有包管理，你看看各大发行板，你看看node，你看看ruby/python，你看看go，现在新的编程语言没有这个好意思发布么，再看看rust。那么vim这个屌丝呢，也有很多包管理哦，vundle和github结合较好，比较好用的说。</p>
-<p>呃，vundle的interface早就更改了，Bundle变Plugin了，妈蛋，老子还一直纳闷怎么插件都不更新了，怪不得老是同步不上捏。是时候好好整理一下vim的插件啦，不然还说是vimer，囧rz。</p>
-<p>配置文件也有变化，晕</p>
-<div class="highlight"><pre><span class="n">call</span> <span class="n">vundle</span><span class="err">#</span><span class="n">rc</span><span class="p">()</span>
-</pre></div>
-
-
-<p>现在变成</p>
-<div class="highlight"><pre><span class="n">call</span> <span class="n">vundle</span><span class="err">#</span><span class="n">begin</span><span class="p">()</span>
-<span class="p">...</span>
-<span class="n">call</span> <span class="n">vundle</span><span class="err">#</span><span class="n">end</span><span class="p">()</span>
-</pre></div>
-
-
-<h3>常用Plugin</h3>
-<p>积累了不少插件和快捷键，和大家share一下</p>
-<h4>常规四件</h4>
-<div class="highlight"><pre><span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">scrooloose</span><span class="o">/</span><span class="n">nerdtree</span><span class="err">&#39;</span>
-<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">bling</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">airline</span><span class="err">&#39;</span>
-<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">majutsushi</span><span class="o">/</span><span class="n">tagbar</span><span class="err">&#39;</span>
-<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">minibufexpl</span><span class="p">.</span><span class="n">vim</span><span class="err">&#39;</span>
-</pre></div>
-
-
-<p>东南西北四大神兽打先锋，nerdtree作文件导航，airline替代powerline美化bar，tagbar替补taglist分析文本展现词条，minibufexpl管理buffer</p>
-<h4>编辑能手</h4>
-<div class="highlight"><pre><span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">tpope</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">commentary</span><span class="err">&#39;</span>
-<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">kien</span><span class="o">/</span><span class="n">ctrlp</span><span class="p">.</span><span class="n">vim</span><span class="err">&#39;</span>
-<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">Valloric</span><span class="o">/</span><span class="n">YouCompleteMe</span><span class="err">&#39;</span>
-<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">ervandew</span><span class="o">/</span><span class="n">supertab</span><span class="err">&#39;</span>
-<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">mattn</span><span class="o">/</span><span class="n">emmet</span><span class="o">-</span><span class="n">vim</span><span class="err">&#39;</span>
-<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">godlygeek</span><span class="o">/</span><span class="n">tabular</span><span class="err">&#39;</span>
-<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">rking</span><span class="o">/</span><span class="n">ag</span><span class="p">.</span><span class="n">vim</span><span class="err">&#39;</span>
-</pre></div>
-
-
-<p>commentary自动帮你识别注释符号，你只需要选中并注释，无需亲自编辑。  <br />
-ctrlp不必多说，文件查找神奇，同时注意ignore各种无关文件  <br />
-YCM更不必废话，但是更新后要重新编译，感叹为什么我写C的时候没出来？？一般与supertab配合使用。  <br />
-emmet，敲代码最烦的就是符号配对啦，你要编辑html怎么能少了她！  <br />
-tabular对齐神器，为了代码更有逼格，你值得试试  <br />
-ag全称advanced grep，完爆grep，you known，宇宙最强文本搜索，该插件直接调用的shell</p>
-<h4>类型识别</h4>
-<div class="highlight"><pre><span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">klen</span><span class="o">/</span><span class="n">python</span><span class="o">-</span><span class="n">mode</span><span class="err">&#39;</span>
-<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">fatih</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">go</span><span class="err">&#39;</span>
-<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">plasticboy</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">markdown</span><span class="err">&#39;</span>
-<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">elzr</span><span class="o">/</span><span class="n">vim</span><span class="o">-</span><span class="n">json</span><span class="err">&#39;</span>
-<span class="n">Plugin</span> <span class="err">&#39;</span><span class="n">scrooloose</span><span class="o">/</span><span class="n">syntastic</span><span class="err">‘</span>
-</pre></div>
-
-
-<p>靠python养家的我怎能没有你，python-mode  <br />
-go有自己的官方插件，但是这个打包的更好，话说go真心不错，像极了python和C的bastard  <br />
-不写md的同学难道你写rst <br />
-json貌似在浏览器里看得多点  <br />
-syntastic语法检测，避免出错    </p>
-<h3>基本配置</h3>
-<p>还有一些可配置小点，各位小主有兴趣可以取用。</p>
-<p>集中各中间文件，方便统一处理。</p>
-<div class="highlight"><pre><span class="s">&quot; Centralize backups, swapfiles and undo history</span>
-<span class="n">set</span> <span class="n">backupdir</span><span class="o">=~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">backups</span>
-<span class="n">set</span> <span class="n">directory</span><span class="o">=~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">swaps</span>
-<span class="k">if</span> <span class="n">exists</span><span class="p">(</span><span class="s">&quot;&amp;undodir&quot;</span><span class="p">)</span>
-    <span class="n">set</span> <span class="n">undodir</span><span class="o">=~/</span><span class="p">.</span><span class="n">vim</span><span class="o">/</span><span class="n">undo</span>
-    <span class="n">set</span> <span class="n">undofile</span>
-    <span class="n">set</span> <span class="n">undolevels</span><span class="o">=</span><span class="mi">500</span>
-    <span class="n">set</span> <span class="n">undoreload</span><span class="o">=</span><span class="mi">500</span>
-<span class="n">endif</span>
-</pre></div>
-
-
-<p>不同类型文档不同缩进</p>
-<div class="highlight"><pre><span class="n">au</span> <span class="n">FileType</span> <span class="n">javascript</span><span class="p">,</span><span class="n">sass</span> <span class="n">setlocal</span> <span class="n">ts</span><span class="o">=</span><span class="mi">2</span> <span class="n">sw</span><span class="o">=</span><span class="mi">2</span> <span class="n">sts</span><span class="o">=</span><span class="mi">2</span> <span class="n">et</span>
-<span class="n">au</span> <span class="n">FileType</span> <span class="n">python</span> <span class="n">setlocal</span> <span class="n">ts</span><span class="o">=</span><span class="mi">4</span> <span class="n">sw</span><span class="o">=</span><span class="mi">4</span> <span class="n">sts</span><span class="o">=</span><span class="mi">4</span> <span class="n">et</span>
-</pre></div>
+                        <h1 class="entry-title"><a href="http://www.onionisi.com/archlinux-on-macbookpro.html">Arch on MBP</a></h1>
+                        <p>Due to my over optimization, my macbook got crashed due to the Chromium with too
+many tabs. I was so confidence to disable the journal function of hfs+, obviously 
+it was a big mistake. I could't recovery my OSX, so after bearing a long time 
+with hfs+, I choose to back to home, the archlinux.</p>
+<p>Thanks god, most hardware components already have got a nice compatible.
+Especially the Ratina display, Cinnamon desktop have a auto option in DPI.As a
+result, you can have a different dpi on diffrerent monitor. That is pretty nice
+for me because I always works with my BENQ BL2410, a 24' monitor I bought a few
+years ago.</p>
+<p>Only wifi driver is in AUR. And I also make a script to control the fan,
+just a single fan in MBP 13' late 2013. It's for the flash, damn flash. </p>
+<h3>Install</h3>
+<hr>
+<ul>
+<li>gdisk, reserved for sdx1 for EFI.</li>
+<li>efibootmgr, watch the BootOrder</li>
+<li>Loader, grub or rEFInd </li>
+<li>broadcom-wl, WIFI driver by broadcom in AUR</li>
+</ul>
+<h3>After Install</h3>
+<hr>
+<ul>
+<li>xinitrc</li>
+<li>IM, ibus doesn't work well with cinnmon-panel, fcitx-rime(insteaded by yong)</li>
+<li>backlight, xbacklight(no need coz cinnamon)</li>
+<li>fan, script</li>
+<li>font, fira-mono, simsum(Mono font I will write another post)</li>
+<li>powersave, modprobe file</li>
+<li>network, netctl can not connect a hidden WIFI(back to network-manager)</li>
+<li>openbox, obconf(not use now)</li>
+<li>cinnamon</li>
+</ul>
+<p>Hope you guys all enjoy linux!</p>
 <footer class="post-info">
-    <abbr class="published" title="2015-03-19T00:00:00">
-        Posted on 四 19 三月 2015 by Chong Yang |     tags: <a href="../tag/vim.html">vim</a> <a href="../tag/plugin.html">plugin</a>     </abbr>
+    <abbr class="published" title="2015-07-24T00:00:00+08:00">
+        Posted on Fri 24 July 2015 by Chong Yang |     tags: <a href="http://www.onionisi.com/tag/archlinux.html">archlinux</a> <a href="http://www.onionisi.com/tag/config.html">config</a>     </abbr>
 </footer><!-- /footer-post-info -->
                     </article>
                 </aside><!-- /aside-featured -->
@@ -138,7 +86,32 @@ syntastic语法检测，避免出错    </p>
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="../CP_of_tmux.html" rel="bookmark" title="Permalink to tmux的粘贴复制">tmux的粘贴复制</a></h3>
+                            <h3 class="entry-title"><a href="http://www.onionisi.com/vim_plugin_I_used.html" rel="bookmark" title="Permalink to vim二三事">vim二三事</a></h3>
+                            <aside class="entry-title-date">2015-03-19</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <p>话说天下编辑器分为两派，不知不觉从了vim老久了，老夫老妻就感觉没激情了，不想捯饬各种配置，这不趁着neo-vim的新鲜劲儿，重新梳理了一遍配置。</p>
+<h3>nvim</h3>
+<p>这个vim的岁数也不小了，几十年来，江湖众人想搞个小鲜肉大家尝尝，neo-vim便是其中之一。这货骨骼精奇，尽得前辈真传，同时还自创不少武术套路，确实是值得会会。</p>
+<div class="highlight"><pre><span></span>alias vi=&#39;nvim&#39;
+cp ~/.vimrc ~/.nvimrc
+</pre></div>
+
+
+<p>配置完全兼容，这丝滑。命令响应采用S/C模式，so后台会有一个单独pymodule neovim监听。得益于新的软件架构，插件执行效率更高更快。新特性还有vt，可直接集成终端，各位可自行前往github围观。</p>
+<h3>vundle</h3>
+<p>自由软件的世界不能没有包管理，你看看各大发行板，你看看node，你看看ruby/python，你看看go，现在新的编程语言没有这个好意思发布么，再看看rust。那么vim这个屌丝呢，也有很多包管理哦，vundle和github结合较好，比较好用的说。</p>
+<p>呃，vundle的interface早就更改了，Bundle变Plugin了，妈蛋，老子还一直纳闷怎么插件都不更新了 …</p>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="http://www.onionisi.com/vim_plugin_I_used.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="http://www.onionisi.com/CP_of_tmux.html" rel="bookmark" title="Permalink to tmux的粘贴复制">tmux的粘贴复制</a></h3>
                             <aside class="entry-title-date">2014-10-15</aside>
                         </header>
 
@@ -147,36 +120,18 @@ syntastic语法检测，避免出错    </p>
 <h3>复制模式</h3>
 <p>业务部门，又有新特性要开发啦。咦，这个功能点实现似曾相识，找找代码片段啊，打印机模式开启。JJYY一句，肯定有人说vim能粘贴复制要你干嘛，拜托同学们看看，clipboard特性打开没有。没有的同学用tmux先顶着，空了再去倒腾自定义编译。还有屏中某个小窗口程序的输出很有用，需编辑或记录，鼠标一拖，整屏都下来了，愁人。</p>
 <p>tmux下凡走过必留痕，copy模式下一览无疑。下边的配置，几个命令都被我作了映射，可以改成自己熟悉的键位。不论一屏分几个窗口，都不会串行啦。one more thing, 我经常用copy-mode当历史模式使用，翻屏棒棒哒。</p>
-<div class="highlight"><pre><span class="cp"># copy mode</span>
-<span class="n">setw</span> <span class="o">-</span><span class="n">g</span> <span class="n">mode</span><span class="o">-</span><span class="n">keys</span> <span class="n">vi</span>              <span class="err">#</span> <span class="n">keymap</span> <span class="n">in</span> <span class="n">copy</span> <span class="n">mode</span>
-<span class="n">bind</span> <span class="n">Escape</span> <span class="n">copy</span><span class="o">-</span><span class="n">mode</span>             <span class="err">#</span> <span class="n">enter ...</span></pre></div>
+<div class="highlight"><pre><span></span># copy mode
+setw -g mode-keys vi              # keymap in copy mode
+bind Escape copy-mode             # enter copy mode …</pre></div>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="../CP_of_tmux.html">more</a>
-                    </article>
-                </li>
-
-                <li>
-                    <article class="entry">
-                        <header>
-                            <h3 class="entry-title"><a href="../serial_driver.html" rel="bookmark" title="Permalink to FTDI串口驱动">FTDI串口驱动</a></h3>
-                            <aside class="entry-title-date">2014-08-28</aside>
-                        </header>
-
-                        <div class="entry-content">
-                            <p>用MAC的同学应该搞应用和设计的居多，什么嵌入式啊，串口啊，定时器的很多同学应该都不感冒的。偶尔自己也玩玩一些硬件，所以串口这个东西还是少不了的。说起驱动，Linux对硬件的支持自不必多说，OS X就得自己动手了。</p>
-<h3>FTDI2232</h3>
-<p>普通的USB转232的芯片不支持热拔插，原来的办公室已经躺尸了很多了，手中的2232其实是上大学的参加ZLG的竞赛发的一块开发版，旁边带的JTAG的调试，我顺手就用来当串口了，很是好使。最近想玩玩好久没碰的毕业论文的小车车了，想当年的巡线和遥控，哈哈，还是很佩服我自己的。</p>
-<p>话不多说先上官网下驱动和doc，真的是不看官方的<a href="http://www.ftdichip.com/Support/Documents/AppNotes/AN_134_FTDI_Drivers_Installation_Guide_for_MAC_OSX.pdf">Install Guide</a>，你还真弄不对。</p>
-<div class="highlight"><pre><span class="n">The</span> <span class="n">VCP</span> <span class="n">driver</span> <span class="n">is</span> <span class="n">provided</span> <span class="n">as</span> <span class="n">part</span> <span class="n">of</span> <span class="n">the</span> <span class="n">kernel</span> <span class="n">in</span> <span class="n">OSX</span> <span class="mf">10.9</span><span class="p">,</span> <span class="n">therefore</span> <span class="n">no</span> <span class="n">driver</span> <span class="n">installation</span> <span class="n">is</span> <span class="n">required</span> <span class="n">to</span> <span class="n">create</span> <span class="n">a</span> <span class="n">virtual ...</span></pre></div>
-                        </div><!-- /dev-entry-content -->
-                        <a class="jump" href="../serial_driver.html">more</a>
+                        <a class="jump" href="http://www.onionisi.com/CP_of_tmux.html">more</a>
                     </article>
                 </li>
                 </ol><!-- /ol-posts-list -->
 <div class="paginationer">
     <p class="paginator">
         Page 1 / 6
-            <a href="../category/blog2.html">&raquo;</a>
+            <a href="http://www.onionisi.com/category/blog2.html">&raquo;</a>
     </p>
 </div>
                 </section><!-- /section-content -->
@@ -185,7 +140,7 @@ syntastic语法检测，避免出错    </p>
 
     <footer id="footer">
         <address id="about" class="vcard">
-            &copy; 2014 <a class="url fn" href="..">TALO</a>
+            <a class="url fn" href="http://www.onionisi.com">TALO</a>
         </address><!-- /address-about -->
     </footer><!-- /footer-footer -->
 
@@ -193,11 +148,12 @@ syntastic语法检测，避免出错    </p>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//stats.g.doubleclick.net/dc.js','ga');
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-54841037-1', '..');
+        ga('create', 'UA-54841037-1', 'auto');
         ga('send', 'pageview');
     </script>
 
 </body>
+
 </html>

@@ -4,15 +4,15 @@
 
     <meta charset="utf-8">
 
-    <meta name="tags" content="dailywork">
+    <meta name="tags" content="archlinuxconfig">
 
     <meta name="category" content="Blog">
 
-    <meta name="date" content="2013-06-05 00:00:00+08:00">
+    <meta name="date" content="2015-07-24 00:00:00+08:00">
 
     <meta name="author" content="Chong Yang">
 
-    <title>TALO | 工作的一天</title>
+    <title>TALO | Arch on MBP</title>
 
         <link rel="stylesheet" href="http://www.onionisi.com/theme/css/style.min.css?176eb4f7">
 
@@ -42,25 +42,48 @@
     <article>
         <header>
             <h1 class="entry-title">
-                <a href="" id="entry-title-link" rel="bookmark" title="Permalink to 工作的一天">工作的一天</a>
+                <a href="" id="entry-title-link" rel="bookmark" title="Permalink to Arch on MBP">Arch on MBP</a>
             </h1>
         </header>
 
 
         <div class="entry-content">
-            <h3>学习依然是头等大事</h3>
-<p>早上就initrd和initramfs进行了一下深入的学习，主要参考文档就是黄敬群老师的博客。打个比方，可能不确切，但是话糙理不糙，init阶段的文件系统就像你高考前的备考，没有这个阶段注定要失败滴。话说黄老师真的是牛X，特别是对于一些系统底层的细节。</p>
-<p>中午波哥吃完午饭就回家准备收麦子了，真的是幸福的码农，请了半个月农忙假。</p>
-<p>下午遇到个奇怪的事情，整理文档发现原来写的小程序demo.py，想试试运行效率，却始终始终执行不了。妈蛋是权限问题么，查看了都没有问题。后边发现是磁盘挂载时忘了<code>exec</code>了，我的个乖乖，改之遂好。</p>
-<h3>萌生去意</h3>
-<p>下午开会讨论了一下后续EOC工作的分工，心里很复杂，一群照着demo板布PCB的硬件工程师要指挥软件架构，还是好好准备简历吧。</p>
-<h3>新室友到来</h3>
-<p>晚上李佑成准备要搬过来，和他聊了会，家常琐碎。亮点就是他可能有5V2.5A的电源，虽然我需要的是3A，不过明天还是可以试试的硬盘能带起来不能。我手头的cubieboard因为没有合适的电源，那块2.5寸的硬盘已经快积灰了。早就装上了archlinux_arm，还是不错，平时在办公室因为网络的限制，也只能弄来玩玩驱动，配配网络。如若硬盘能带起来，就搞个NAS玩啰。</p>
-<h3>洗洗睡</h3>
-<p>看会十亿消费者就准备睡了，明天见。</p>
+            <p>Due to my over optimization, my macbook got crashed due to the Chromium with too
+many tabs. I was so confidence to disable the journal function of hfs+, obviously 
+it was a big mistake. I could't recovery my OSX, so after bearing a long time 
+with hfs+, I choose to back to home, the archlinux.</p>
+<p>Thanks god, most hardware components already have got a nice compatible.
+Especially the Ratina display, Cinnamon desktop have a auto option in DPI.As a
+result, you can have a different dpi on diffrerent monitor. That is pretty nice
+for me because I always works with my BENQ BL2410, a 24' monitor I bought a few
+years ago.</p>
+<p>Only wifi driver is in AUR. And I also make a script to control the fan,
+just a single fan in MBP 13' late 2013. It's for the flash, damn flash. </p>
+<h3>Install</h3>
+<hr>
+<ul>
+<li>gdisk, reserved for sdx1 for EFI.</li>
+<li>efibootmgr, watch the BootOrder</li>
+<li>Loader, grub or rEFInd </li>
+<li>broadcom-wl, WIFI driver by broadcom in AUR</li>
+</ul>
+<h3>After Install</h3>
+<hr>
+<ul>
+<li>xinitrc</li>
+<li>IM, ibus doesn't work well with cinnmon-panel, fcitx-rime(insteaded by yong)</li>
+<li>backlight, xbacklight(no need coz cinnamon)</li>
+<li>fan, script</li>
+<li>font, fira-mono, simsum(Mono font I will write another post)</li>
+<li>powersave, modprobe file</li>
+<li>network, netctl can not connect a hidden WIFI(back to network-manager)</li>
+<li>openbox, obconf(not use now)</li>
+<li>cinnamon</li>
+</ul>
+<p>Hope you guys all enjoy linux!</p>
 <footer class="post-info">
-    <abbr class="published" title="2013-06-05T00:00:00+08:00">
-        Posted on Wed 05 June 2013 by Chong Yang |     tags: <a href="http://www.onionisi.com/tag/daily.html">daily</a> <a href="http://www.onionisi.com/tag/work.html">work</a>     </abbr>
+    <abbr class="published" title="2015-07-24T00:00:00+08:00">
+        Posted on Fri 24 July 2015 by Chong Yang |     tags: <a href="http://www.onionisi.com/tag/archlinux.html">archlinux</a> <a href="http://www.onionisi.com/tag/config.html">config</a>     </abbr>
 </footer><!-- /footer-post-info -->
         </div><!-- /.entry-content -->
 <script src="https://apis.google.com/js/plusone.js"></script>

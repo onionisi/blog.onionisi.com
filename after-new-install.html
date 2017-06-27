@@ -8,16 +8,17 @@
 
     <meta name="category" content="Blog">
 
-    <meta name="date" content="2014-05-10 00:00:00">
+    <meta name="date" content="2014-05-10 00:00:00+08:00">
 
     <meta name="author" content="Chong Yang">
 
     <title>TALO | After New Install</title>
 
-        <link rel="stylesheet" href="./theme/css/style.min.css?981d7269">
+        <link rel="stylesheet" href="http://www.onionisi.com/theme/css/style.min.css?176eb4f7">
 
-    <link rel="shortcut icon" href="./theme/img/favicon.ico" />
-    <link rel="icon" sizes="16x16 32x32" href="./theme/img/favicon.ico">
+
+    <link rel="shortcut icon" href="http://www.onionisi.com/theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="http://www.onionisi.com/theme/img/favicon.ico">
 
 
 
@@ -27,15 +28,14 @@
     <header id="sitehead">
         <div class="sitehead">
             <span id="sitehead">
-                <a href=".">TALO</a>
+                <a href="http://www.onionisi.com">TALO</a>
             </span>
         </div>
             <div id="tagline">
                 <strong>fprintf(post, "%s\n", daily_life)</strong>
             </div>
         <nav class="navbar">
-                <a href="./category/blog.html">Blog</a>&nbsp;
-                    <a href="./pages/about.html">About</a>&nbsp;
+                <a href="http://www.onionisi.com/category/blog.html">Blog</a>&nbsp;
         </nav>
     </header><!-- /header-siteheader -->
 <section id="content">
@@ -57,7 +57,7 @@
 <p>change host name，没有好听得名字怎么能行:</p>
 </li>
 </ul>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">scutil</span> <span class="o">--</span><span class="n">set</span> <span class="n">HostName</span> <span class="n">Yosemite</span>
+<div class="highlight"><pre><span></span>sudo scutil --set HostName Yosemite
 </pre></div>
 
 
@@ -78,12 +78,12 @@
 <p>cross the gfw.安装goagentx。 pac and goagent and shadowsocks</p>
 </li>
 </ul>
-<div class="highlight"><pre><span class="n">goagent</span><span class="o">:</span>
+<div class="highlight"><pre><span></span><span class="n">goagent</span><span class="o">:</span>
 <span class="n">onionisi1986</span><span class="o">|</span><span class="n">onionisi1987</span><span class="o">|</span><span class="n">onionisi1988</span><span class="o">|</span><span class="n">onionisi1989</span><span class="o">|</span><span class="n">yangchong198628</span>
 </pre></div>
 
 
-<div class="highlight"><pre><span class="n">shadowsocks</span><span class="o">:</span>
+<div class="highlight"><pre><span></span><span class="n">shadowsocks</span><span class="o">:</span>
 <span class="mf">198.199</span><span class="o">.</span><span class="mf">96.65</span><span class="o">:</span><span class="mi">8388</span> <span class="n">judy</span> <span class="n">aes</span><span class="o">-</span><span class="mi">256</span><span class="o">-</span><span class="n">cfb</span>
 </pre></div>
 
@@ -96,16 +96,16 @@
 <p>disable dashboard。</p>
 </li>
 </ul>
-<div class="highlight"><pre><span class="n">defaults</span> <span class="n">write</span> <span class="n">com</span><span class="p">.</span><span class="n">apple</span><span class="p">.</span><span class="n">dashboard</span> <span class="n">mcx</span><span class="o">-</span><span class="n">disabled</span> <span class="o">-</span><span class="n">boolean</span> <span class="n">YES</span> <span class="o">&amp;&amp;</span> <span class="n">killall</span> <span class="n">Dock</span>
+<div class="highlight"><pre><span></span>defaults write com.apple.dashboard mcx-disabled -boolean YES &amp;&amp; killall Dock
 </pre></div>
 
 
 <ul>
 <li>way to displace loadavg procfile.</li>
 </ul>
-<div class="highlight"><pre><span class="n">sysctl</span> <span class="o">-</span><span class="n">n</span> <span class="n">vm</span><span class="p">.</span><span class="n">loadavg</span>
-<span class="n">w</span> <span class="o">|</span> <span class="n">head</span> <span class="o">-</span><span class="n">n1</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="err">’</span><span class="o">:</span><span class="err">’</span> <span class="o">-</span><span class="n">f4</span>
-<span class="n">uptime</span> <span class="o">|</span> <span class="n">cut</span> <span class="o">-</span><span class="n">d</span><span class="err">’</span><span class="o">:</span><span class="err">’</span> <span class="o">-</span><span class="n">f4</span>
+<div class="highlight"><pre><span></span>sysctl -n vm.loadavg
+w | head -n1 | cut -d’:’ -f4
+uptime | cut -d’:’ -f4
 </pre></div>
 
 
@@ -117,29 +117,29 @@
 <p>add quit to the finder menu</p>
 </li>
 </ul>
-<div class="highlight"><pre><span class="n">defaults</span> <span class="n">write</span> <span class="n">com</span><span class="p">.</span><span class="n">apple</span><span class="p">.</span><span class="n">Finder</span> <span class="n">QuitMenuItem</span> <span class="mi">1</span>
+<div class="highlight"><pre><span></span>defaults write com.apple.Finder QuitMenuItem 1
 </pre></div>
 
 
 <ul>
 <li>更快的国内源</li>
 </ul>
-<div class="highlight"><pre><span class="n">npm</span>
-<span class="err">$</span><span class="n">npm</span> <span class="o">--</span><span class="n">registry</span> <span class="n">http</span><span class="o">:</span><span class="c1">//registry.npm.taobao.org info underscore</span>
+<div class="highlight"><pre><span></span>npm
+$npm --registry http://registry.npm.taobao.org info underscore
 </pre></div>
 
 
-<div class="highlight"><pre><span class="n">gem</span>
-<span class="err">$</span><span class="n">gem</span> <span class="n">sources</span> <span class="o">--</span><span class="n">remove</span> <span class="n">https</span><span class="o">:</span><span class="c1">//rubygems.org/</span>
-<span class="err">$</span><span class="n">gem</span> <span class="n">sources</span> <span class="o">-</span><span class="n">a</span> <span class="n">https</span><span class="o">:</span><span class="c1">//ruby.taobao.org</span>
+<div class="highlight"><pre><span></span>gem
+$gem sources --remove https://rubygems.org/
+$gem sources -a https://ruby.taobao.org
 </pre></div>
 
 
-<div class="highlight"><pre><span class="n">pip</span>
-<span class="n">Global</span> <span class="n">settings</span><span class="o">:</span>
-<span class="n">Add</span> <span class="o">~/</span><span class="p">.</span><span class="n">pip</span><span class="o">/</span><span class="n">pip</span><span class="p">.</span><span class="n">conf</span> <span class="n">that</span> <span class="n">includes</span><span class="o">:</span>
-<span class="p">[</span><span class="n">global</span><span class="p">]</span>
-<span class="n">index</span><span class="o">-</span><span class="n">url</span> <span class="o">=</span> <span class="n">http</span><span class="o">:</span><span class="c1">//pypi.tuna.tsinghua.edu.cn/simple</span>
+<div class="highlight"><pre><span></span>pip
+Global settings:
+Add ~/.pip/pip.conf that includes:
+[global]
+index-url = http://pypi.tuna.tsinghua.edu.cn/simple
 </pre></div>
 
 
@@ -155,11 +155,11 @@ untrust！！！</p>
 <p>禁止创建.DS_Store文件</p>
 </li>
 </ul>
-<div class="highlight"><pre><span class="n">defaults</span> <span class="n">write</span> <span class="n">com</span><span class="p">.</span><span class="n">apple</span><span class="p">.</span><span class="n">desktopservices</span> <span class="n">DSDontWriteNetworkStores</span> <span class="nb">true</span>
+<div class="highlight"><pre><span></span>defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 </pre></div>
 <footer class="post-info">
-    <abbr class="published" title="2014-05-10T00:00:00">
-        Posted on 六 10 五月 2014 by Chong Yang |     tags: <a href="./tag/osx.html">OSX</a> <a href="./tag/config.html">config</a>     </abbr>
+    <abbr class="published" title="2014-05-10T00:00:00+08:00">
+        Posted on Sat 10 May 2014 by Chong Yang |     tags: <a href="http://www.onionisi.com/tag/osx.html">OSX</a> <a href="http://www.onionisi.com/tag/config.html">config</a>     </abbr>
 </footer><!-- /footer-post-info -->
         </div><!-- /.entry-content -->
 <script src="https://apis.google.com/js/plusone.js"></script>
@@ -179,7 +179,7 @@ untrust！！！</p>
 
     <footer id="footer">
         <address id="about" class="vcard">
-            &copy; 2014 <a class="url fn" href=".">TALO</a>
+            <a class="url fn" href="http://www.onionisi.com">TALO</a>
         </address><!-- /address-about -->
     </footer><!-- /footer-footer -->
 
@@ -187,11 +187,12 @@ untrust！！！</p>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//stats.g.doubleclick.net/dc.js','ga');
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-54841037-1', '.');
+        ga('create', 'UA-54841037-1', 'auto');
         ga('send', 'pageview');
     </script>
 
 </body>
+
 </html>

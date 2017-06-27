@@ -8,16 +8,17 @@
 
     <meta name="category" content="Blog">
 
-    <meta name="date" content="2012-06-20 00:00:00">
+    <meta name="date" content="2012-06-20 00:00:00+08:00">
 
     <meta name="author" content="Chong Yang">
 
     <title>TALO | stat and close()</title>
 
-        <link rel="stylesheet" href="./theme/css/style.min.css?981d7269">
+        <link rel="stylesheet" href="http://www.onionisi.com/theme/css/style.min.css?176eb4f7">
 
-    <link rel="shortcut icon" href="./theme/img/favicon.ico" />
-    <link rel="icon" sizes="16x16 32x32" href="./theme/img/favicon.ico">
+
+    <link rel="shortcut icon" href="http://www.onionisi.com/theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="http://www.onionisi.com/theme/img/favicon.ico">
 
 
 
@@ -27,15 +28,14 @@
     <header id="sitehead">
         <div class="sitehead">
             <span id="sitehead">
-                <a href=".">TALO</a>
+                <a href="http://www.onionisi.com">TALO</a>
             </span>
         </div>
             <div id="tagline">
                 <strong>fprintf(post, "%s\n", daily_life)</strong>
             </div>
         <nav class="navbar">
-                <a href="./category/blog.html">Blog</a>&nbsp;
-                    <a href="./pages/about.html">About</a>&nbsp;
+                <a href="http://www.onionisi.com/category/blog.html">Blog</a>&nbsp;
         </nav>
     </header><!-- /header-siteheader -->
 <section id="content">
@@ -51,39 +51,39 @@
             <h1>file stat and file close</h1>
 <h2>file stat</h2>
 <p>中午吃饭的时候突然聊起了权限，笑777是bus，有点混淆stat的结构了，下午回来看了stat.h</p>
-<div class="highlight"><pre><span class="c1">// 出自bits/stat.h</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISUID</span>   <span class="mh">04000</span>   <span class="cm">/* Set user ID on execution.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISGID</span>   <span class="mh">02000</span>   <span class="cm">/* Set group ID on execution.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">__S_ISVTX</span>   <span class="mh">01000</span>   <span class="cm">/* Save swapped text after use (sticky).  */</span>   
-<span class="p">#</span><span class="n">define</span> <span class="no">__S_IREAD</span>   <span class="mh">0400</span>    <span class="cm">/* Read by owner.  */</span> 
-<span class="p">#</span><span class="n">define</span> <span class="no">__S_IWRITE</span>  <span class="mh">0200</span>    <span class="cm">/* Write by owner.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">__S_IEXEC</span>   <span class="mh">0100</span>    <span class="cm">/* Execute by owner.  */</span>
+<div class="highlight"><pre><span></span>// 出自bits/stat.h
+#define __S_ISUID   04000   /* Set user ID on execution.  */
+#define __S_ISGID   02000   /* Set group ID on execution.  */
+#define __S_ISVTX   01000   /* Save swapped text after use (sticky).  */   
+#define __S_IREAD   0400    /* Read by owner.  */ 
+#define __S_IWRITE  0200    /* Write by owner.  */
+#define __S_IEXEC   0100    /* Execute by owner.  */
 
-<span class="c1">// 出自sys/stat.h </span>
-<span class="p">#</span><span class="n">define</span> <span class="no">S_ISUID</span> <span class="no">__S_ISUID</span>   <span class="cm">/* Set user ID on execution.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">S_ISGID</span> <span class="no">__S_ISGID</span>   <span class="cm">/* Set group ID on execution.  */</span>
+// 出自sys/stat.h 
+#define S_ISUID __S_ISUID   /* Set user ID on execution.  */
+#define S_ISGID __S_ISGID   /* Set group ID on execution.  */
 
-<span class="p">#</span><span class="k">if</span> <span class="n">defined</span> <span class="no">__USE_BSD</span> <span class="o">||</span> <span class="n">defined</span> <span class="no">__USE_MISC</span> <span class="o">||</span> <span class="n">defined</span> <span class="no">__USE_XOPEN</span>
-<span class="cm">/* Save swapped text after use (sticky bit).  This is pretty well obsolete.  */</span>
-<span class="p">#</span> <span class="n">define</span> <span class="no">S_ISVTX</span>    <span class="no">__S_ISVTX</span>
-<span class="p">#</span><span class="n">endif</span>
+#if defined __USE_BSD || defined __USE_MISC || defined __USE_XOPEN
+/* Save swapped text after use (sticky bit).  This is pretty well obsolete.  */
+# define S_ISVTX    __S_ISVTX
+#endif
 
-<span class="p">#</span><span class="n">define</span> <span class="no">S_IWUSR</span> <span class="no">__S_IWRITE</span>  <span class="cm">/* Write by owner.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">S_IXUSR</span> <span class="no">__S_IEXEC</span>   <span class="cm">/* Execute by owner.  */</span>
-<span class="cm">/* Read, write, and execute by owner.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">S_IRWXU</span> <span class="p">(</span><span class="no">__S_IREAD</span><span class="o">|</span><span class="no">__S_IWRITE</span><span class="o">|</span><span class="no">__S_IEXEC</span><span class="p">)</span>
+#define S_IWUSR __S_IWRITE  /* Write by owner.  */
+#define S_IXUSR __S_IEXEC   /* Execute by owner.  */
+/* Read, write, and execute by owner.  */
+#define S_IRWXU (__S_IREAD|__S_IWRITE|__S_IEXEC)
 
-<span class="p">#</span><span class="n">define</span> <span class="no">S_IRGRP</span> <span class="p">(</span><span class="no">S_IRUSR</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>  <span class="cm">/* Read by group.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">S_IWGRP</span> <span class="p">(</span><span class="no">S_IWUSR</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>  <span class="cm">/* Write by group.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">S_IXGRP</span> <span class="p">(</span><span class="no">S_IXUSR</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>  <span class="cm">/* Execute by group.  */</span>
-<span class="cm">/* Read, write, and execute by group.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">S_IRWXG</span> <span class="p">(</span><span class="no">S_IRWXU</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>
+#define S_IRGRP (S_IRUSR &gt;&gt; 3)  /* Read by group.  */
+#define S_IWGRP (S_IWUSR &gt;&gt; 3)  /* Write by group.  */
+#define S_IXGRP (S_IXUSR &gt;&gt; 3)  /* Execute by group.  */
+/* Read, write, and execute by group.  */
+#define S_IRWXG (S_IRWXU &gt;&gt; 3)
 
-<span class="p">#</span><span class="n">define</span> <span class="no">S_IROTH</span> <span class="p">(</span><span class="no">S_IRGRP</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>  <span class="cm">/* Read by others.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">S_IWOTH</span> <span class="p">(</span><span class="no">S_IWGRP</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>  <span class="cm">/* Write by others.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">S_IXOTH</span> <span class="p">(</span><span class="no">S_IXGRP</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>  <span class="cm">/* Execute by others.  */</span>
-<span class="cm">/* Read, write, and execute by others.  */</span>
-<span class="p">#</span><span class="n">define</span> <span class="no">S_IRWXO</span> <span class="p">(</span><span class="no">S_IRWXG</span> <span class="o">&gt;&gt;</span> <span class="mh">3</span><span class="p">)</span>
+#define S_IROTH (S_IRGRP &gt;&gt; 3)  /* Read by others.  */
+#define S_IWOTH (S_IWGRP &gt;&gt; 3)  /* Write by others.  */
+#define S_IXOTH (S_IXGRP &gt;&gt; 3)  /* Execute by others.  */
+/* Read, write, and execute by others.  */
+#define S_IRWXO (S_IRWXG &gt;&gt; 3)
 </pre></div>
 
 
@@ -98,8 +98,8 @@ the disk hardware at this point.)</p>
 </blockquote>
 <p>所以要感谢那位执着的哥们。</p>
 <footer class="post-info">
-    <abbr class="published" title="2012-06-20T00:00:00">
-        Posted on 三 20 六月 2012 by Chong Yang |     tags: <a href="./tag/linux-c.html">linux C</a> <a href="./tag/filesystem.html">filesystem</a>     </abbr>
+    <abbr class="published" title="2012-06-20T00:00:00+08:00">
+        Posted on Wed 20 June 2012 by Chong Yang |     tags: <a href="http://www.onionisi.com/tag/linux-c.html">linux C</a> <a href="http://www.onionisi.com/tag/filesystem.html">filesystem</a>     </abbr>
 </footer><!-- /footer-post-info -->
         </div><!-- /.entry-content -->
 <script src="https://apis.google.com/js/plusone.js"></script>
@@ -119,7 +119,7 @@ the disk hardware at this point.)</p>
 
     <footer id="footer">
         <address id="about" class="vcard">
-            &copy; 2014 <a class="url fn" href=".">TALO</a>
+            <a class="url fn" href="http://www.onionisi.com">TALO</a>
         </address><!-- /address-about -->
     </footer><!-- /footer-footer -->
 
@@ -127,11 +127,12 @@ the disk hardware at this point.)</p>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//stats.g.doubleclick.net/dc.js','ga');
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-54841037-1', '.');
+        ga('create', 'UA-54841037-1', 'auto');
         ga('send', 'pageview');
     </script>
 
 </body>
+
 </html>
