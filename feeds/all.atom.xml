@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>TALO</title><link href="http://blog.onionisi.com/" rel="alternate"></link><link href="http://blog.onionisi.com/feeds/all.atom.xml" rel="self"></link><id>http://blog.onionisi.com/</id><updated>2015-07-30T19:30:00+08:00</updated><entry><title>Arch on MBP</title><link href="http://blog.onionisi.com/archlinux-on-macbookpro.html" rel="alternate"></link><published>2015-07-24T00:00:00+08:00</published><updated>2015-07-30T19:30:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:blog.onionisi.com,2015-07-24:/archlinux-on-macbookpro.html</id><summary type="html">&lt;p&gt;Due to my over optimization, my macbook got crashed due to the Chromium with too
-many tabs. I was so confidence to disable the journal function of hfs+, obviously 
-it was a big mistake. I could't recovery my OSX, so after bearing a long time 
-with hfs+, I choose to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Due to my over optimization, my macbook got crashed due to the Chromium with too
-many tabs. I was so confidence to disable the journal function of hfs+, obviously 
-it was a big mistake. I could't recovery my OSX, so after bearing a long time 
-with hfs+, I choose to back to home, the archlinux.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>TALO</title><link href="http://blog.onionisi.com/" rel="alternate"></link><link href="http://blog.onionisi.com/feeds/all.atom.xml" rel="self"></link><id>http://blog.onionisi.com/</id><updated>2015-07-30T19:30:00+08:00</updated><entry><title>Arch on MBP</title><link href="http://blog.onionisi.com/archlinux-on-macbookpro.html" rel="alternate"></link><published>2015-07-24T00:00:00+08:00</published><updated>2015-07-30T19:30:00+08:00</updated><author><name>Chong Yang</name></author><id>tag:blog.onionisi.com,2015-07-24:/archlinux-on-macbookpro.html</id><summary type="html">&lt;p&gt;Due to my over optimization, my macbook got crashed caused by the Chromium with
+too many tabs. I was so confidence to disable the journal function of hfs+,
+obviously it was a big mistake. I could't recovery my OSX, so after bearing a 
+long time with hfs+, I choose to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Due to my over optimization, my macbook got crashed caused by the Chromium with
+too many tabs. I was so confidence to disable the journal function of hfs+,
+obviously it was a big mistake. I could't recovery my OSX, so after bearing a 
+long time with hfs+, I choose to back to home, the archlinux.&lt;/p&gt;
 &lt;p&gt;Thanks god, most hardware components already have got a nice compatible.
 Especially the Ratina display, Cinnamon desktop have a auto option in DPI.As a
 result, you can have a different dpi on diffrerent monitor. That is pretty nice
