@@ -60,3 +60,4 @@ cache
 .gitignore
 .DS_Store
 *.pid
+draft

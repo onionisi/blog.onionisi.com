@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = u'Chong'
 AUTHOR_FULLNAME = u'Chong Yang'
 SITENAME = u'TALO'
-SITEURL = 'www.onionisi.com'
+SITEURL = 'blog.onionisi.com'
 SITETAGLINE = 'fprintf(post, "%s\\n", daily_life)'
 DISPLAY_PAGES_ON_MENU = True
 
@@ -16,7 +16,7 @@ TIMEZONE = 'Asia/Chongqing'
 DEFAULT_LANG = u'en'
 
 # Theme
-THEME = "/Users/chong/code/burrito"
+THEME = "/home/chong/code/burrito"
 EMAIL_ADDRESSS = "iamyangchong@gmail.com"
 GITHUB_ADDRESS = "github.com/onionisi"
 TWITTER_ADDRESS = "twitter.com/onionisi"
@@ -26,7 +26,7 @@ STATIC_PATHS = ['images', 'extra/CNAME']
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}
 
 # Plugin
-PLUGIN_PATHS = ['/Users/chong/code/pelican-plugins']
+PLUGIN_PATHS = ['/home/chong/code/pelican-plugins']
 PLUGINS = ['assets']
 
 # track
