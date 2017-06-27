@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
-AUTHOR = u'Chong'
-AUTHOR_FULLNAME = u'Chong Yang'
-SITENAME = u'TALO'
+AUTHOR = 'Chong'
+AUTHOR_FULLNAME = 'Chong Yang'
+SITENAME = 'TALO'
 SITEURL = 'blog.onionisi.com'
 SITETAGLINE = 'fprintf(post, "%s\\n", daily_life)'
 DISPLAY_PAGES_ON_MENU = True
@@ -13,7 +13,7 @@ PATH = 'content'
 
 TIMEZONE = 'Asia/Chongqing'
 
-DEFAULT_LANG = u'en'
+DEFAULT_LANG = 'en'
 
 # Theme
 THEME = "/home/chong/code/burrito"
