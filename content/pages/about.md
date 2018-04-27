@@ -7,11 +7,11 @@ Slug: about
 
 杨冲，85后，喜欢音乐，美食，美景以及瞎折腾过程中一切简单高效的工具。
 
-GNU/Linux fan，Vimer，Pythoner。
+GNU/Linux fan，Vimer
 
 自08年关注和使用 Linux，最喜 Arch Linux 和 Gentoo Linux。
 
-个人以简约为美，less is more，热爱CLI以及一票自由软件：vim • zsh • tmux • git • cmus • graphicsmagic • mplayer • rtorrent • ranger • mutt • irssi • newsbeuter。
+个人以简约为美，less is more，热爱CLI以及一票自由软件：vim • zsh • tmux • git • cmus • graphicsmagic • mpv • rtorrent • ranger • mutt • irssi • newsbeuter。
 
 Contact me:
 
