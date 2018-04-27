@@ -15,6 +15,10 @@ TIMEZONE = 'Asia/Chongqing'
 
 DEFAULT_LANG = 'en'
 
+MENUITEMS = (
+    ('About', '/pages/about.html'),
+)
+
 # Theme
 THEME = "/home/chong/code/burrito"
 EMAIL_ADDRESSS = "iamyangchong@gmail.com"
