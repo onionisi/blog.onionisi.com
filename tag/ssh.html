@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+
+
+
+
+    <meta name="author" content="Chong Yang">
+
+    <title>TALO - ssh</title>
+
+        <link rel="stylesheet" href="http://blog.onionisi.com/theme/css/style.min.css?176eb4f7">
+
+
+    <link rel="shortcut icon" href="http://blog.onionisi.com/theme/img/favicon.ico" />
+    <link rel="icon" sizes="16x16 32x32" href="http://blog.onionisi.com/theme/img/favicon.ico">
+
+
+
+</head>
+
+<body>
+    <header id="sitehead">
+        <div class="sitehead">
+            <span id="sitehead">
+                <a href="http://blog.onionisi.com">TALO</a>
+            </span>
+        </div>
+            <div id="tagline">
+                <strong>fprintf(post, "%s\n", daily_life)</strong>
+            </div>
+        <nav class="navbar">
+                <a href="http://blog.onionisi.com/category/blog.html">Blog</a>&nbsp;
+                <a href="/pages/about.html">About</a>&nbsp;
+        </nav>
+    </header><!-- /header-siteheader -->
+
+                <aside id="featured">
+                    <article>
+                        <h1 class="entry-title"><a href="http://blog.onionisi.com/ssh_forward.html">ssh转发</a></h1>
+                        <h4>替代品（171220更新）</h4>
+<ul>
+<li>(ngrok)[https://ngrok.com]通过第三方服务器中转需要注册</li>
+<li>(frp)[https://github.com/fatedier/frp]新一代转发神器</li>
+</ul>
+<h4>ssh portforward</h4>
+<div class="highlight"><pre><span></span>C                   S<span class="o">/</span>C                 S
+localhost<span class="o">:</span>port <span class="o">&lt;-&gt;</span> SSH hostname <span class="o">&lt;-&gt;</span> remote host<span class="o">:</span>port
+<span class="kr">if</span> remote<span class="o">==</span>localhost<span class="p">;</span> remote<span class="o">=</span> ssh hostname
+</pre></div>
+
+
+<ul>
+<li>SSH连接和应用的连接这两个连接的方向一致，是本地转发。 在本地这台机器上监听一个端口，然后所有访问这个端口的数据都会通过ssh 隧道传输到远端的对应端口上</li>
+</ul>
+<div class="highlight"><pre><span></span>  ssh -L &lt;local port&gt;:&lt;remote host&gt;:&lt;remote port&gt; &lt;SSH hostname&gt;
+</pre></div>
+
+
+<ul>
+<li>SSH连接和应用的连接这两个连接的方向不同，是远程转发。 在远端服务器监听一个端口，所有访问远端服务器指定端口都会通过隧道传输到本地的对应端口上</li>
+</ul>
+<div class="highlight"><pre><span></span>  ssh -R &lt;local port&gt;:&lt;remote host&gt;:&lt;remote port&gt; &lt;SSH hostname&gt;
+</pre></div>
+
+
+<ul>
+<li>参数 CfNg
+  -C ：压缩数据传输。
+  -f ：后台认证用户/密码，通常和-N连用，不用登录到远程主机。
+  -N ：不执行脚本或命令，通常与-f连用。
+  -g ：在-L/-R/-D参数中，允许远程主机连接到建立的转发的端口，如�不加这个参数，只允许本地主机建立连接</li>
+</ul>
+<h4>ssh with tar</h4>
+<ul>
+<li>tar 注意Pp<ul>
+<li>cP : contain absolute name</li>
+<li>xp : preserve permission</li>
+<li>--exclude "PATH"(without '/' at the end)</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span>    tar czf - data | ssh user@host &quot;tar xf - -C dir&quot;
+    ssh user@host &quot;tar czf - data&quot; | tar xvzf - -C dir
+</pre></div>
+<footer class="post-info">
+    <abbr class="published" title="2016-04-20T00:00:00+08:00">
+        Posted on Wed 20 April 2016 by Chong Yang |     tags: <a href="http://blog.onionisi.com/tag/ssh.html">ssh</a> <a href="http://blog.onionisi.com/tag/work.html">work</a>     </abbr>
+</footer><!-- /footer-post-info -->
+                    </article>
+<div class="paginationer">
+    <p class="paginator">
+        Page 1 / 1
+    </p>
+</div>
+                </aside><!-- /aside-featured -->
+                </ol><!-- /ol-posts-list -->
+                </section><!-- /section-content -->
+    <section id="extras">
+    </section><!-- /sectin-extras -->
+
+    <footer id="footer">
+        <address id="about" class="vcard">
+            <a class="url fn" href="http://blog.onionisi.com">TALO</a>
+        </address><!-- /address-about -->
+    </footer><!-- /footer-footer -->
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-54841037-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+</body>
+
+</html>

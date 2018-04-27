@@ -34,48 +34,50 @@
             </div>
         <nav class="navbar">
                 <a href="http://blog.onionisi.com/category/blog.html">Blog</a>&nbsp;
+                <a href="/pages/about.html">About</a>&nbsp;
         </nav>
     </header><!-- /header-siteheader -->
 
                 <aside id="featured">
                     <article>
-                        <h1 class="entry-title"><a href="http://blog.onionisi.com/archlinux-on-macbookpro.html">Arch on MBP</a></h1>
-                        <p>Due to my over optimization, my macbook got crashed caused by the Chromium with
-too many tabs. I was so confidence to disable the journal function of hfs+,
-obviously it was a big mistake. I could't recovery my OSX, so after bearing a 
-long time with hfs+, I choose to back home, the archlinux.</p>
-<p>Thanks god, most hardware components already have got a nice compatible.
-Especially the Ratina display, Cinnamon desktop have a auto option in DPI.As a
-result, you can have a different dpi on diffrerent monitor. That is pretty nice
-for me because I always works with my BENQ BL2410, a 24' monitor I bought a few
-years ago.</p>
-<p>Only wifi driver is in AUR. And I also make a script to control the fan,
-just a single fan in MBP 13' late 2013. It's for the flash, damn flash. </p>
-<h3>Install</h3>
-<hr>
+                        <h1 class="entry-title"><a href="http://blog.onionisi.com/vim_tips.html">Vim tips</a></h1>
+                        <h5>vim ctrl-o</h5>
+<p>when you in insert mode,
+<code>ctrl-o</code> can temporarily escape insert mode without change mode</p>
+<h5>vim pattern match</h5>
+<p>Other than using Macro, you deserve pattern match, which is similar with sed.</p>
+<div class="highlight"><pre><span></span><span class="n">g</span><span class="o">/^</span><span class="err">\</span><span class="n">s</span><span class="o">*</span><span class="err">$</span><span class="o">/</span><span class="n">d</span>             <span class="err">#</span> <span class="k">delete</span> <span class="n">empty</span> <span class="n">line</span>
+<span class="n">g</span><span class="o">/</span><span class="n">pattern</span><span class="o">/</span><span class="p">,</span><span class="o">+</span><span class="n">nd</span>        <span class="err">#</span> <span class="k">delete</span> <span class="n">match</span> <span class="n">line</span> <span class="n">and</span> <span class="n">after</span> <span class="n">n</span> <span class="n">line</span>
+<span class="n">g</span><span class="o">/</span><span class="n">pattern</span><span class="o">/</span><span class="p">,</span><span class="o">-</span><span class="n">nd</span>        <span class="err">#</span> <span class="k">delete</span> <span class="n">match</span> <span class="n">line</span> <span class="n">and</span> <span class="n">before</span> <span class="n">n</span> <span class="n">line</span>
+<span class="nf">%s</span><span class="o">/^</span><span class="n">pattern</span><span class="c1">//g        # delete line head in pattern       </span>
+<span class="nf">%s</span><span class="o">/</span><span class="n">pattern</span><span class="err">$</span><span class="c1">//g        # delete line tail in pattern       </span>
+</pre></div>
+
+
+<h5>vim exmode</h5>
+<p>You can do magic things under exmode.</p>
+<div class="highlight"><pre><span></span>Q                   enter ex mode
+d, m, t             delete, move, copy
+/pattern/           the line match the pattern
+0, ., 1, $, %       begin, current line, first line, last line, all line
+- +                 line before, line after
+, ;                 line ranger, readjust current line with first number
+g, g!               global, global reverse
+|                   cmd separator
+</pre></div>
+
+
+<h5>YCM compilation database</h5>
+<p>YCM looks for a file named compile_commands.json in the directory of the opened file or in any directory above it in the hierarchy (recursively); when the file is found, it is loaded. </p>
 <ul>
-<li>gdisk, reserved for sdx1 for EFI.</li>
-<li>efibootmgr, watch the BootOrder</li>
-<li>Loader, grub or rEFInd </li>
-<li>broadcom-wl, WIFI driver by broadcom in AUR</li>
+<li>CMake: add -DCMAKE_EXPORT_COMPILE_COMMANDS=ON when configuring (or add set( CMAKE_EXPORT_COMPILE_COMMANDS ON ) to CMakeLists.txt) and copy or symlink the generated database to the root of your project.</li>
+<li>Ninja: check out the compdb tool (-t compdb) in its docs.</li>
+<li>GNU Make: check out Bear</li>
+<li>Others: check out .ycm_extra_conf.py below</li>
 </ul>
-<h3>After Install</h3>
-<hr>
-<ul>
-<li>xinitrc</li>
-<li>IM, ibus doesn't work well with cinnmon-panel, fcitx-rime(insteaded by yong)</li>
-<li>backlight, xbacklight(no need coz cinnamon)</li>
-<li>fan, script</li>
-<li>font, fira-mono, simsum(Mono font I will write another post)</li>
-<li>powersave, modprobe file</li>
-<li>network, netctl can not connect a hidden WIFI(back to network-manager)</li>
-<li>openbox, obconf(not use now)</li>
-<li>cinnamon</li>
-</ul>
-<p>Hope you guys all enjoy linux!</p>
 <footer class="post-info">
-    <abbr class="published" title="2015-07-24T00:00:00+08:00">
-        Posted on Fri 24 July 2015 by Chong Yang |     tags: <a href="http://blog.onionisi.com/tag/archlinux.html">archlinux</a> <a href="http://blog.onionisi.com/tag/config.html">config</a>     </abbr>
+    <abbr class="published" title="2017-10-16T00:00:00+08:00">
+        Posted on Mon 16 October 2017 by Chong Yang |     tags: <a href="http://blog.onionisi.com/tag/api.html">api</a> <a href="http://blog.onionisi.com/tag/work.html">work</a>     </abbr>
 </footer><!-- /footer-post-info -->
                     </article>
                 </aside><!-- /aside-featured -->
@@ -86,51 +88,61 @@ just a single fan in MBP 13' late 2013. It's for the flash, damn flash. </p>
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="http://blog.onionisi.com/vim_plugin_I_used.html" rel="bookmark" title="Permalink to vim二三事">vim二三事</a></h3>
-                            <aside class="entry-title-date">2015-03-19</aside>
+                            <h3 class="entry-title"><a href="http://blog.onionisi.com/restful_api.html" rel="bookmark" title="Permalink to restful api">restful api</a></h3>
+                            <aside class="entry-title-date">2016-08-14</aside>
                         </header>
 
                         <div class="entry-content">
-                            <p>话说天下编辑器分为两派，不知不觉从了vim老久了，老夫老妻就感觉没激情了，不想捯饬各种配置，这不趁着neo-vim的新鲜劲儿，重新梳理了一遍配置。</p>
-<h3>nvim</h3>
-<p>这个vim的岁数也不小了，几十年来，江湖众人想搞个小鲜肉大家尝尝，neo-vim便是其中之一。这货骨骼精奇，尽得前辈真传，同时还自创不少武术套路，确实是值得会会。</p>
-<div class="highlight"><pre><span></span>alias vi=&#39;nvim&#39;
-cp ~/.vimrc ~/.nvimrc
-</pre></div>
-
-
-<p>配置完全兼容，这丝滑。命令响应采用S/C模式，so后台会有一个单独pymodule neovim监听。得益于新的软件架构，插件执行效率更高更快。新特性还有vt，可直接集成终端，各位可自行前往github围观。</p>
-<h3>vundle</h3>
-<p>自由软件的世界不能没有包管理，你看看各大发行板，你看看node，你看看ruby/python，你看看go，现在新的编程语言没有这个好意思发布么，再看看rust。那么vim这个屌丝呢，也有很多包管理哦，vundle和github结合较好，比较好用的说。</p>
-<p>呃，vundle的interface早就更改了，Bundle变Plugin了，妈蛋，老子还一直纳闷怎么插件都不更新了 …</p>
+                            <h4>API设计理念</h4>
+<div class="highlight"><pre><span></span>1. 将涉及的实体抽象成资源, 即按id访问资源, 在url上做文章, 以后再也不用为url起名字而苦恼.
+2. 使用HTTP动词对资源进行CRUD(增删改查); get-&gt;查, post-&gt;增, put-&gt;改, delete-&gt;删.
+3. URL命名规则, 对于资源无法使用一个单数名词表示的情况, 使用中横线(-)连接.
+    * 资源采用名词命名, e.g: 产品 -&gt; product
+    * 新增资源, e.g: 新增产品, url -&gt; /product , verb -&gt; POST
+    * 修改资源, e.g: 修改产品, url -&gt; /products/{id} , verb -&gt; PUT
+    * 资源详情, e.g: 指定产品详情, url -&gt; /products …</pre></div>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="http://blog.onionisi.com/vim_plugin_I_used.html">more</a>
+                        <a class="jump" href="http://blog.onionisi.com/restful_api.html">more</a>
                     </article>
                 </li>
 
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="http://blog.onionisi.com/CP_of_tmux.html" rel="bookmark" title="Permalink to tmux的粘贴复制">tmux的粘贴复制</a></h3>
-                            <aside class="entry-title-date">2014-10-15</aside>
+                            <h3 class="entry-title"><a href="http://blog.onionisi.com/ssh_forward.html" rel="bookmark" title="Permalink to ssh转发">ssh转发</a></h3>
+                            <aside class="entry-title-date">2016-04-20</aside>
                         </header>
 
                         <div class="entry-content">
-                            <p>电脑打开用的就是终端和浏览器，终端又是tmux掌控，所以不管tmux下cmd各程序或与桌面程序互通有无的时候，把tmux伺候好就OK啦。</p>
-<h3>复制模式</h3>
-<p>业务部门，又有新特性要开发啦。咦，这个功能点实现似曾相识，找找代码片段啊，打印机模式开启。JJYY一句，肯定有人说vim能粘贴复制要你干嘛，拜托同学们看看，clipboard特性打开没有。没有的同学用tmux先顶着，空了再去倒腾自定义编译。还有屏中某个小窗口程序的输出很有用，需编辑或记录，鼠标一拖，整屏都下来了，愁人。</p>
-<p>tmux下凡走过必留痕，copy模式下一览无疑。下边的配置，几个命令都被我作了映射，可以改成自己熟悉的键位。不论一屏分几个窗口，都不会串行啦。one more thing, 我经常用copy-mode当历史模式使用，翻屏棒棒哒。</p>
-<div class="highlight"><pre><span></span># copy mode
-setw -g mode-keys vi              # keymap in copy mode
-bind Escape copy-mode             # enter copy mode …</pre></div>
+                            <h4>替代品（171220更新）</h4>
+<ul>
+<li>(ngrok)[https://ngrok.com]通过第三方服务器中转需要注册</li>
+<li>(frp)[https://github.com/fatedier/frp]新一代转发神器</li>
+</ul>
+<h4>ssh portforward</h4>
+<div class="highlight"><pre><span></span>C                   S<span class="o">/</span>C                 S
+localhost<span class="o">:</span>port <span class="o">&lt;-&gt;</span> SSH hostname <span class="o">&lt;-&gt;</span> remote host<span class="o">:</span>port
+<span class="kr">if</span> remote<span class="o">==</span>localhost<span class="p">;</span> remote<span class="o">=</span> ssh hostname
+</pre></div>
+
+
+<ul>
+<li>SSH连接和应用的连接这两个连接的方向一致，是本地转发。 在本地这台机器上监听一个端口，然后所有访问这个端口的数据都会通过ssh 隧道传输到远端的对应端口上</li>
+</ul>
+<div class="highlight"><pre><span></span>  ssh -L &lt;local port&gt;:&lt;remote host&gt;:&lt;remote port&gt; &lt;SSH hostname&gt;
+</pre></div>
+
+
+<ul>
+<li>SSH连接和应用的连接这两个连接的方向不同，是远程转发 …</li></ul>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="http://blog.onionisi.com/CP_of_tmux.html">more</a>
+                        <a class="jump" href="http://blog.onionisi.com/ssh_forward.html">more</a>
                     </article>
                 </li>
                 </ol><!-- /ol-posts-list -->
 <div class="paginationer">
     <p class="paginator">
-        Page 1 / 6
+        Page 1 / 7
             <a href="http://blog.onionisi.com/category/blog2.html">&raquo;</a>
     </p>
 </div>

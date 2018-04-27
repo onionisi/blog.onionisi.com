@@ -33,34 +33,118 @@
             </div>
         <nav class="navbar">
                 <a href="http://blog.onionisi.com/category/blog.html">Blog</a>&nbsp;
+                <a href="/pages/about.html">About</a>&nbsp;
         </nav>
     </header><!-- /header-siteheader -->
 
                 <aside id="featured">
                     <article>
-                        <h1 class="entry-title"><a href="http://blog.onionisi.com/common_day.html">工作的一天</a></h1>
-                        <h3>学习依然是头等大事</h3>
-<p>早上就initrd和initramfs进行了一下深入的学习，主要参考文档就是黄敬群老师的博客。打个比方，可能不确切，但是话糙理不糙，init阶段的文件系统就像你高考前的备考，没有这个阶段注定要失败滴。话说黄老师真的是牛X，特别是对于一些系统底层的细节。</p>
-<p>中午波哥吃完午饭就回家准备收麦子了，真的是幸福的码农，请了半个月农忙假。</p>
-<p>下午遇到个奇怪的事情，整理文档发现原来写的小程序demo.py，想试试运行效率，却始终始终执行不了。妈蛋是权限问题么，查看了都没有问题。后边发现是磁盘挂载时忘了<code>exec</code>了，我的个乖乖，改之遂好。</p>
-<h3>萌生去意</h3>
-<p>下午开会讨论了一下后续EOC工作的分工，心里很复杂，一群照着demo板布PCB的硬件工程师要指挥软件架构，还是好好准备简历吧。</p>
-<h3>新室友到来</h3>
-<p>晚上李佑成准备要搬过来，和他聊了会，家常琐碎。亮点就是他可能有5V2.5A的电源，虽然我需要的是3A，不过明天还是可以试试的硬盘能带起来不能。我手头的cubieboard因为没有合适的电源，那块2.5寸的硬盘已经快积灰了。早就装上了archlinux_arm，还是不错，平时在办公室因为网络的限制，也只能弄来玩玩驱动，配配网络。如若硬盘能带起来，就搞个NAS玩啰。</p>
-<h3>洗洗睡</h3>
-<p>看会十亿消费者就准备睡了，明天见。</p>
+                        <h1 class="entry-title"><a href="http://blog.onionisi.com/vim_tips.html">Vim tips</a></h1>
+                        <h5>vim ctrl-o</h5>
+<p>when you in insert mode,
+<code>ctrl-o</code> can temporarily escape insert mode without change mode</p>
+<h5>vim pattern match</h5>
+<p>Other than using Macro, you deserve pattern match, which is similar with sed.</p>
+<div class="highlight"><pre><span></span><span class="n">g</span><span class="o">/^</span><span class="err">\</span><span class="n">s</span><span class="o">*</span><span class="err">$</span><span class="o">/</span><span class="n">d</span>             <span class="err">#</span> <span class="k">delete</span> <span class="n">empty</span> <span class="n">line</span>
+<span class="n">g</span><span class="o">/</span><span class="n">pattern</span><span class="o">/</span><span class="p">,</span><span class="o">+</span><span class="n">nd</span>        <span class="err">#</span> <span class="k">delete</span> <span class="n">match</span> <span class="n">line</span> <span class="n">and</span> <span class="n">after</span> <span class="n">n</span> <span class="n">line</span>
+<span class="n">g</span><span class="o">/</span><span class="n">pattern</span><span class="o">/</span><span class="p">,</span><span class="o">-</span><span class="n">nd</span>        <span class="err">#</span> <span class="k">delete</span> <span class="n">match</span> <span class="n">line</span> <span class="n">and</span> <span class="n">before</span> <span class="n">n</span> <span class="n">line</span>
+<span class="nf">%s</span><span class="o">/^</span><span class="n">pattern</span><span class="c1">//g        # delete line head in pattern       </span>
+<span class="nf">%s</span><span class="o">/</span><span class="n">pattern</span><span class="err">$</span><span class="c1">//g        # delete line tail in pattern       </span>
+</pre></div>
+
+
+<h5>vim exmode</h5>
+<p>You can do magic things under exmode.</p>
+<div class="highlight"><pre><span></span>Q                   enter ex mode
+d, m, t             delete, move, copy
+/pattern/           the line match the pattern
+0, ., 1, $, %       begin, current line, first line, last line, all line
+- +                 line before, line after
+, ;                 line ranger, readjust current line with first number
+g, g!               global, global reverse
+|                   cmd separator
+</pre></div>
+
+
+<h5>YCM compilation database</h5>
+<p>YCM looks for a file named compile_commands.json in the directory of the opened file or in any directory above it in the hierarchy (recursively); when the file is found, it is loaded. </p>
+<ul>
+<li>CMake: add -DCMAKE_EXPORT_COMPILE_COMMANDS=ON when configuring (or add set( CMAKE_EXPORT_COMPILE_COMMANDS ON ) to CMakeLists.txt) and copy or symlink the generated database to the root of your project.</li>
+<li>Ninja: check out the compdb tool (-t compdb) in its docs.</li>
+<li>GNU Make: check out Bear</li>
+<li>Others: check out .ycm_extra_conf.py below</li>
+</ul>
 <footer class="post-info">
-    <abbr class="published" title="2013-06-05T00:00:00+08:00">
-        Posted on Wed 05 June 2013 by Chong Yang |     tags: <a href="http://blog.onionisi.com/tag/daily.html">daily</a> <a href="http://blog.onionisi.com/tag/work.html">work</a>     </abbr>
+    <abbr class="published" title="2017-10-16T00:00:00+08:00">
+        Posted on Mon 16 October 2017 by Chong Yang |     tags: <a href="http://blog.onionisi.com/tag/api.html">api</a> <a href="http://blog.onionisi.com/tag/work.html">work</a>     </abbr>
 </footer><!-- /footer-post-info -->
                     </article>
+                </aside><!-- /aside-featured -->
+                    <section id="content">
+                        <hr />
+                        <ol id="posts-list">
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="http://blog.onionisi.com/restful_api.html" rel="bookmark" title="Permalink to restful api">restful api</a></h3>
+                            <aside class="entry-title-date">2016-08-14</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <h4>API设计理念</h4>
+<div class="highlight"><pre><span></span>1. 将涉及的实体抽象成资源, 即按id访问资源, 在url上做文章, 以后再也不用为url起名字而苦恼.
+2. 使用HTTP动词对资源进行CRUD(增删改查); get-&gt;查, post-&gt;增, put-&gt;改, delete-&gt;删.
+3. URL命名规则, 对于资源无法使用一个单数名词表示的情况, 使用中横线(-)连接.
+    * 资源采用名词命名, e.g: 产品 -&gt; product
+    * 新增资源, e.g: 新增产品, url -&gt; /product , verb -&gt; POST
+    * 修改资源, e.g: 修改产品, url -&gt; /products/{id} , verb -&gt; PUT
+    * 资源详情, e.g: 指定产品详情, url -&gt; /products …</pre></div>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="http://blog.onionisi.com/restful_api.html">more</a>
+                    </article>
+                </li>
+
+                <li>
+                    <article class="entry">
+                        <header>
+                            <h3 class="entry-title"><a href="http://blog.onionisi.com/ssh_forward.html" rel="bookmark" title="Permalink to ssh转发">ssh转发</a></h3>
+                            <aside class="entry-title-date">2016-04-20</aside>
+                        </header>
+
+                        <div class="entry-content">
+                            <h4>替代品（171220更新）</h4>
+<ul>
+<li>(ngrok)[https://ngrok.com]通过第三方服务器中转需要注册</li>
+<li>(frp)[https://github.com/fatedier/frp]新一代转发神器</li>
+</ul>
+<h4>ssh portforward</h4>
+<div class="highlight"><pre><span></span>C                   S<span class="o">/</span>C                 S
+localhost<span class="o">:</span>port <span class="o">&lt;-&gt;</span> SSH hostname <span class="o">&lt;-&gt;</span> remote host<span class="o">:</span>port
+<span class="kr">if</span> remote<span class="o">==</span>localhost<span class="p">;</span> remote<span class="o">=</span> ssh hostname
+</pre></div>
+
+
+<ul>
+<li>SSH连接和应用的连接这两个连接的方向一致，是本地转发。 在本地这台机器上监听一个端口，然后所有访问这个端口的数据都会通过ssh 隧道传输到远端的对应端口上</li>
+</ul>
+<div class="highlight"><pre><span></span>  ssh -L &lt;local port&gt;:&lt;remote host&gt;:&lt;remote port&gt; &lt;SSH hostname&gt;
+</pre></div>
+
+
+<ul>
+<li>SSH连接和应用的连接这两个连接的方向不同，是远程转发 …</li></ul>
+                        </div><!-- /dev-entry-content -->
+                        <a class="jump" href="http://blog.onionisi.com/ssh_forward.html">more</a>
+                    </article>
+                </li>
+                </ol><!-- /ol-posts-list -->
 <div class="paginationer">
     <p class="paginator">
-        Page 1 / 1
+        Page 1 / 2
+            <a href="http://blog.onionisi.com/tag/work2.html">&raquo;</a>
     </p>
 </div>
-                </aside><!-- /aside-featured -->
-                </ol><!-- /ol-posts-list -->
                 </section><!-- /section-content -->
     <section id="extras">
     </section><!-- /sectin-extras -->

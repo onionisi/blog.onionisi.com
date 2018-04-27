@@ -4,15 +4,15 @@
 
     <meta charset="utf-8">
 
-    <meta name="tags" content="systemskilllinuxdistro">
+    <meta name="tags" content="apiwork">
 
     <meta name="category" content="Blog">
 
-    <meta name="date" content="2012-05-17 00:00:00+08:00">
+    <meta name="date" content="2016-08-14 00:00:00+08:00">
 
     <meta name="author" content="Chong Yang">
 
-    <title>TALO | the proxy of Ubuntu</title>
+    <title>TALO | restful api</title>
 
         <link rel="stylesheet" href="http://blog.onionisi.com/theme/css/style.min.css?176eb4f7">
 
@@ -43,35 +43,28 @@
     <article>
         <header>
             <h1 class="entry-title">
-                <a href="" id="entry-title-link" rel="bookmark" title="Permalink to the proxy of Ubuntu">the proxy of Ubuntu</a>
+                <a href="" id="entry-title-link" rel="bookmark" title="Permalink to restful api">restful api</a>
             </h1>
         </header>
 
 
         <div class="entry-content">
-            <h1>ubuntu的代理</h1>
-<p>办公室的网络总是那么不给力，每个所部各分了一个IP能够上外网，我们只能用代理
-来凑合上网了。</p>
-<h2>全局代理</h2>
-<p>ubuntu的全局代理保存在/etc/enviroment，如果是使用gnome桌面的同志可以直接
-通过图形界面进行操作，最近办公室的同事都流行轻量且不过太简单的xfce，没有
-这个直接的功能，还是操作文件来的快捷。</p>
-<h2>apt代理</h2>
-<p>之前我还以为他直接用的环境变量的全局值，结果事实证明我错了，额还是没有apt
-（聪明）聪明啊，他的代理在他的配置文件里，打开就能看见，路径就不用说了吧</p>
-<h2>其他代理</h2>
-<p>wget这个老当亦壮的东东也能在配置文件中设置代理，各位看官自行打开做相应更改
-便行。</p>
-<p>其实这些软件设不设代理都不重要，只要你配好了proxychains，再来个行头的自行
-插入proxychains，呵呵...自行放狗搜搜</p>
-<h2>吐槽</h2>
-<p>升了12.04的系统没多大感觉，本来本人又不用unity，口味越发清淡，想往WM转了，
-之前整了个#！，也没时间玩，最近项目空闲点了，把超级本的arch也好好配配。</p>
-<p>PS:主要是来冒个泡，很久没更新了，另入了kindle3，webos的东东，玩着还有意思，
-哪天实在是闲着没事，在分享个心得。</p>
+            <h4>API设计理念</h4>
+<div class="highlight"><pre><span></span>1. 将涉及的实体抽象成资源, 即按id访问资源, 在url上做文章, 以后再也不用为url起名字而苦恼.
+2. 使用HTTP动词对资源进行CRUD(增删改查); get-&gt;查, post-&gt;增, put-&gt;改, delete-&gt;删.
+3. URL命名规则, 对于资源无法使用一个单数名词表示的情况, 使用中横线(-)连接.
+    * 资源采用名词命名, e.g: 产品 -&gt; product
+    * 新增资源, e.g: 新增产品, url -&gt; /product , verb -&gt; POST
+    * 修改资源, e.g: 修改产品, url -&gt; /products/{id} , verb -&gt; PUT
+    * 资源详情, e.g: 指定产品详情, url -&gt; /products/{id} , verb -&gt; GET
+    * 删除资源, e.g: 删除产品, url -&gt; /products/{id} , verb -&gt; DELETE
+    * 资源列表, e.g: 产品列表, url -&gt; /products , verb -&gt; GET
+    * 资源关联关系, e.g: 收藏产品, url -&gt; /products/{id}/star , verb -&gt; PUT
+    * 资源关联关系, e.g: 删除收藏产品, url -&gt; /products/{id}/star , verb -&gt; DELETE
+</pre></div>
 <footer class="post-info">
-    <abbr class="published" title="2012-05-17T00:00:00+08:00">
-        Posted on Thu 17 May 2012 by Chong Yang |     tags: <a href="http://blog.onionisi.com/tag/system.html">system</a> <a href="http://blog.onionisi.com/tag/skill.html">skill</a> <a href="http://blog.onionisi.com/tag/linux.html">linux</a> <a href="http://blog.onionisi.com/tag/distro.html">distro</a>     </abbr>
+    <abbr class="published" title="2016-08-14T00:00:00+08:00">
+        Posted on Sun 14 August 2016 by Chong Yang |     tags: <a href="http://blog.onionisi.com/tag/api.html">api</a> <a href="http://blog.onionisi.com/tag/work.html">work</a>     </abbr>
 </footer><!-- /footer-post-info -->
         </div><!-- /.entry-content -->
 <script src="https://apis.google.com/js/plusone.js"></script>

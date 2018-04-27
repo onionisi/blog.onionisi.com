@@ -1,5 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>TALO - Chong</title><link>http://blog.onionisi.com/</link><description></description><lastBuildDate>Thu, 19 Mar 2015 00:00:00 +0800</lastBuildDate><item><title>vim二三事</title><link>http://blog.onionisi.com/vim_plugin_I_used.html</link><description>&lt;p&gt;话说天下编辑器分为两派，不知不觉从了vim老久了，老夫老妻就感觉没激情了，不想捯饬各种配置，这不趁着neo-vim的新鲜劲儿，重新梳理了一遍配置。&lt;/p&gt;
+<rss version="2.0"><channel><title>TALO - Chong</title><link>http://blog.onionisi.com/</link><description></description><lastBuildDate>Mon, 16 Oct 2017 00:00:00 +0800</lastBuildDate><item><title>Vim tips</title><link>http://blog.onionisi.com/vim_tips.html</link><description>&lt;h5&gt;vim ctrl-o&lt;/h5&gt;
+&lt;p&gt;when you in insert mode,
+&lt;code&gt;ctrl-o&lt;/code&gt; can temporarily escape insert mode without change mode&lt;/p&gt;
+&lt;h5&gt;vim pattern match&lt;/h5&gt;
+&lt;p&gt;Other than using Macro, you deserve pattern match, which is similar with sed.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="o"&gt;/^&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;             &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="k"&gt;delete&lt;/span&gt; &lt;span class="n"&gt;empty&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;
+&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pattern&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;nd&lt;/span&gt;        &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="k"&gt;delete&lt;/span&gt; &lt;span class="n"&gt;match&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt; &lt;span class="n"&gt;and&lt;/span&gt; &lt;span class="n"&gt;after&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="n"&gt;line&lt;/span&gt;
+&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pattern …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Mon, 16 Oct 2017 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2017-10-16:/vim_tips.html</guid><category>api</category><category>work</category></item><item><title>restful api</title><link>http://blog.onionisi.com/restful_api.html</link><description>&lt;h4&gt;API设计理念&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;1. 将涉及的实体抽象成资源, 即按id访问资源, 在url上做文章, 以后再也不用为url起名字而苦恼.
+2. 使用HTTP动词对资源进行CRUD(增删改查); get-&amp;gt;查, post-&amp;gt;增, put-&amp;gt;改, delete-&amp;gt;删.
+3. URL命名规则, 对于资源无法使用一个单数名词表示的情况, 使用中横线(-)连接.
+    * 资源采用名词命名, e.g: 产品 -&amp;gt; product
+    * 新增资源, e.g: 新增产品, url -&amp;gt; /product , verb -&amp;gt; POST
+    * 修改资源, e.g: 修改产品, url -&amp;gt; /products/{id} , verb -&amp;gt; PUT
+    * 资源详情, e.g: 指定产品详情, url -&amp;gt; /products …&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Sun, 14 Aug 2016 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2016-08-14:/restful_api.html</guid><category>api</category><category>work</category></item><item><title>ssh转发</title><link>http://blog.onionisi.com/ssh_forward.html</link><description>&lt;h4&gt;替代品（171220更新）&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;(ngrok)[https://ngrok.com]通过第三方服务器中转需要注册&lt;/li&gt;
+&lt;li&gt;(frp)[https://github.com/fatedier/frp]新一代转发神器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;ssh portforward&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;C                   S&lt;span class="o"&gt;/&lt;/span&gt;C                 S
+localhost&lt;span class="o"&gt;:&lt;/span&gt;port &lt;span class="o"&gt;&amp;lt;-&amp;gt;&lt;/span&gt; SSH hostname &lt;span class="o"&gt;&amp;lt;-&amp;gt;&lt;/span&gt; remote host&lt;span class="o"&gt;:&lt;/span&gt;port
+&lt;span class="kr"&gt;if&lt;/span&gt; remote&lt;span class="o"&gt;==&lt;/span&gt;localhost&lt;span class="p"&gt;;&lt;/span&gt; remote&lt;span class="o"&gt;=&lt;/span&gt; ssh hostname
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;SSH连接和应用的连接这两个连接的方向一致，是本地转发。 在本地这台机器上监听一个端口，然后所有访问这个端口的数据都会通过ssh 隧道传输到远端的对应端口上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  ssh -L &amp;lt;local port&amp;gt;:&amp;lt;remote host&amp;gt;:&amp;lt;remote port&amp;gt; &amp;lt;SSH hostname&amp;gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;SSH连接和应用的连接这两个连接的方向不同，是远程转发 …&lt;/li&gt;&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Wed, 20 Apr 2016 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2016-04-20:/ssh_forward.html</guid><category>ssh</category><category>work</category></item><item><title>vim二三事</title><link>http://blog.onionisi.com/vim_plugin_I_used.html</link><description>&lt;p&gt;话说天下编辑器分为两派，不知不觉从了vim老久了，老夫老妻就感觉没激情了，不想捯饬各种配置，这不趁着neo-vim的新鲜劲儿，重新梳理了一遍配置。&lt;/p&gt;
 &lt;h3&gt;nvim&lt;/h3&gt;
 &lt;p&gt;这个vim的岁数也不小了，几十年来，江湖众人想搞个小鲜肉大家尝尝，neo-vim便是其中之一。这货骨骼精奇，尽得前辈真传，同时还自创不少武术套路，确实是值得会会。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;alias vi=&amp;#39;nvim&amp;#39;

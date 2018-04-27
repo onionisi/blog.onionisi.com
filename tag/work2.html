@@ -9,7 +9,7 @@
 
     <meta name="author" content="Chong Yang">
 
-    <title>TALO - linux</title>
+    <title>TALO - work</title>
 
         <link rel="stylesheet" href="http://blog.onionisi.com/theme/css/style.min.css?176eb4f7">
 
@@ -42,29 +42,29 @@
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="http://blog.onionisi.com/linux-run-dir.html" rel="bookmark" title="Permalink to /run的由来">/run的由来</a></h3>
-                            <aside class="entry-title-date">2012-03-27</aside>
+                            <h3 class="entry-title"><a href="http://blog.onionisi.com/common_day.html" rel="bookmark" title="Permalink to 工作的一天">工作的一天</a></h3>
+                            <aside class="entry-title-date">2013-06-05</aside>
                         </header>
 
                         <div class="entry-content">
-                            <p>熟悉Linux的朋友都知道，在FHS中是没有/run这个顶级目录的。当然运行时的/proc，/sys也不包括在内，这些目录的演变史也算得上是部分的kernel的发展史，尽管Linux的岁数也不大。</p>
-<h2>/run目录的诞生</h2>
-<blockquote>
-<p>各主要发行版阵营的重要人物讨论了/dev目录被滥用的情况，希望在该问题还没有扩大化前找到解决方案。他们提出了各种方案，但所有方案都归结到一点，/var/run目录不应在/var目录下，它可以提升到根目录下，这是唯一简洁明了的方案。</p>
-</blockquote>
-<h2>事件原委</h2>
-<p>以下文字翻译自Lennart Poetteringu邮件，一名Fedora的开发者，详细解释了原因。</p>
-<p>我在F15中上传了systemd的新版本，它在根目录下创建了/run这个目录。迟早你都会对此感到困惑，所以下面就讲讲它是肿么来的，为虾米要这么做。</p>
-<p>其实这只是一个相当小的变动，但是大伙儿可能会认为这是一个很大的政策变动，所以我觉得还是相当地有必要解释一下：</p>
-<p>在早期启动的程序里，相当一段时间里他们用/dev目录上很多隐藏文件存储运行时数据。第一个文件就是/dev/.udev，随着时间的推移，又逐步增加了/dev/.mdadm，/dev/.systemd，/dev/.mount，dracut，initscripts以及更多的工具。（其他发行版还有更多 …</p>
+                            <h3>学习依然是头等大事</h3>
+<p>早上就initrd和initramfs进行了一下深入的学习，主要参考文档就是黄敬群老师的博客。打个比方，可能不确切，但是话糙理不糙，init阶段的文件系统就像你高考前的备考，没有这个阶段注定要失败滴。话说黄老师真的是牛X，特别是对于一些系统底层的细节。</p>
+<p>中午波哥吃完午饭就回家准备收麦子了，真的是幸福的码农，请了半个月农忙假。</p>
+<p>下午遇到个奇怪的事情，整理文档发现原来写的小程序demo.py，想试试运行效率，却始终始终执行不了。妈蛋是权限问题么，查看了都没有问题。后边发现是磁盘挂载时忘了<code>exec</code>了，我的个乖乖，改之遂好。</p>
+<h3>萌生去意</h3>
+<p>下午开会讨论了一下后续EOC工作的分工，心里很复杂，一群照着demo板布PCB的硬件工程师要指挥软件架构，还是好好准备简历吧。</p>
+<h3>新室友到来</h3>
+<p>晚上李佑成准备要搬过来，和他聊了会，家常琐碎。亮点就是他可能有5V2.5A的电源，虽然我需要的是3A，不过明天还是可以试试的硬盘能带起来不能。我手头的cubieboard因为没有合适的电源，那块2.5寸的硬盘已经快积灰了。早就装上了archlinux_arm，还是不错，平时在办公室因为网络的限制，也只能弄来玩玩驱动，配配网络。如若硬盘能带起来，就搞个NAS玩啰。</p>
+<h3>洗洗睡</h3>
+<p>看会十亿消费者就准备睡了 …</p>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="http://blog.onionisi.com/linux-run-dir.html">more</a>
+                        <a class="jump" href="http://blog.onionisi.com/common_day.html">more</a>
                     </article>
                 </li>
                 </ol><!-- /ol-posts-list -->
 <div class="paginationer">
     <p class="paginator">
-            <a href="http://blog.onionisi.com/tag/linux.html">&laquo;</a>
+            <a href="http://blog.onionisi.com/tag/work.html">&laquo;</a>
         Page 2 / 2
     </p>
 </div>
