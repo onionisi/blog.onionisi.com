@@ -4,12 +4,15 @@
 
     <meta charset="utf-8">
 
+    <meta name="tags" content="devopsssh">
 
+    <meta name="category" content="Blog">
 
+    <meta name="date" content="2018-03-16 00:00:00+08:00">
 
     <meta name="author" content="Chong Yang">
 
-    <title>TALO - ssh</title>
+    <title>TALO | Enable MFA for ssh</title>
 
         <link rel="stylesheet" href="http://blog.onionisi.com/theme/css/style.min.css?176eb4f7">
 
@@ -36,11 +39,17 @@
                 <a href="/pages/about.html">About</a>&nbsp;
         </nav>
     </header><!-- /header-siteheader -->
+<section id="content">
+    <article>
+        <header>
+            <h1 class="entry-title">
+                <a href="" id="entry-title-link" rel="bookmark" title="Permalink to Enable MFA for ssh">Enable MFA for ssh</a>
+            </h1>
+        </header>
 
-                <aside id="featured">
-                    <article>
-                        <h1 class="entry-title"><a href="http://blog.onionisi.com/mfa_for_ssh.html">Enable MFA for ssh</a></h1>
-                        <p>Usually, company realize two-factor auth for ssh through RSA SecureID. But it costs hundreds of bucks, so not a good choice for person or small company. google-authenticator comes up.</p>
+
+        <div class="entry-content">
+            <p>Usually, company realize two-factor auth for ssh through RSA SecureID. But it costs hundreds of bucks, so not a good choice for person or small company. google-authenticator comes up.</p>
 <h5>install Google Authenticator app</h5>
 <p>This app support android and iOS</p>
 <h5>compile google-authenticator on server</h5>
@@ -109,52 +118,19 @@ Password:
     <abbr class="published" title="2018-03-16T00:00:00+08:00">
         Posted on Fri 16 March 2018 by Chong Yang |     tags: <a href="http://blog.onionisi.com/tag/devops.html">devops</a> <a href="http://blog.onionisi.com/tag/ssh.html">ssh</a>     </abbr>
 </footer><!-- /footer-post-info -->
-                    </article>
-                </aside><!-- /aside-featured -->
-                    <section id="content">
-                        <hr />
-                        <ol id="posts-list">
-
-                <li>
-                    <article class="entry">
-                        <header>
-                            <h3 class="entry-title"><a href="http://blog.onionisi.com/ssh_forward.html" rel="bookmark" title="Permalink to ssh转发">ssh转发</a></h3>
-                            <aside class="entry-title-date">2016-04-20</aside>
-                        </header>
-
-                        <div class="entry-content">
-                            <h4>替代品（171220更新）</h4>
-<ul>
-<li>(ngrok)[https://ngrok.com]通过第三方服务器中转需要注册</li>
-<li>(frp)[https://github.com/fatedier/frp]新一代转发神器</li>
-</ul>
-<h4>ssh portforward</h4>
-<div class="highlight"><pre><span></span><span class="n">C</span>                   <span class="n">S</span><span class="o">/</span><span class="n">C</span>                 <span class="n">S</span>
-<span class="n">localhost</span><span class="o">:</span><span class="n">port</span> <span class="o">&lt;-&gt;</span> <span class="n">SSH</span> <span class="n">hostname</span> <span class="o">&lt;-&gt;</span> <span class="n">remote</span> <span class="n">host</span><span class="o">:</span><span class="n">port</span>
-<span class="n">if</span> <span class="n">remote</span><span class="o">==</span><span class="n">localhost</span><span class="p">;</span> <span class="n">remote</span><span class="o">=</span> <span class="n">ssh</span> <span class="n">hostname</span>
-</pre></div>
-
-
-<ul>
-<li>SSH连接和应用的连接这两个连接的方向一致，是本地转发。 在本地这台机器上监听一个端口，然后所有访问这个端口的数据都会通过ssh 隧道传输到远端的对应端口上</li>
-</ul>
-<div class="highlight"><pre><span></span>  ssh -L &lt;local port&gt;:&lt;remote host&gt;:&lt;remote port&gt; &lt;SSH hostname&gt;
-</pre></div>
-
-
-<ul>
-<li>SSH连接和应用的连接这两个连接的方向不同，是远程转发 …</li></ul>
-                        </div><!-- /dev-entry-content -->
-                        <a class="jump" href="http://blog.onionisi.com/ssh_forward.html">more</a>
-                    </article>
-                </li>
-                </ol><!-- /ol-posts-list -->
-<div class="paginationer">
-    <p class="paginator">
-        Page 1 / 1
-    </p>
-</div>
-                </section><!-- /section-content -->
+        </div><!-- /.entry-content -->
+<script src="https://apis.google.com/js/plusone.js"></script>
+<div id="comments"></div>
+<script>
+    gapi.comments.render('comments', {
+        href: window.location,
+        width: '635',
+        first_party_property: 'BLOGGER',
+        view_type: 'FILTERED_POSTMOD'
+    });
+</script>
+    </article>
+</section>
     <section id="extras">
     </section><!-- /sectin-extras -->
 

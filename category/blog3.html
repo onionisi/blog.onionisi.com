@@ -43,67 +43,69 @@
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="http://blog.onionisi.com/serial_driver.html" rel="bookmark" title="Permalink to FTDI串口驱动">FTDI串口驱动</a></h3>
-                            <aside class="entry-title-date">2014-08-28</aside>
+                            <h3 class="entry-title"><a href="http://blog.onionisi.com/archlinux-on-macbookpro.html" rel="bookmark" title="Permalink to Arch on MBP">Arch on MBP</a></h3>
+                            <aside class="entry-title-date">2015-07-24</aside>
                         </header>
 
                         <div class="entry-content">
-                            <p>用MAC的同学应该搞应用和设计的居多，什么嵌入式啊，串口啊，定时器的很多同学应该都不感冒的。偶尔自己也玩玩一些硬件，所以串口这个东西还是少不了的。说起驱动，Linux对硬件的支持自不必多说，OS X就得自己动手了。</p>
-<h3>FTDI2232</h3>
-<p>普通的USB转232的芯片不支持热拔插，原来的办公室已经躺尸了很多了，手中的2232其实是上大学的参加ZLG的竞赛发的一块开发版，旁边带的JTAG的调试，我顺手就用来当串口了，很是好使。最近想玩玩好久没碰的毕业论文的小车车了，想当年的巡线和遥控，哈哈，还是很佩服我自己的。</p>
-<p>话不多说先上官网下驱动和doc，真的是不看官方的<a href="http://www.ftdichip.com/Support/Documents/AppNotes/AN_134_FTDI_Drivers_Installation_Guide_for_MAC_OSX.pdf">Install Guide</a>，你还真弄不对。</p>
-<div class="highlight"><pre><span></span>The VCP driver is provided as part of the kernel in OSX 10.9, therefore no driver installation is required to create a virtual …</pre></div>
+                            <p>Due to my over optimization, my macbook got crashed caused by the Chromium with
+too many tabs. I was so confidence to disable the journal function of hfs+,
+obviously it was a big mistake. I could't recovery my OSX, so after bearing a 
+long time with hfs+, I choose to …</p>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="http://blog.onionisi.com/serial_driver.html">more</a>
+                        <a class="jump" href="http://blog.onionisi.com/archlinux-on-macbookpro.html">more</a>
                     </article>
                 </li>
 
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="http://blog.onionisi.com/osx-ipv6.html" rel="bookmark" title="Permalink to OSX ipv6">OSX ipv6</a></h3>
-                            <aside class="entry-title-date">2014-08-14</aside>
+                            <h3 class="entry-title"><a href="http://blog.onionisi.com/vim_plugin_I_used.html" rel="bookmark" title="Permalink to vim二三事">vim二三事</a></h3>
+                            <aside class="entry-title-date">2015-03-19</aside>
                         </header>
 
                         <div class="entry-content">
-                            <p>今天心血来潮想弄把IPv6，因为这PAC让部分网站抽风。不用说只能通过tunnel实现，我大西南地区向来就是敢为人后的代表。之前在Archlinux上配过aiccu和gogoc都挺好，两个都要自行去申请账号哦。其中gogoc需要时间同步，误差太大就连不上啦，之前折腾了半天，注意同步网络时间。</p>
-<p>brew里没找见gogoc，直接就上aiccu了，得知需要tuntap依赖，其实就是内核扩展，这里就有个坑（主要是用Yosemite的同学）了，各位注意：<strong>tuntap的ext没法加载<sup id="fnref-1"><a class="footnote-ref" href="#fn-1">1</a></sup>，console日志报错没有签名，10.10的不允许使用未签名kexts<sup id="fnref-2"><a class="footnote-ref" href="#fn-2">2</a></sup>。</strong>解决方式如下：</p>
-<ol>
-<li>
-<p>disable kext signing checks for everything, by doing <code>sudo nvram boot-args="kext-dev-mode=1"</code>and rebooting.</p>
-</li>
-<li>
-<p>signed tun/tap.ext in the bundle of tunnelblick, just …</p></li></ol>
+                            <p>话说天下编辑器分为两派，不知不觉从了vim老久了，老夫老妻就感觉没激情了，不想捯饬各种配置，这不趁着neo-vim的新鲜劲儿，重新梳理了一遍配置。</p>
+<h3>nvim</h3>
+<p>这个vim的岁数也不小了，几十年来，江湖众人想搞个小鲜肉大家尝尝，neo-vim便是其中之一。这货骨骼精奇，尽得前辈真传，同时还自创不少武术套路，确实是值得会会。</p>
+<div class="highlight"><pre><span></span>alias vi=&#39;nvim&#39;
+cp ~/.vimrc ~/.nvimrc
+</pre></div>
+
+
+<p>配置完全兼容，这丝滑。命令响应采用S/C模式，so后台会有一个单独pymodule neovim监听。得益于新的软件架构，插件执行效率更高更快。新特性还有vt，可直接集成终端，各位可自行前往github围观。</p>
+<h3>vundle</h3>
+<p>自由软件的世界不能没有包管理，你看看各大发行板，你看看node，你看看ruby/python，你看看go，现在新的编程语言没有这个好意思发布么，再看看rust。那么vim这个屌丝呢，也有很多包管理哦，vundle和github结合较好，比较好用的说。</p>
+<p>呃，vundle的interface早就更改了，Bundle变Plugin了，妈蛋，老子还一直纳闷怎么插件都不更新了 …</p>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="http://blog.onionisi.com/osx-ipv6.html">more</a>
+                        <a class="jump" href="http://blog.onionisi.com/vim_plugin_I_used.html">more</a>
                     </article>
                 </li>
 
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="http://blog.onionisi.com/osx-launchd.html" rel="bookmark" title="Permalink to OSX Launchd">OSX Launchd</a></h3>
-                            <aside class="entry-title-date">2014-07-21</aside>
+                            <h3 class="entry-title"><a href="http://blog.onionisi.com/CP_of_tmux.html" rel="bookmark" title="Permalink to tmux的粘贴复制">tmux的粘贴复制</a></h3>
+                            <aside class="entry-title-date">2014-10-15</aside>
                         </header>
 
                         <div class="entry-content">
-                            <p>习惯了Linux下init，rc或者systemd的方式，来到Mac下想搞个启动项还是要费费脑子重新学习下除了鼠标点击的账户-&gt;登录项以及dock上的登陆时打开，毕竟总多的系统级别的程序是在launchd的统治下。</p>
-<h3>文件</h3>
-<p>cmd总是跟文件脱不了干系的，plist开始登场，下边是他存在的世界，摘自launchctl男人页：</p>
-<div class="highlight"><pre><span></span>    ~/Library/LaunchAgents         Per-user agents provided by the user.
-    /Library/LaunchAgents          Per-user agents provided by the administrator.
-    /Library/LaunchDaemons         System wide daemons provided by the administrator.
-    /System/Library/LaunchAgents   OS X Per-user agents.
-    /System/Library/LaunchDaemons  OS X System wide daemons …</pre></div>
+                            <p>电脑打开用的就是终端和浏览器，终端又是tmux掌控，所以不管tmux下cmd各程序或与桌面程序互通有无的时候，把tmux伺候好就OK啦。</p>
+<h3>复制模式</h3>
+<p>业务部门，又有新特性要开发啦。咦，这个功能点实现似曾相识，找找代码片段啊，打印机模式开启。JJYY一句，肯定有人说vim能粘贴复制要你干嘛，拜托同学们看看，clipboard特性打开没有。没有的同学用tmux先顶着，空了再去倒腾自定义编译。还有屏中某个小窗口程序的输出很有用，需编辑或记录，鼠标一拖，整屏都下来了，愁人。</p>
+<p>tmux下凡走过必留痕，copy模式下一览无疑。下边的配置，几个命令都被我作了映射，可以改成自己熟悉的键位。不论一屏分几个窗口，都不会串行啦。one more thing, 我经常用copy-mode当历史模式使用，翻屏棒棒哒。</p>
+<div class="highlight"><pre><span></span># copy mode
+setw -g mode-keys vi              # keymap in copy mode
+bind Escape copy-mode             # enter copy mode …</pre></div>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="http://blog.onionisi.com/osx-launchd.html">more</a>
+                        <a class="jump" href="http://blog.onionisi.com/CP_of_tmux.html">more</a>
                     </article>
                 </li>
                 </ol><!-- /ol-posts-list -->
 <div class="paginationer">
     <p class="paginator">
             <a href="http://blog.onionisi.com/category/blog2.html">&laquo;</a>
-        Page 3 / 7
+        Page 3 / 8
             <a href="http://blog.onionisi.com/category/blog4.html">&raquo;</a>
     </p>
 </div>

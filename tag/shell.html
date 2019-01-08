@@ -81,7 +81,7 @@ fi
 <span class="p">}</span>
 
 <span class="kd">function</span> <span class="nx">_update_zsh_update() {</span>
-  <span class="nx">echo</span> <span class="s2">&quot;LAST_EPOCH=$(_current_epoch)&quot;</span> <span class="o">&gt;</span> <span class="o">~</span><span class="err">/.zsh-update</span>
+  <span class="nx">echo</span> <span class="s2">&quot;LAST_EPOCH=$(_current_epoch)&quot;</span> <span class="o">&amp;</span><span class="nx">gt</span><span class="p">;</span> <span class="o">~</span><span class="err">/.zsh-update</span>
 <span class="p">}</span>
 
 <span class="kd">function</span> <span class="nx">_upgrade_zsh() {</span>

@@ -42,104 +42,109 @@
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="http://blog.onionisi.com/proxy-of-ubuntu.html" rel="bookmark" title="Permalink to the proxy of Ubuntu">the proxy of Ubuntu</a></h3>
-                            <aside class="entry-title-date">2012-05-17</aside>
+                            <h3 class="entry-title"><a href="http://blog.onionisi.com/common_day.html" rel="bookmark" title="Permalink to 工作的一天">工作的一天</a></h3>
+                            <aside class="entry-title-date">2013-06-05</aside>
                         </header>
 
                         <div class="entry-content">
-                            <h1>ubuntu的代理</h1>
-<p>办公室的网络总是那么不给力，每个所部各分了一个IP能够上外网，我们只能用代理
-来凑合上网了。</p>
-<h2>全局代理</h2>
-<p>ubuntu的全局代理保存在/etc/enviroment，如果是使用gnome桌面的同志可以直接
-通过图形界面进行操作，最近办公室的同事都流行轻量且不过太简单的xfce，没有
-这个直接的功能，还是操作文件来的快捷。</p>
-<h2>apt代理</h2>
-<p>之前我还以为他直接用的环境变量的全局值，结果事实证明我错了，额还是没有apt
-（聪明）聪明啊，他的代理在他的配置文件里，打开就能看见，路径就不用说了吧</p>
-<h2>其他代理</h2>
-<p>wget这个老当亦壮的东东也能在配置文件中设置代理，各位看官自行打开做相应更改
-便行。</p>
-<p>其实这些软件设不设代理都不重要，只要你配好了proxychains，再来个行头的自行
-插入proxychains，呵呵...自行放狗搜搜</p>
-<h2>吐槽</h2>
-<p>升了12.04的系统没多大感觉，本来本人又不用unity，口味越发清淡，想往WM转了，
-之前整了个#！，也没时间玩，最近项目空闲点了，把超级本的arch也好好配配。</p>
-<p>PS:主要是来冒个泡，很久没更新了，另入了kindle3，webos的东东，玩着还有意思 …</p>
+                            <h3>学习依然是头等大事</h3>
+<p>早上就initrd和initramfs进行了一下深入的学习，主要参考文档就是黄敬群老师的博客。打个比方，可能不确切，但是话糙理不糙，init阶段的文件系统就像你高考前的备考，没有这个阶段注定要失败滴。话说黄老师真的是牛X，特别是对于一些系统底层的细节。</p>
+<p>中午波哥吃完午饭就回家准备收麦子了，真的是幸福的码农，请了半个月农忙假。</p>
+<p>下午遇到个奇怪的事情，整理文档发现原来写的小程序demo.py，想试试运行效率，却始终始终执行不了。妈蛋是权限问题么，查看了都没有问题。后边发现是磁盘挂载时忘了<code>exec</code>了，我的个乖乖，改之遂好。</p>
+<h3>萌生去意</h3>
+<p>下午开会讨论了一下后续EOC工作的分工，心里很复杂，一群照着demo板布PCB的硬件工程师要指挥软件架构，还是好好准备简历吧。</p>
+<h3>新室友到来</h3>
+<p>晚上李佑成准备要搬过来，和他聊了会，家常琐碎。亮点就是他可能有5V2.5A的电源，虽然我需要的是3A，不过明天还是可以试试的硬盘能带起来不能。我手头的cubieboard因为没有合适的电源，那块2.5寸的硬盘已经快积灰了。早就装上了archlinux_arm，还是不错，平时在办公室因为网络的限制，也只能弄来玩玩驱动，配配网络。如若硬盘能带起来，就搞个NAS玩啰。</p>
+<h3>洗洗睡</h3>
+<p>看会十亿消费者就准备睡了 …</p>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="http://blog.onionisi.com/proxy-of-ubuntu.html">more</a>
+                        <a class="jump" href="http://blog.onionisi.com/common_day.html">more</a>
                     </article>
                 </li>
 
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="http://blog.onionisi.com/LFS_build_process.html" rel="bookmark" title="Permalink to "旧文翻新之LFS和我第一次"">"旧文翻新之LFS和我第一次"</a></h3>
-                            <aside class="entry-title-date">2012-04-18</aside>
+                            <h3 class="entry-title"><a href="http://blog.onionisi.com/notes_of_2013.html" rel="bookmark" title="Permalink to 13年年中记事">13年年中记事</a></h3>
+                            <aside class="entry-title-date">2013-06-04</aside>
                         </header>
 
                         <div class="entry-content">
-                            <p>此文乃去年上班闲暇之余，作为深入学习linux之用，发表于内部服务器，今转过来以示纪念。当中各种陋见只怕贻笑大方了，若不慎入眼还望海涵。</p>
-<h2>任务综述</h2>
-<p>断断续续折腾近两周了今天我的LFS已经启动起来了啊，呵呵。。。</p>
-<p>HOST=Ubuntu 2.6.35
-TARGET=LFS 6.7</p>
-<p>最新发布的 LFS 是 6.8，好像就在我决定开始弄6.7的那天起发布的</p>
-<p>LFS的项目有好几个，LFS是最基本的，完成之后也只是个最最基础的系统，要想更顺手更丰富的就有BLFS，是基于LFS的，之后还有更进阶的 HLFS</p>
-<p>还有CLFS和ALFS，C 就是 Cross交叉编译的，A 就是Auto，用脚本自动的实现的</p>
-<p>为了好好学习，我还是老老实实 step by step来吧 </p>
-<p>手册其实写得相当详尽，但难免有自己手动的时候有事物，另外手册对原码包的操作都只提了一下，有些地方还需要注意</p>
-<p>比较麻烦的是就是编译工具链的时候，其中GCC …</p>
+                            <h3>时光飞逝，忆过往</h3>
+<p>看着dropbox里同步过来的文章<br>
+都是去年这个时候的<br>
+很久都没有详细记录一下自己<br>
+让我想想这快一年的时间<br>
+都有些什么事情发生<br>
+不要让他变成记忆真空<br>
+时间真是快啊<br>
+又要高考了<br>
+总是想起自己高考的时候</p>
+<h3>苦乐交加，年相似</h3>
+<p>去年六月的也是如此 <br>
+光猫的案子不了了之  <br>
+陆续开始EOC的工作  <br>
+包括Mstar500和AR74<br>
+9月份决定买车<br>
+红色bravo<br>
+为手续和车款奔波<br>
+下半年自己开始基于8198和7410做方案<br>
+要求元旦搞定时间明显很紧<br>
+各种加班与吹促，烦<br>
+后北研介入重头来过<br>
+1月份出差北京联合开发<br>
+遭遇毒物，北京咳<br>
+冬季的北京萧肃<br>
+又触发了刚毕业的情景<br>
+独自一人在北京工作的心酸<br>
+年前回川<br>
+热闹的春节<br>
+但还是觉得少点什么 </p>
+<h3>忙中偷乐，境不同</h3>
+<p>年后Judy开始忙碌<br>
+CPA考试在即<br>
+5月要go aboard<br>
+后勤保障要搞好<br>
+第一关签证<br>
+成都美使馆4号窗口的高个白人<br>
+不太近人情<br>
+成为我们的梦魇<br>
+感谢周哥和姜猪的招待<br>
+多少缓和了一点我们失落的情绪<br>
+舒服的春日里油菜花和莘夷花<br>
+迎来送往了各位来访的亲友<br>
+二签准备十足 …</p>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="http://blog.onionisi.com/LFS_build_process.html">more</a>
+                        <a class="jump" href="http://blog.onionisi.com/notes_of_2013.html">more</a>
                     </article>
                 </li>
 
                 <li>
                     <article class="entry">
                         <header>
-                            <h3 class="entry-title"><a href="http://blog.onionisi.com/oh-my-zsh.html" rel="bookmark" title="Permalink to oh-my-zsh的芯">oh-my-zsh的芯</a></h3>
-                            <aside class="entry-title-date">2012-04-17</aside>
+                            <h3 class="entry-title"><a href="http://blog.onionisi.com/stat-and-close.html" rel="bookmark" title="Permalink to stat and close()">stat and close()</a></h3>
+                            <aside class="entry-title-date">2012-06-20</aside>
                         </header>
 
                         <div class="entry-content">
-                            <p>用zsh有一段时间了，前段时间在github上找见了这个神奇的项目，试用起来果然还是
-很有爱。但是之前的配置已经有我比较熟悉的快捷键，所以还是要改造一番，美其名曰
-本地化。</p>
-<h2>主配置.zshrc</h2>
-<p>主配置很简洁，主要功能就是选主题选插件，形式各样的千奇百怪的prompt，各种功能
-不同的插件，可根据发行版，版本控制工具进行选择，大家各取所需。
-这也就是vim、firefox这些软件强大的原因---有广大的同志还开发插件！所以说群众
-的力量是无穷的。</p>
-<p>下边就是主体程序的目录结构：</p>
-<div class="highlight"><pre><span></span>/home/onionisi/.oh-my-zsh/
-|+cache/
-|+custom/
-|+lib/
-|+log/
-|+plugins/
-|+templates/
-|+themes/
-|+tools/
-|-oh-my-zsh.sh
-`-README.textile
-</pre></div>
-
-
-<h2>oh-my-zsh.sh</h2>
-<p>这个脚本才开始真正进入主题。</p>
-<h3>upgrade</h3>
-<div class="highlight"><pre><span></span># Check for updates on initial load...
-if [ &quot;$DISABLE_AUTO_UPDATE …</pre></div>
+                            <h1>file stat and file close</h1>
+<h2>file stat</h2>
+<p>中午吃饭的时候突然聊起了权限，笑777是bus，有点混淆stat的结构了，下午回来看了stat.h</p>
+<div class="highlight"><pre><span></span>// 出自bits/stat.h
+#define __S_ISUID   04000   /* Set user ID on execution.  */
+#define __S_ISGID   02000   /* Set group ID on execution.  */
+#define __S_ISVTX   01000   /* Save swapped text after use (sticky).  */   
+#define __S_IREAD   0400    /* Read by owner.  */ 
+#define __S_IWRITE  0200    /* Write …</pre></div>
                         </div><!-- /dev-entry-content -->
-                        <a class="jump" href="http://blog.onionisi.com/oh-my-zsh.html">more</a>
+                        <a class="jump" href="http://blog.onionisi.com/stat-and-close.html">more</a>
                     </article>
                 </li>
                 </ol><!-- /ol-posts-list -->
 <div class="paginationer">
     <p class="paginator">
             <a href="http://blog.onionisi.com/index5.html">&laquo;</a>
-        Page 6 / 7
+        Page 6 / 8
             <a href="http://blog.onionisi.com/index7.html">&raquo;</a>
     </p>
 </div>

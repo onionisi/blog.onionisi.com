@@ -110,7 +110,7 @@ PS: always make clean</p>
 <p>原手册：echo "CFLAGS  += -march=i686 -mtune=native" &gt;&gt; configparms
 创建文件：echo "CFLAGS  += -march=i686 -mtune=native -U_FORTIFY_SOURCE" &gt;&gt; configparms</p>
 <p>这句据说容易出错，特摘录再次，以便copy             另手册对sed疼爱有加，故童鞋门要多多熟悉</p>
-<div class="highlight"><pre><span></span><span class="o">$</span><span class="nt">LFS_TGT-gcc</span> <span class="nt">-dumpspecs</span> <span class="o">|</span> <span class="nt">sed</span> <span class="nt">-e</span> <span class="s1">&#39;s@/lib\(64\)\?/ld@/tools&amp;@g&#39;</span> <span class="nt">-e</span> <span class="s2">&quot;/^\*cpp:$/{n;s,$, -isystem /tools/include,}&quot;</span> <span class="o">&gt;</span> <span class="o">$</span><span class="nt">SPECS</span>
+<div class="highlight"><pre><span></span><span class="o">$</span><span class="nt">LFS_TGT-gcc</span> <span class="nt">-dumpspecs</span> <span class="o">|</span> <span class="nt">sed</span> <span class="nt">-e</span> <span class="s1">&#39;s@/lib\(64\)\?/ld@/tools&amp;amp;@g&#39;</span> <span class="nt">-e</span> <span class="s2">&quot;/^\*cpp:$/{n;s,$, -isystem /tools/include,}&quot;</span> <span class="o">&amp;</span><span class="nt">gt</span><span class="o">;</span> <span class="o">$</span><span class="nt">SPECS</span>
 </pre></div>
 
 
@@ -128,13 +128,13 @@ PS: always make clean</p>
 <p><strong>误</strong></p>
 <p>鄙人延用第一次的命令，果然错你没商量，谨记记得包的位置，因为此时已经是Pass 2,用的是之前编译出来的零时工具链</p>
 <p>这句也是不好输入，留作印刷</p>
-<div class="highlight"><pre><span></span>sed &#39;s/^T_CFLAGS =$/&amp; -fomit-frame-pointer/&#39; gcc/Makefile.in.tmp &gt; gcc/Makefile.in
+<div class="highlight"><pre><span></span>sed &#39;s/^T_CFLAGS =$/&amp;amp; -fomit-frame-pointer/&#39; gcc/Makefile.in.tmp &amp;gt; gcc/Makefile.in
 </pre></div>
 
 
 <hr>
 <p>LFS  chroot  08.25/2011</p>
-<div class="highlight"><pre><span></span>mount /dev/sda13 $LFS &amp;&amp; mount -v --bind     /dev    $LFS/dev &amp;&amp; mount -vt devpts    devpts  $LFS/dev/pts &amp;&amp; mount -vt tmpfs     shm     $LFS/dev/shm &amp;&amp; mount -vt proc      proc    $LFS/proc &amp;&amp; mount -vt sysfs     sysfs   $LFS/sys
+<div class="highlight"><pre><span></span>mount /dev/sda13 $LFS &amp;amp;&amp;amp; mount -v --bind     /dev    $LFS/dev &amp;amp;&amp;amp; mount -vt devpts    devpts  $LFS/dev/pts &amp;amp;&amp;amp; mount -vt tmpfs     shm     $LFS/dev/shm &amp;amp;&amp;amp; mount -vt proc      proc    $LFS/proc &amp;amp;&amp;amp; mount -vt sysfs     sysfs   $LFS/sys
 </pre></div>
 
 
@@ -204,7 +204,7 @@ sh Configure -des -Dprefix=/usr -Dvendorprefix=/usr -Dman1dir=/usr/share/man/man
 
 sed -i -e &#39;s@#ENCRYPT_METHOD DES@ENCRYPT_METHOD MD5@&#39; -e &#39;s@/var/spool/mail@/var/mail@&#39; etc/login.defs
 
-sed -i &#39;s@Sending processes@&amp; configured via /etc/inittab@g&#39; src/init.c
+sed -i &#39;s@Sending processes@&amp;amp; configured via /etc/inittab@g&#39; src/init.c
 
 sed -i -e &#39;s/utmpdump wall/utmpdump/&#39; -e &#39;s/mountpoint.1 wall.1/mountpoint.1/&#39; src/Makefile
 </pre></div>
@@ -259,7 +259,7 @@ You should be using the procedures in the book&#39;s Section 8.4.3 to test:
 First exit chroot and sudo /sbin/reboot.  Then go to the GRUB2 command 
 line and run:
 
-grub&gt; ls (hd0,3)/boot
+grub&amp;gt; ls (hd0,3)/boot
 
 This should list your kernels.
 

@@ -65,17 +65,17 @@
 /* Read, write, and execute by owner.  */
 #define S_IRWXU (__S_IREAD|__S_IWRITE|__S_IEXEC)
 
-#define S_IRGRP (S_IRUSR &gt;&gt; 3)  /* Read by group.  */
-#define S_IWGRP (S_IWUSR &gt;&gt; 3)  /* Write by group.  */
-#define S_IXGRP (S_IXUSR &gt;&gt; 3)  /* Execute by group.  */
+#define S_IRGRP (S_IRUSR &amp;gt;&amp;gt; 3)  /* Read by group.  */
+#define S_IWGRP (S_IWUSR &amp;gt;&amp;gt; 3)  /* Write by group.  */
+#define S_IXGRP (S_IXUSR &amp;gt;&amp;gt; 3)  /* Execute by group.  */
 /* Read, write, and execute by group.  */
-#define S_IRWXG (S_IRWXU &gt;&gt; 3)
+#define S_IRWXG (S_IRWXU &amp;gt;&amp;gt; 3)
 
-#define S_IROTH (S_IRGRP &gt;&gt; 3)  /* Read by others.  */
-#define S_IWOTH (S_IWGRP &gt;&gt; 3)  /* Write by others.  */
-#define S_IXOTH (S_IXGRP &gt;&gt; 3)  /* Execute by others.  */
+#define S_IROTH (S_IRGRP &amp;gt;&amp;gt; 3)  /* Read by others.  */
+#define S_IWOTH (S_IWGRP &amp;gt;&amp;gt; 3)  /* Write by others.  */
+#define S_IXOTH (S_IXGRP &amp;gt;&amp;gt; 3)  /* Execute by others.  */
 /* Read, write, and execute by others.  */
-#define S_IRWXO (S_IRWXG &gt;&gt; 3)
+#define S_IRWXO (S_IRWXG &amp;gt;&amp;gt; 3)
 </pre></div>
 
 

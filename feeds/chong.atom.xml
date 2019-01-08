@@ -1,5 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>TALO - Chong</title><link href="http://blog.onionisi.com/" rel="alternate"></link><link href="http://blog.onionisi.com/feeds/chong.atom.xml" rel="self"></link><id>http://blog.onionisi.com/</id><updated>2017-10-16T00:00:00+08:00</updated><entry><title>Vim tips</title><link href="http://blog.onionisi.com/vim_tips.html" rel="alternate"></link><published>2017-10-16T00:00:00+08:00</published><updated>2017-10-16T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2017-10-16:/vim_tips.html</id><summary type="html">&lt;h5&gt;vim ctrl-o&lt;/h5&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>TALO - Chong</title><link href="http://blog.onionisi.com/" rel="alternate"></link><link href="http://blog.onionisi.com/feeds/chong.atom.xml" rel="self"></link><id>http://blog.onionisi.com/</id><updated>2018-11-20T00:00:00+08:00</updated><entry><title>Experience of Dockerfile</title><link href="http://blog.onionisi.com/experience_of_dockerfile.html" rel="alternate"></link><published>2018-11-20T00:00:00+08:00</published><updated>2018-11-20T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2018-11-20:/experience_of_dockerfile.html</id><summary type="html">&lt;h5&gt;Experience of Dockerfile&lt;/h5&gt;
+&lt;p&gt;After using docker several months, here are some tips I want to share with you&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;using &lt;code&gt;.dockerignore&lt;/code&gt; &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Its usage and syntax is similar with &lt;code&gt;.gitignore&lt;/code&gt;, so we can igore those unneeded files. It can speed up the building time and compact the image&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;only run one app …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;h5&gt;Experience of Dockerfile&lt;/h5&gt;
+&lt;p&gt;After using docker several months, here are some tips I want to share with you&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;using &lt;code&gt;.dockerignore&lt;/code&gt; &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Its usage and syntax is similar with &lt;code&gt;.gitignore&lt;/code&gt;, so we can igore those unneeded files. It can speed up the building time and compact the image&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;only run one app&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;using &lt;strong&gt;Docker Compose&lt;/strong&gt; to run multi docker container instead of one. It's hard to handle logs from different apps and has a long building time and large image &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;join &lt;code&gt;RUN&lt;/code&gt; cmd as one&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;every cmd will create a new layer in image and it will be cached and reused. If cmd in Dockerfile has changed, its cache will unusable and other layers relied on it as well. So we need to combine the cmd with same changing frequency&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;deprecate &lt;code&gt;latest&lt;/code&gt; tag in based image&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;latest&lt;/code&gt; will point to a different image when updating&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;delete extra file after &lt;code&gt;RUN&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;some cmd create cache file under /var and we do not need it when building image&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;choose suitable based image(alpine)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;alpine is a distrubution for docker, its package manament tool is &lt;code&gt;apk&lt;/code&gt;, which has &lt;code&gt;no-cache&lt;/code&gt; and &lt;code&gt;--virtual&lt;/code&gt; option contributed to reducing image size.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;set &lt;code&gt;WORKDIR&lt;/code&gt; and &lt;code&gt;CMD&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;WORKDIR&lt;/code&gt; set the default dir, which is the place for &lt;code&gt;RUN/CMD/ENTRYPOINT&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CMD&lt;/code&gt; set the default running cmd when creating container.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;using &lt;code&gt;ENTRYPOINT&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;It's optional, because it make things more complicated. It's just a script and default running execution.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;using &lt;code&gt;exec&lt;/code&gt; in entrypoint script&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;without &lt;code&gt;exec&lt;/code&gt; we cannot stop container because &lt;code&gt;SIGTERM&lt;/code&gt; will be ignored by bash script&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;prefer &lt;code&gt;COPY&lt;/code&gt; other than &lt;code&gt;ADD&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;ADD&lt;/code&gt; is more complicated, which can download remote file and decompress file.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;adjust the order for &lt;code&gt;COPY&lt;/code&gt; and &lt;code&gt;RUN&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;put cmd caused least change in the header of Dockerfile, which can utilise the cache.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;set default env, mapping port and volume&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;good way to run container which need some tweak or configuration&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;using &lt;code&gt;LABEL&lt;/code&gt; to set meta-data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;such as creator or a brief desc&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;add &lt;code&gt;HEALTHCHECK&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;periodically check the health of container for monitor.&lt;/p&gt;</content><category term="docker"></category><category term="devops"></category></entry><entry><title>New Beginning</title><link href="http://blog.onionisi.com/new_beginnig.html" rel="alternate"></link><published>2018-05-01T00:00:00+08:00</published><updated>2018-05-01T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2018-05-01:/new_beginnig.html</id><summary type="html">&lt;h5&gt;New Beginning&lt;/h5&gt;
+&lt;p&gt;a fresh start of another month
+so I restart using todo app on iphone 
+since my android phone cracked by the backdoor of my car
+According to the keep record
+It's already 42 days when I do keep last time
+so shame&lt;/p&gt;
+&lt;p&gt;yesterday new plan was made on …&lt;/p&gt;</summary><content type="html">&lt;h5&gt;New Beginning&lt;/h5&gt;
+&lt;p&gt;a fresh start of another month
+so I restart using todo app on iphone 
+since my android phone cracked by the backdoor of my car
+According to the keep record
+It's already 42 days when I do keep last time
+so shame&lt;/p&gt;
+&lt;p&gt;yesterday new plan was made on the TickTick app
+including 4 list
+routine, repeated daily
+career, repeated daily too
+australia, you known that
+urgent, remind important event&lt;/p&gt;
+&lt;p&gt;AWS CSA has the highest priority
+So tonight official course commence
+after a series free video by linuxacademy
+I choose acloud guru
+I like the 'guru'&lt;/p&gt;
+&lt;p&gt;I complete all the task of Today
+So fabulous
+when you feel too hard you are close to your goal
+just stand with it for a couple of minutes
+the best illustration was last night
+I learned how to strike water with foot in freestyle&lt;/p&gt;
+&lt;p&gt;Since I learned frogstyle, it's nearly 15month
+Motivated by my dear wife who was taught by me with frogstyle, 
+deciding learn freestyle by herself because of her swimming teacher without this ability,
+I started to practice only using leg in freestyle.
+I nearly dropped out after my body drifting through half lane of the pool,
+because I can not control my body to move forward.
+It was so frastrating.
+Thanks for the short distance to another end, I made up my mind to finish this trip.
+Like a engine, I made my leg switched up down more faster.
+That was it.
+Finally, my legs propel the whole body fast forward.
+Getting new skill make people extremely thrill.
+Next, its time for the arm part.&lt;/p&gt;
+&lt;p&gt;Nothing is easy in the beginning
+keep on&lt;/p&gt;</content><category term="life"></category><category term="daily"></category></entry><entry><title>Enable MFA for ssh</title><link href="http://blog.onionisi.com/mfa_for_ssh.html" rel="alternate"></link><published>2018-03-16T00:00:00+08:00</published><updated>2018-03-16T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2018-03-16:/mfa_for_ssh.html</id><summary type="html">&lt;p&gt;Usually, company realize two-factor auth for ssh through RSA SecureID. But it costs hundreds of bucks, so not a good choice for person or small company. google-authenticator comes up.&lt;/p&gt;
+&lt;h5&gt;install Google Authenticator app&lt;/h5&gt;
+&lt;p&gt;This app support android and iOS&lt;/p&gt;
+&lt;h5&gt;compile google-authenticator on server&lt;/h5&gt;
+&lt;p&gt;install level package of pam:&lt;/p&gt;
+&lt;p&gt;apt: libpam0g-dev …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Usually, company realize two-factor auth for ssh through RSA SecureID. But it costs hundreds of bucks, so not a good choice for person or small company. google-authenticator comes up.&lt;/p&gt;
+&lt;h5&gt;install Google Authenticator app&lt;/h5&gt;
+&lt;p&gt;This app support android and iOS&lt;/p&gt;
+&lt;h5&gt;compile google-authenticator on server&lt;/h5&gt;
+&lt;p&gt;install level package of pam:&lt;/p&gt;
+&lt;p&gt;apt: libpam0g-dev, yum: pam-devel&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;git clone https://code.google.com/p/google-authenticator/
+&lt;span class="nb"&gt;cd&lt;/span&gt; google-authenticator/libpam
+make
+make install
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;edit &lt;code&gt;/etc/pam.d/sshd&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;add following line in the beginning:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;auth required pam_google_authenticator.so
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;edit /etc/ssh/sshd_config for ChallengeResponseAuthentication&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ChallengeResponseAuthentication yes
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h5&gt;sever setup&lt;/h5&gt;
+&lt;p&gt;change to user who need google-authenticator, then run google-authenticator&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ google-authenticator 
+
+Do you want authentication tokens to be time-based &lt;span class="o"&gt;(&lt;/span&gt;y/n&lt;span class="o"&gt;)&lt;/span&gt; y
+https://www.google.com//chart?chs&lt;span class="o"&gt;=&lt;/span&gt;200x200&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;chld&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;M&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;cht&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;qr&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;chl&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;otpauth://totp/chong@xxxxx%3Fsecret%xxxxxxxx
+Your new secret key is: xxxxxx
+Your verification code is xxxxx
+Your emergency scratch codes are:
+  xxxxxxxx
+
+Do you want me to update your &lt;span class="s2"&gt;&amp;quot;/home/chong/.google_authenticator&amp;quot;&lt;/span&gt; file &lt;span class="o"&gt;(&lt;/span&gt;y/n&lt;span class="o"&gt;)&lt;/span&gt; y
+
+Do you want to disallow multiple uses of the same authentication
+token? This restricts you to one login about every 30s, but it increases
+your chances to notice or even prevent man-in-the-middle attacks &lt;span class="o"&gt;(&lt;/span&gt;y/n&lt;span class="o"&gt;)&lt;/span&gt; y
+
+By default, tokens are good &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="m"&gt;30&lt;/span&gt; seconds and in order to compensate &lt;span class="k"&gt;for&lt;/span&gt;
+possible time-skew between the client and the server, we allow an extra
+token before and after the current time. If you experience problems with poor
+&lt;span class="nb"&gt;time&lt;/span&gt; synchronization, you can increase the window from its default
+size of &lt;span class="m"&gt;1&lt;/span&gt;:30min to about 4min. Do you want to &lt;span class="k"&gt;do&lt;/span&gt; so &lt;span class="o"&gt;(&lt;/span&gt;y/n&lt;span class="o"&gt;)&lt;/span&gt; n
+
+If the computer that you are logging into isn&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;t hardened against brute-force
+login attempts, you can &lt;span class="nb"&gt;enable&lt;/span&gt; rate-limiting &lt;span class="k"&gt;for&lt;/span&gt; the authentication module.
+By default, this limits attackers to no more than &lt;span class="m"&gt;3&lt;/span&gt; login attempts every 30s.
+Do you want to &lt;span class="nb"&gt;enable&lt;/span&gt; rate-limiting &lt;span class="o"&gt;(&lt;/span&gt;y/n&lt;span class="o"&gt;)&lt;/span&gt; y
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;restart ssh service&lt;/p&gt;
+&lt;h5&gt;client setup&lt;/h5&gt;
+&lt;p&gt;open google-authenticator, type displayed token or open the url then scan the QRcode&lt;/p&gt;
+&lt;p&gt;as you can see, the token has already changed regularly. Try to login, the way has changed.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ssh xxxx.com 
+Verification code: 
+Password: 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;PS: you'd better pre login two termial, one for operating, another for backup in case of the wrong conf.&lt;/p&gt;</content><category term="devops"></category><category term="ssh"></category></entry><entry><title>Vim tips</title><link href="http://blog.onionisi.com/vim_tips.html" rel="alternate"></link><published>2017-10-16T00:00:00+08:00</published><updated>2017-10-16T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2017-10-16:/vim_tips.html</id><summary type="html">&lt;h5&gt;vim ctrl-o&lt;/h5&gt;
 &lt;p&gt;when you in insert mode,
 &lt;code&gt;ctrl-o&lt;/code&gt; can temporarily escape insert mode without change mode&lt;/p&gt;
 &lt;h5&gt;vim pattern match&lt;/h5&gt;
@@ -40,33 +219,31 @@ g, g!               global, global reverse
 &lt;li&gt;GNU Make: check out Bear&lt;/li&gt;
 &lt;li&gt;Others: check out .ycm_extra_conf.py below&lt;/li&gt;
 &lt;/ul&gt;</content><category term="api"></category><category term="work"></category></entry><entry><title>restful api</title><link href="http://blog.onionisi.com/restful_api.html" rel="alternate"></link><published>2016-08-14T00:00:00+08:00</published><updated>2016-08-14T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2016-08-14:/restful_api.html</id><summary type="html">&lt;h4&gt;API设计理念&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;1. 将涉及的实体抽象成资源, 即按id访问资源, 在url上做文章, 以后再也不用为url起名字而苦恼.
-2. 使用HTTP动词对资源进行CRUD(增删改查); get-&amp;gt;查, post-&amp;gt;增, put-&amp;gt;改, delete-&amp;gt;删.
-3. URL命名规则, 对于资源无法使用一个单数名词表示的情况, 使用中横线(-)连接.
-    * 资源采用名词命名, e.g: 产品 -&amp;gt; product
-    * 新增资源, e.g: 新增产品, url -&amp;gt; /product , verb -&amp;gt; POST
-    * 修改资源, e.g: 修改产品, url -&amp;gt; /products/{id} , verb -&amp;gt; PUT
-    * 资源详情, e.g: 指定产品详情, url -&amp;gt; /products …&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;h4&gt;API设计理念&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;1. 将涉及的实体抽象成资源, 即按id访问资源, 在url上做文章, 以后再也不用为url起名字而苦恼.
-2. 使用HTTP动词对资源进行CRUD(增删改查); get-&amp;gt;查, post-&amp;gt;增, put-&amp;gt;改, delete-&amp;gt;删.
-3. URL命名规则, 对于资源无法使用一个单数名词表示的情况, 使用中横线(-)连接.
-    * 资源采用名词命名, e.g: 产品 -&amp;gt; product
-    * 新增资源, e.g: 新增产品, url -&amp;gt; /product , verb -&amp;gt; POST
-    * 修改资源, e.g: 修改产品, url -&amp;gt; /products/{id} , verb -&amp;gt; PUT
-    * 资源详情, e.g: 指定产品详情, url -&amp;gt; /products/{id} , verb -&amp;gt; GET
-    * 删除资源, e.g: 删除产品, url -&amp;gt; /products/{id} , verb -&amp;gt; DELETE
-    * 资源列表, e.g: 产品列表, url -&amp;gt; /products , verb -&amp;gt; GET
-    * 资源关联关系, e.g: 收藏产品, url -&amp;gt; /products/{id}/star , verb -&amp;gt; PUT
-    * 资源关联关系, e.g: 删除收藏产品, url -&amp;gt; /products/{id}/star , verb -&amp;gt; DELETE
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="err"&gt;将涉及的实体抽象成资源&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="err"&gt;即按&lt;/span&gt;&lt;span class="nt"&gt;id&lt;/span&gt;&lt;span class="err"&gt;访问资源&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="err"&gt;在&lt;/span&gt;&lt;span class="nt"&gt;url&lt;/span&gt;&lt;span class="err"&gt;上做文章&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="err"&gt;以后再也不用为&lt;/span&gt;&lt;span class="nt"&gt;url&lt;/span&gt;&lt;span class="err"&gt;起名字而苦恼&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="nt"&gt;2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="err"&gt;使用&lt;/span&gt;&lt;span class="nt"&gt;HTTP&lt;/span&gt;&lt;span class="err"&gt;动词对资源进行&lt;/span&gt;&lt;span class="nt"&gt;CRUD&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="err"&gt;增删改查&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt; &lt;span class="nt"&gt;get-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;&lt;span class="err"&gt;查&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;post-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;&lt;span class="err"&gt;增&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;put-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;&lt;span class="err"&gt;改&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;delete-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;&lt;span class="err"&gt;删&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="nt"&gt;3&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="nt"&gt;URL&lt;/span&gt;&lt;span class="err"&gt;命名规则&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="err"&gt;对于资源无法使用一个单数名词表示的情况&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="err"&gt;使用中横线&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="err"&gt;连接&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;资源采用名词命名&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;产品&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;product&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;新增资源&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;新增产品&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;url&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;product&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;verb …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;h4&gt;API设计理念&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="err"&gt;将涉及的实体抽象成资源&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="err"&gt;即按&lt;/span&gt;&lt;span class="nt"&gt;id&lt;/span&gt;&lt;span class="err"&gt;访问资源&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="err"&gt;在&lt;/span&gt;&lt;span class="nt"&gt;url&lt;/span&gt;&lt;span class="err"&gt;上做文章&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="err"&gt;以后再也不用为&lt;/span&gt;&lt;span class="nt"&gt;url&lt;/span&gt;&lt;span class="err"&gt;起名字而苦恼&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="nt"&gt;2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="err"&gt;使用&lt;/span&gt;&lt;span class="nt"&gt;HTTP&lt;/span&gt;&lt;span class="err"&gt;动词对资源进行&lt;/span&gt;&lt;span class="nt"&gt;CRUD&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="err"&gt;增删改查&lt;/span&gt;&lt;span class="o"&gt;);&lt;/span&gt; &lt;span class="nt"&gt;get-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;&lt;span class="err"&gt;查&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;post-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;&lt;span class="err"&gt;增&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;put-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;&lt;span class="err"&gt;改&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;delete-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt;&lt;span class="err"&gt;删&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;span class="nt"&gt;3&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="nt"&gt;URL&lt;/span&gt;&lt;span class="err"&gt;命名规则&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="err"&gt;对于资源无法使用一个单数名词表示的情况&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="err"&gt;使用中横线&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="err"&gt;连接&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;资源采用名词命名&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;产品&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;product&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;新增资源&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;新增产品&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;url&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;product&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;verb&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;POST&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;修改资源&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;修改产品&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;url&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;products&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;id&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;verb&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;PUT&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;资源详情&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;指定产品详情&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;url&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;products&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;id&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;verb&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;GET&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;删除资源&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;删除产品&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;url&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;products&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;id&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;verb&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;DELETE&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;资源列表&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;产品列表&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;url&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;products&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;verb&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;GET&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;资源关联关系&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;收藏产品&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;url&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;products&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;id&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;star&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;verb&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;PUT&lt;/span&gt;
+    &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="err"&gt;资源关联关系&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nc"&gt;g&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;删除收藏产品&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;url&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;products&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="err"&gt;id&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="nt"&gt;star&lt;/span&gt; &lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nt"&gt;verb&lt;/span&gt; &lt;span class="nt"&gt;-&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="nt"&gt;DELETE&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;</content><category term="api"></category><category term="work"></category></entry><entry><title>ssh转发</title><link href="http://blog.onionisi.com/ssh_forward.html" rel="alternate"></link><published>2016-04-20T00:00:00+08:00</published><updated>2016-04-20T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2016-04-20:/ssh_forward.html</id><summary type="html">&lt;h4&gt;替代品（171220更新）&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;(ngrok)[https://ngrok.com]通过第三方服务器中转需要注册&lt;/li&gt;
 &lt;li&gt;(frp)[https://github.com/fatedier/frp]新一代转发神器&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;ssh portforward&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;C                   S&lt;span class="o"&gt;/&lt;/span&gt;C                 S
-localhost&lt;span class="o"&gt;:&lt;/span&gt;port &lt;span class="o"&gt;&amp;lt;-&amp;gt;&lt;/span&gt; SSH hostname &lt;span class="o"&gt;&amp;lt;-&amp;gt;&lt;/span&gt; remote host&lt;span class="o"&gt;:&lt;/span&gt;port
-&lt;span class="kr"&gt;if&lt;/span&gt; remote&lt;span class="o"&gt;==&lt;/span&gt;localhost&lt;span class="p"&gt;;&lt;/span&gt; remote&lt;span class="o"&gt;=&lt;/span&gt; ssh hostname
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;                   &lt;span class="n"&gt;S&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;                 &lt;span class="n"&gt;S&lt;/span&gt;
+&lt;span class="n"&gt;localhost&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;port&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;SSH&lt;/span&gt; &lt;span class="n"&gt;hostname&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;remote&lt;/span&gt; &lt;span class="n"&gt;host&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;port&lt;/span&gt;
+&lt;span class="n"&gt;if&lt;/span&gt; &lt;span class="n"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="n"&gt;localhost&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ssh&lt;/span&gt; &lt;span class="n"&gt;hostname&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -84,9 +261,9 @@ localhost&lt;span class="o"&gt;:&lt;/span&gt;port &lt;span class="o"&gt;&amp;lt;
 &lt;li&gt;(frp)[https://github.com/fatedier/frp]新一代转发神器&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;ssh portforward&lt;/h4&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;C                   S&lt;span class="o"&gt;/&lt;/span&gt;C                 S
-localhost&lt;span class="o"&gt;:&lt;/span&gt;port &lt;span class="o"&gt;&amp;lt;-&amp;gt;&lt;/span&gt; SSH hostname &lt;span class="o"&gt;&amp;lt;-&amp;gt;&lt;/span&gt; remote host&lt;span class="o"&gt;:&lt;/span&gt;port
-&lt;span class="kr"&gt;if&lt;/span&gt; remote&lt;span class="o"&gt;==&lt;/span&gt;localhost&lt;span class="p"&gt;;&lt;/span&gt; remote&lt;span class="o"&gt;=&lt;/span&gt; ssh hostname
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;                   &lt;span class="n"&gt;S&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt;                 &lt;span class="n"&gt;S&lt;/span&gt;
+&lt;span class="n"&gt;localhost&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;port&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;SSH&lt;/span&gt; &lt;span class="n"&gt;hostname&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;remote&lt;/span&gt; &lt;span class="n"&gt;host&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;port&lt;/span&gt;
+&lt;span class="n"&gt;if&lt;/span&gt; &lt;span class="n"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="n"&gt;localhost&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ssh&lt;/span&gt; &lt;span class="n"&gt;hostname&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -205,7 +382,7 @@ syntastic语法检测，避免出错    &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&amp;quot; Centralize backups, swapfiles and undo history
 set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
-if exists(&amp;quot;&amp;amp;undodir&amp;quot;)
+if exists(&amp;quot;&amp;amp;amp;undodir&amp;quot;)
     set undodir=~/.vim/undo
     set undofile
     set undolevels=500
@@ -440,17 +617,17 @@ California No.1 Road&lt;br&gt;
 /* Read, write, and execute by owner.  */
 #define S_IRWXU (__S_IREAD|__S_IWRITE|__S_IEXEC)
 
-#define S_IRGRP (S_IRUSR &amp;gt;&amp;gt; 3)  /* Read by group.  */
-#define S_IWGRP (S_IWUSR &amp;gt;&amp;gt; 3)  /* Write by group.  */
-#define S_IXGRP (S_IXUSR &amp;gt;&amp;gt; 3)  /* Execute by group.  */
+#define S_IRGRP (S_IRUSR &amp;amp;gt;&amp;amp;gt; 3)  /* Read by group.  */
+#define S_IWGRP (S_IWUSR &amp;amp;gt;&amp;amp;gt; 3)  /* Write by group.  */
+#define S_IXGRP (S_IXUSR &amp;amp;gt;&amp;amp;gt; 3)  /* Execute by group.  */
 /* Read, write, and execute by group.  */
-#define S_IRWXG (S_IRWXU &amp;gt;&amp;gt; 3)
+#define S_IRWXG (S_IRWXU &amp;amp;gt;&amp;amp;gt; 3)
 
-#define S_IROTH (S_IRGRP &amp;gt;&amp;gt; 3)  /* Read by others.  */
-#define S_IWOTH (S_IWGRP &amp;gt;&amp;gt; 3)  /* Write by others.  */
-#define S_IXOTH (S_IXGRP &amp;gt;&amp;gt; 3)  /* Execute by others.  */
+#define S_IROTH (S_IRGRP &amp;amp;gt;&amp;amp;gt; 3)  /* Read by others.  */
+#define S_IWOTH (S_IWGRP &amp;amp;gt;&amp;amp;gt; 3)  /* Write by others.  */
+#define S_IXOTH (S_IXGRP &amp;amp;gt;&amp;amp;gt; 3)  /* Execute by others.  */
 /* Read, write, and execute by others.  */
-#define S_IRWXO (S_IRWXG &amp;gt;&amp;gt; 3)
+#define S_IRWXO (S_IRWXG &amp;amp;gt;&amp;amp;gt; 3)
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -580,7 +757,7 @@ PS: always make clean&lt;/p&gt;
 &lt;p&gt;原手册：echo "CFLAGS  += -march=i686 -mtune=native" &amp;gt;&amp;gt; configparms
 创建文件：echo "CFLAGS  += -march=i686 -mtune=native -U_FORTIFY_SOURCE" &amp;gt;&amp;gt; configparms&lt;/p&gt;
 &lt;p&gt;这句据说容易出错，特摘录再次，以便copy             另手册对sed疼爱有加，故童鞋门要多多熟悉&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt;&lt;span class="nt"&gt;LFS_TGT-gcc&lt;/span&gt; &lt;span class="nt"&gt;-dumpspecs&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nt"&gt;sed&lt;/span&gt; &lt;span class="nt"&gt;-e&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;s@/lib\(64\)\?/ld@/tools&amp;amp;@g&amp;#39;&lt;/span&gt; &lt;span class="nt"&gt;-e&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;/^\*cpp:$/{n;s,$, -isystem /tools/include,}&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt;&lt;span class="nt"&gt;SPECS&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt;&lt;span class="nt"&gt;LFS_TGT-gcc&lt;/span&gt; &lt;span class="nt"&gt;-dumpspecs&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nt"&gt;sed&lt;/span&gt; &lt;span class="nt"&gt;-e&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;s@/lib\(64\)\?/ld@/tools&amp;amp;amp;@g&amp;#39;&lt;/span&gt; &lt;span class="nt"&gt;-e&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;/^\*cpp:$/{n;s,$, -isystem /tools/include,}&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nt"&gt;gt&lt;/span&gt;&lt;span class="o"&gt;;&lt;/span&gt; &lt;span class="o"&gt;$&lt;/span&gt;&lt;span class="nt"&gt;SPECS&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -598,13 +775,13 @@ PS: always make clean&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;误&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;鄙人延用第一次的命令，果然错你没商量，谨记记得包的位置，因为此时已经是Pass 2,用的是之前编译出来的零时工具链&lt;/p&gt;
 &lt;p&gt;这句也是不好输入，留作印刷&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sed &amp;#39;s/^T_CFLAGS =$/&amp;amp; -fomit-frame-pointer/&amp;#39; gcc/Makefile.in.tmp &amp;gt; gcc/Makefile.in
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sed &amp;#39;s/^T_CFLAGS =$/&amp;amp;amp; -fomit-frame-pointer/&amp;#39; gcc/Makefile.in.tmp &amp;amp;gt; gcc/Makefile.in
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;hr&gt;
 &lt;p&gt;LFS  chroot  08.25/2011&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mount /dev/sda13 $LFS &amp;amp;&amp;amp; mount -v --bind     /dev    $LFS/dev &amp;amp;&amp;amp; mount -vt devpts    devpts  $LFS/dev/pts &amp;amp;&amp;amp; mount -vt tmpfs     shm     $LFS/dev/shm &amp;amp;&amp;amp; mount -vt proc      proc    $LFS/proc &amp;amp;&amp;amp; mount -vt sysfs     sysfs   $LFS/sys
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;mount /dev/sda13 $LFS &amp;amp;amp;&amp;amp;amp; mount -v --bind     /dev    $LFS/dev &amp;amp;amp;&amp;amp;amp; mount -vt devpts    devpts  $LFS/dev/pts &amp;amp;amp;&amp;amp;amp; mount -vt tmpfs     shm     $LFS/dev/shm &amp;amp;amp;&amp;amp;amp; mount -vt proc      proc    $LFS/proc &amp;amp;amp;&amp;amp;amp; mount -vt sysfs     sysfs   $LFS/sys
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -674,7 +851,7 @@ sh Configure -des -Dprefix=/usr -Dvendorprefix=/usr -Dman1dir=/usr/share/man/man
 
 sed -i -e &amp;#39;s@#ENCRYPT_METHOD DES@ENCRYPT_METHOD MD5@&amp;#39; -e &amp;#39;s@/var/spool/mail@/var/mail@&amp;#39; etc/login.defs
 
-sed -i &amp;#39;s@Sending processes@&amp;amp; configured via /etc/inittab@g&amp;#39; src/init.c
+sed -i &amp;#39;s@Sending processes@&amp;amp;amp; configured via /etc/inittab@g&amp;#39; src/init.c
 
 sed -i -e &amp;#39;s/utmpdump wall/utmpdump/&amp;#39; -e &amp;#39;s/mountpoint.1 wall.1/mountpoint.1/&amp;#39; src/Makefile
 &lt;/pre&gt;&lt;/div&gt;
@@ -729,7 +906,7 @@ You should be using the procedures in the book&amp;#39;s Section 8.4.3 to test:
 First exit chroot and sudo /sbin/reboot.  Then go to the GRUB2 command 
 line and run:
 
-grub&amp;gt; ls (hd0,3)/boot
+grub&amp;amp;gt; ls (hd0,3)/boot
 
 This should list your kernels.
 
@@ -867,7 +1044,7 @@ fi
 &lt;span class="p"&gt;}&lt;/span&gt;
 
 &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;_update_zsh_update() {&lt;/span&gt;
-  &lt;span class="nx"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;LAST_EPOCH=$(_current_epoch)&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="err"&gt;/.zsh-update&lt;/span&gt;
+  &lt;span class="nx"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;LAST_EPOCH=$(_current_epoch)&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nx"&gt;gt&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="err"&gt;/.zsh-update&lt;/span&gt;
 &lt;span class="p"&gt;}&lt;/span&gt;
 
 &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;_upgrade_zsh() {&lt;/span&gt;

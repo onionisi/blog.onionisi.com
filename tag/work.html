@@ -93,13 +93,11 @@ g, g!               global, global reverse
 
                         <div class="entry-content">
                             <h4>API设计理念</h4>
-<div class="highlight"><pre><span></span>1. 将涉及的实体抽象成资源, 即按id访问资源, 在url上做文章, 以后再也不用为url起名字而苦恼.
-2. 使用HTTP动词对资源进行CRUD(增删改查); get-&gt;查, post-&gt;增, put-&gt;改, delete-&gt;删.
-3. URL命名规则, 对于资源无法使用一个单数名词表示的情况, 使用中横线(-)连接.
-    * 资源采用名词命名, e.g: 产品 -&gt; product
-    * 新增资源, e.g: 新增产品, url -&gt; /product , verb -&gt; POST
-    * 修改资源, e.g: 修改产品, url -&gt; /products/{id} , verb -&gt; PUT
-    * 资源详情, e.g: 指定产品详情, url -&gt; /products …</pre></div>
+<div class="highlight"><pre><span></span><span class="nt">1</span><span class="o">.</span> <span class="err">将涉及的实体抽象成资源</span><span class="o">,</span> <span class="err">即按</span><span class="nt">id</span><span class="err">访问资源</span><span class="o">,</span> <span class="err">在</span><span class="nt">url</span><span class="err">上做文章</span><span class="o">,</span> <span class="err">以后再也不用为</span><span class="nt">url</span><span class="err">起名字而苦恼</span><span class="o">.</span>
+<span class="nt">2</span><span class="o">.</span> <span class="err">使用</span><span class="nt">HTTP</span><span class="err">动词对资源进行</span><span class="nt">CRUD</span><span class="o">(</span><span class="err">增删改查</span><span class="o">);</span> <span class="nt">get-</span><span class="o">&amp;</span><span class="nt">gt</span><span class="o">;</span><span class="err">查</span><span class="o">,</span> <span class="nt">post-</span><span class="o">&amp;</span><span class="nt">gt</span><span class="o">;</span><span class="err">增</span><span class="o">,</span> <span class="nt">put-</span><span class="o">&amp;</span><span class="nt">gt</span><span class="o">;</span><span class="err">改</span><span class="o">,</span> <span class="nt">delete-</span><span class="o">&amp;</span><span class="nt">gt</span><span class="o">;</span><span class="err">删</span><span class="o">.</span>
+<span class="nt">3</span><span class="o">.</span> <span class="nt">URL</span><span class="err">命名规则</span><span class="o">,</span> <span class="err">对于资源无法使用一个单数名词表示的情况</span><span class="o">,</span> <span class="err">使用中横线</span><span class="o">(</span><span class="nt">-</span><span class="o">)</span><span class="err">连接</span><span class="o">.</span>
+    <span class="o">*</span> <span class="err">资源采用名词命名</span><span class="o">,</span> <span class="nt">e</span><span class="p">.</span><span class="nc">g</span><span class="o">:</span> <span class="err">产品</span> <span class="nt">-</span><span class="o">&amp;</span><span class="nt">gt</span><span class="o">;</span> <span class="nt">product</span>
+    <span class="o">*</span> <span class="err">新增资源</span><span class="o">,</span> <span class="nt">e</span><span class="p">.</span><span class="nc">g</span><span class="o">:</span> <span class="err">新增产品</span><span class="o">,</span> <span class="nt">url</span> <span class="nt">-</span><span class="o">&amp;</span><span class="nt">gt</span><span class="o">;</span> <span class="o">/</span><span class="nt">product</span> <span class="o">,</span> <span class="nt">verb …</span></pre></div>
                         </div><!-- /dev-entry-content -->
                         <a class="jump" href="http://blog.onionisi.com/restful_api.html">more</a>
                     </article>
@@ -119,9 +117,9 @@ g, g!               global, global reverse
 <li>(frp)[https://github.com/fatedier/frp]新一代转发神器</li>
 </ul>
 <h4>ssh portforward</h4>
-<div class="highlight"><pre><span></span>C                   S<span class="o">/</span>C                 S
-localhost<span class="o">:</span>port <span class="o">&lt;-&gt;</span> SSH hostname <span class="o">&lt;-&gt;</span> remote host<span class="o">:</span>port
-<span class="kr">if</span> remote<span class="o">==</span>localhost<span class="p">;</span> remote<span class="o">=</span> ssh hostname
+<div class="highlight"><pre><span></span><span class="n">C</span>                   <span class="n">S</span><span class="o">/</span><span class="n">C</span>                 <span class="n">S</span>
+<span class="n">localhost</span><span class="o">:</span><span class="n">port</span> <span class="o">&lt;-&gt;</span> <span class="n">SSH</span> <span class="n">hostname</span> <span class="o">&lt;-&gt;</span> <span class="n">remote</span> <span class="n">host</span><span class="o">:</span><span class="n">port</span>
+<span class="n">if</span> <span class="n">remote</span><span class="o">==</span><span class="n">localhost</span><span class="p">;</span> <span class="n">remote</span><span class="o">=</span> <span class="n">ssh</span> <span class="n">hostname</span>
 </pre></div>
 
 
