@@ -65,51 +65,51 @@
 &lt;li&gt;add &lt;code&gt;HEALTHCHECK&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;periodically check the health of container for monitor.&lt;/p&gt;</content><category term="docker"></category><category term="devops"></category></entry><entry><title>New Beginning</title><link href="http://blog.onionisi.com/new_beginnig.html" rel="alternate"></link><published>2018-05-01T00:00:00+08:00</published><updated>2018-05-01T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2018-05-01:/new_beginnig.html</id><summary type="html">&lt;h5&gt;New Beginning&lt;/h5&gt;
-&lt;p&gt;a fresh start of another month
-so I restart using todo app on iphone 
-since my android phone cracked by the backdoor of my car
-According to the keep record
-It's already 42 days when I do keep last time
+&lt;p&gt;a fresh start of another month&lt;br&gt;
+so I restart using todo app on iphone&lt;br&gt;
+since my android phone cracked by the backdoor of my car&lt;br&gt;
+According to the keep record&lt;br&gt;
+It's already 42 days when I do keep last time&lt;br&gt;
 so shame&lt;/p&gt;
 &lt;p&gt;yesterday new plan was made on …&lt;/p&gt;</summary><content type="html">&lt;h5&gt;New Beginning&lt;/h5&gt;
-&lt;p&gt;a fresh start of another month
-so I restart using todo app on iphone 
-since my android phone cracked by the backdoor of my car
-According to the keep record
-It's already 42 days when I do keep last time
+&lt;p&gt;a fresh start of another month&lt;br&gt;
+so I restart using todo app on iphone&lt;br&gt;
+since my android phone cracked by the backdoor of my car&lt;br&gt;
+According to the keep record&lt;br&gt;
+It's already 42 days when I do keep last time&lt;br&gt;
 so shame&lt;/p&gt;
-&lt;p&gt;yesterday new plan was made on the TickTick app
-including 4 list
-routine, repeated daily
-career, repeated daily too
-australia, you known that
-urgent, remind important event&lt;/p&gt;
-&lt;p&gt;AWS CSA has the highest priority
-So tonight official course commence
-after a series free video by linuxacademy
-I choose acloud guru
-I like the 'guru'&lt;/p&gt;
-&lt;p&gt;I complete all the task of Today
-So fabulous
-when you feel too hard you are close to your goal
-just stand with it for a couple of minutes
-the best illustration was last night
-I learned how to strike water with foot in freestyle&lt;/p&gt;
-&lt;p&gt;Since I learned frogstyle, it's nearly 15month
-Motivated by my dear wife who was taught by me with frogstyle, 
-deciding learn freestyle by herself because of her swimming teacher without this ability,
-I started to practice only using leg in freestyle.
-I nearly dropped out after my body drifting through half lane of the pool,
-because I can not control my body to move forward.
-It was so frastrating.
-Thanks for the short distance to another end, I made up my mind to finish this trip.
-Like a engine, I made my leg switched up down more faster.
-That was it.
-Finally, my legs propel the whole body fast forward.
-Getting new skill make people extremely thrill.
-Next, its time for the arm part.&lt;/p&gt;
-&lt;p&gt;Nothing is easy in the beginning
-keep on&lt;/p&gt;</content><category term="life"></category><category term="daily"></category></entry><entry><title>Enable MFA for ssh</title><link href="http://blog.onionisi.com/mfa_for_ssh.html" rel="alternate"></link><published>2018-03-16T00:00:00+08:00</published><updated>2018-03-16T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2018-03-16:/mfa_for_ssh.html</id><summary type="html">&lt;p&gt;Usually, company realize two-factor auth for ssh through RSA SecureID. But it costs hundreds of bucks, so not a good choice for person or small company. google-authenticator comes up.&lt;/p&gt;
+&lt;p&gt;yesterday new plan was made on the TickTick app&lt;br&gt;
+including 4 list&lt;br&gt;
+routine, repeated daily&lt;br&gt;
+career, repeated daily too&lt;br&gt;
+australia, you known that&lt;br&gt;
+urgent, remind important event  &lt;/p&gt;
+&lt;p&gt;AWS CSA has the highest priority&lt;br&gt;
+So tonight official course commence&lt;br&gt;
+after a series free video by linuxacademy&lt;br&gt;
+I choose acloud guru&lt;br&gt;
+I like the 'guru'  &lt;/p&gt;
+&lt;p&gt;I complete all the task of Today&lt;br&gt;
+So fabulous&lt;br&gt;
+when you feel too hard you are close to your goal&lt;br&gt;
+just stand with it for a couple of minutes&lt;br&gt;
+the best illustration was last night&lt;br&gt;
+I learned how to strike water with foot in freestyle  &lt;/p&gt;
+&lt;p&gt;Since I learned frogstyle, it's nearly 15month&lt;br&gt;
+Motivated by my dear wife who was taught by me with frogstyle, &lt;br&gt;
+deciding learn freestyle by herself because of her swimming teacher without this ability,&lt;br&gt;
+I started to practice only using leg in freestyle.&lt;br&gt;
+I nearly dropped out after my body drifting through half lane of the pool,&lt;br&gt;
+because I can not control my body to move forward.&lt;br&gt;
+It was so frastrating.&lt;br&gt;
+Thanks for the short distance to another end, I made up my mind to finish this trip.&lt;br&gt;
+Like a engine, I made my leg switched up down more faster.&lt;br&gt;
+That was it.&lt;br&gt;
+Finally, my legs propel the whole body fast forward.&lt;br&gt;
+Getting new skill make people extremely thrill.&lt;br&gt;
+Next, its time for the arm part.  &lt;/p&gt;
+&lt;p&gt;Nothing is easy in the beginning&lt;br&gt;
+keep on    &lt;/p&gt;</content><category term="life"></category><category term="daily"></category></entry><entry><title>Enable MFA for ssh</title><link href="http://blog.onionisi.com/mfa_for_ssh.html" rel="alternate"></link><published>2018-03-16T00:00:00+08:00</published><updated>2018-03-16T00:00:00+08:00</updated><author><name>Chong</name></author><id>tag:blog.onionisi.com,2018-03-16:/mfa_for_ssh.html</id><summary type="html">&lt;p&gt;Usually, company realize two-factor auth for ssh through RSA SecureID. But it costs hundreds of bucks, so not a good choice for person or small company. google-authenticator comes up.&lt;/p&gt;
 &lt;h5&gt;install Google Authenticator app&lt;/h5&gt;
 &lt;p&gt;This app support android and iOS&lt;/p&gt;
 &lt;h5&gt;compile google-authenticator on server&lt;/h5&gt;

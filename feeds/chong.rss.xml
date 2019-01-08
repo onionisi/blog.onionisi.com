@@ -7,11 +7,11 @@
 &lt;p&gt;Its usage and syntax is similar with &lt;code&gt;.gitignore&lt;/code&gt;, so we can igore those unneeded files. It can speed up the building time and compact the image&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;only run one app …&lt;/li&gt;&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Tue, 20 Nov 2018 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2018-11-20:/experience_of_dockerfile.html</guid><category>docker</category><category>devops</category></item><item><title>New Beginning</title><link>http://blog.onionisi.com/new_beginnig.html</link><description>&lt;h5&gt;New Beginning&lt;/h5&gt;
-&lt;p&gt;a fresh start of another month
-so I restart using todo app on iphone 
-since my android phone cracked by the backdoor of my car
-According to the keep record
-It's already 42 days when I do keep last time
+&lt;p&gt;a fresh start of another month&lt;br&gt;
+so I restart using todo app on iphone&lt;br&gt;
+since my android phone cracked by the backdoor of my car&lt;br&gt;
+According to the keep record&lt;br&gt;
+It's already 42 days when I do keep last time&lt;br&gt;
 so shame&lt;/p&gt;
 &lt;p&gt;yesterday new plan was made on …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chong</dc:creator><pubDate>Tue, 01 May 2018 00:00:00 +0800</pubDate><guid isPermaLink="false">tag:blog.onionisi.com,2018-05-01:/new_beginnig.html</guid><category>life</category><category>daily</category></item><item><title>Enable MFA for ssh</title><link>http://blog.onionisi.com/mfa_for_ssh.html</link><description>&lt;p&gt;Usually, company realize two-factor auth for ssh through RSA SecureID. But it costs hundreds of bucks, so not a good choice for person or small company. google-authenticator comes up.&lt;/p&gt;
 &lt;h5&gt;install Google Authenticator app&lt;/h5&gt;
